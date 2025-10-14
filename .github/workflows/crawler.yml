@@ -1,16 +1,24 @@
-name: Hot News Crawler
+name: Hot News Crawler (build & deploy)
+
 on:
   workflow_dispatch: {}
   schedule:
     - cron: "0 1 * * *"   # UTC 01:00 = 北京/台北 09:00
 
+permissions:
+  contents: write         # 提交抓取结果
+  pages: write            # 发布 Pages
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
 jobs:
-  crawl:
+  crawl_build_deploy:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Set up Python
@@ -34,9 +42,23 @@ jobs:
         run: |
           python main.py
 
-      - name: Commit and push if changes
+      - name: Commit changes (if any)
         run: |
           git config user.name "actions-user"
           git config user.email "actions@github.com"
           git add -A
-          git diff --quiet && echo "No changes" || (git commit -m "Auto update by GitHub Actions" && git push)
+          git diff --quiet && echo "No changes" || git commit -m "Auto update by GitHub Actions"
+          git diff --quiet && echo "Nothing to push" || git push
+
+      # ---- GitHub Pages 部署 ----
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload site content
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "./"        # 根目录含 index.html
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
