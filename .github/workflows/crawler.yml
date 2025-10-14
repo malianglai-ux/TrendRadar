@@ -1,5 +1,7 @@
 name: Hot News Crawler (build & deploy)
-
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 on:
   workflow_dispatch: {}
   schedule:
