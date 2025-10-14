@@ -1,4 +1,9 @@
 name: Hot News Crawler (build & deploy)
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 1 * * *"   # 北京时间09:00
+    
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
