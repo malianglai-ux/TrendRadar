@@ -3,86 +3,61 @@ name: Hot News Crawler (build & deploy)
 on:
   workflow_dispatch:
   schedule:
-    # 每天北京时间 09:00 自动运行
-    - cron: "0 1 * * *"
-
-permissions:
-  contents: write
-  pages: write
-  id-token: write
-
-concurrency:
-  group: pages
-  cancel-in-progress: true
+    - cron: "0 */4 * * *"  # 每4小时自动执行一次，可自行调整
 
 jobs:
-  crawl_build:
+  crawl_build_deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.9"
+          python-version: '3.9'
 
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
       - name: Run crawler
-        run: python main.py
-
-      - name: Verify data output
         run: |
-          echo "Checking data output..."
-          if [ ! -f "api/trends.json" ]; then
-            echo "⚠️ api/trends.json missing, generating dummy file..."
-            mkdir -p api
-            echo '{"status": "no data"}' > api/trends.json
-          fi
-          if [ ! -d "output" ]; then
-            echo "⚠️ output directory missing, creating empty one..."
-            mkdir output
-          fi
-          echo "✅ Data verified: api/trends.json + output/ exist."
+          echo ">>> 运行 main.py 爬虫..."
+          python main.py
+          echo ">>> 爬虫完成，检查生成文件：api/trends.json"
+          ls -l api
 
-      # 关键：保留首页（防止被 main.py 覆盖）
-      - name: Keep custom index.html
+      - name: Generate metrics.json
         run: |
-          git checkout HEAD -- index.html || true
+          echo ">>> 生成 metrics.json ..."
+          python main.py  # 你的 main.py 最后已经自动包含 build_metrics_from_trends
+          echo ">>> 检查输出目录"
+          ls -R output || true
 
-      # 提交爬取结果数据
       - name: Commit and push data changes
         run: |
-          git config user.name  "actions-user"
-          git config user.email "actions@github.com"
-          git restore --staged . || true
-          git add output/ || true
+          echo ">>> 提交更新..."
+          git config --global user.email "actions@github.com"
+          git config --global user.name "GitHub Actions"
           git add api/trends.json || true
+          git add output || true
+          git commit -m "Auto update by GitHub Actions at $(date '+%Y-%m-%d %H:%M:%S')" || echo "No changes"
+          git push || echo "No push (forked repo)"
 
-          if ! git diff --cached --quiet; then
-            git commit -m "Auto update data"
-            git push
-          else
-            echo "No data changes to commit."
-          fi
-
-      # 上传整个网站文件（含 index.html / api / output）
       - name: Upload site content
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: ./
 
   deploy:
-    needs: crawl_build
-    runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: crawl_build_deploy
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
