@@ -1,6 +1,6 @@
 {
-  "generated_at": "2025-10-14T14:21:18.319793+08:00",
-  "total_titles_processed": 1111,
+  "generated_at": "2025-10-14T14:43:56.370839+08:00",
+  "total_titles_processed": 1175,
   "failed_sources": [],
   "trends": [
     {
@@ -57,8 +57,8 @@
             5
           ],
           "is_new": false,
-          "appearance_count": 6,
-          "time_info": "[13时59分 ~ 14时21分]"
+          "appearance_count": 7,
+          "time_info": "[13时59分 ~ 14时43分]"
         },
         {
           "title": "737天！特朗普与内塔尼亚胡双双宣布：加沙战争结束",
@@ -73,8 +73,8 @@
             17
           ],
           "is_new": false,
-          "appearance_count": 15,
-          "time_info": "[00时33分 ~ 14时21分]"
+          "appearance_count": 16,
+          "time_info": "[00时33分 ~ 14时43分]"
         },
         {
           "title": "自扇耳光?特朗普关税战求和中国",
@@ -87,8 +87,8 @@
             18
           ],
           "is_new": false,
-          "appearance_count": 15,
-          "time_info": "[00时33分 ~ 14时21分]"
+          "appearance_count": 16,
+          "time_info": "[00时33分 ~ 14时43分]"
         },
         {
           "title": "梅德韦杰夫：向乌供应“战斧”将让所有人遭殃 ，尤其是特朗普",
@@ -157,6 +157,33 @@
           "time_info": "[00时33分 ~ 01时23分]"
         },
         {
+          "title": "特朗普签署加沙停火协议",
+          "url": "https://search.bilibili.com/all?keyword=%E7%89%B9%E6%9C%97%E6%99%AE%E7%AD%BE%E7%BD%B2%E5%8A%A0%E6%B2%99%E5%81%9C%E7%81%AB%E5%8D%8F%E8%AE%AE",
+          "source": "bilibili 热搜",
+          "ranks": [
+            9,
+            7
+          ],
+          "is_new": false,
+          "appearance_count": 7,
+          "time_info": "[09时52分 ~ 14时43分]"
+        },
+        {
+          "title": "特朗普马克龙上演26秒掰手腕式握手",
+          "url": "https://www.toutiao.com/trending/7560319512873058355/",
+          "source": "今日头条",
+          "ranks": [
+            4,
+            8,
+            14,
+            13,
+            29
+          ],
+          "is_new": false,
+          "appearance_count": 6,
+          "time_info": "[13时33分 ~ 14时43分]"
+        },
+        {
           "title": "被媒体问及是否会收回关于中国的话 特朗普急了：你们都是假新闻",
           "url": "https://v.ifeng.com/c/8nPy3kqkstT",
           "source": "凤凰网",
@@ -180,32 +207,6 @@
           "time_info": "[09时52分 ~ 13时33分]"
         },
         {
-          "title": "特朗普签署加沙停火协议",
-          "url": "https://search.bilibili.com/all?keyword=%E7%89%B9%E6%9C%97%E6%99%AE%E7%AD%BE%E7%BD%B2%E5%8A%A0%E6%B2%99%E5%81%9C%E7%81%AB%E5%8D%8F%E8%AE%AE",
-          "source": "bilibili 热搜",
-          "ranks": [
-            9,
-            7
-          ],
-          "is_new": false,
-          "appearance_count": 6,
-          "time_info": "[09时52分 ~ 14时21分]"
-        },
-        {
-          "title": "特朗普马克龙上演26秒掰手腕式握手",
-          "url": "https://www.toutiao.com/trending/7560319512873058355/",
-          "source": "今日头条",
-          "ranks": [
-            4,
-            8,
-            14,
-            13
-          ],
-          "is_new": false,
-          "appearance_count": 5,
-          "time_info": "[13时33分 ~ 14时21分]"
-        },
-        {
           "title": "美国总统特朗普：不过埃尔多安也是我的朋友。",
           "url": "https://flash.jin10.com/detail/20251014002317904800",
           "source": "金十数据",
@@ -226,6 +227,35 @@
           "is_new": false,
           "appearance_count": 1,
           "time_info": "01时23分"
+        },
+        {
+          "title": "特朗普又把英国首相当众耍了",
+          "url": "https://m.weibo.cn/search?containerid=100103type%3D1%26t%3D10%26q%3D%E7%89%B9%E6%9C%97%E6%99%AE%E5%8F%88%E6%8A%8A%E8%8B%B1%E5%9B%BD%E9%A6%96%E7%9B%B8%E5%BD%93%E4%BC%97%E8%80%8D%E4%BA%86&stream_entry_id=31&isnewpage=1&extparam=seat%3D1%26realpos%3D23%26band_rank%3D23%26filter_type%3Drealtimehot%26c_type%3D31%26q%3D%25E7%2589%25B9%25E6%259C%2597%25E6%2599%25AE%25E5%258F%2588%25E6%258A%258A%25E8%258B%25B1%25E5%259B%25BD%25E9%25A6%2596%25E7%259B%25B8%25E5%25BD%2593%25E4%25BC%2597%25E8%2580%258D%25E4%25BA%2586%26dgr%3D0%26cate%3D5001%26pos%3D24%26stream_entry_id%3D31%26lcate%3D5001%26flag%3D0%26display_time%3D1760419849%26pre_seqid%3D17604198491490376833734",
+          "source": "微博",
+          "ranks": [
+            23,
+            16,
+            17,
+            18,
+            27
+          ],
+          "is_new": false,
+          "appearance_count": 6,
+          "time_info": "[13时33分 ~ 14时43分]"
+        },
+        {
+          "title": "特朗普C位合影喊话：大家笑起来",
+          "url": "https://www.toutiao.com/trending/7560888494140182043/",
+          "source": "今日头条",
+          "ranks": [
+            20,
+            19,
+            21,
+            26
+          ],
+          "is_new": false,
+          "appearance_count": 6,
+          "time_info": "[13时33分 ~ 14时43分]"
         },
         {
           "title": "美国总统特朗普：当北约对埃尔多安有意见时，他们会打电话给我。",
@@ -259,33 +289,6 @@
           "is_new": false,
           "appearance_count": 1,
           "time_info": "00时34分"
-        },
-        {
-          "title": "特朗普又把英国首相当众耍了",
-          "url": "https://m.weibo.cn/search?containerid=100103type%3D1%26t%3D10%26q%3D%E7%89%B9%E6%9C%97%E6%99%AE%E5%8F%88%E6%8A%8A%E8%8B%B1%E5%9B%BD%E9%A6%96%E7%9B%B8%E5%BD%93%E4%BC%97%E8%80%8D%E4%BA%86&stream_entry_id=31&isnewpage=1&extparam=seat%3D1%26realpos%3D23%26band_rank%3D23%26filter_type%3Drealtimehot%26c_type%3D31%26q%3D%25E7%2589%25B9%25E6%259C%2597%25E6%2599%25AE%25E5%258F%2588%25E6%258A%258A%25E8%258B%25B1%25E5%259B%25BD%25E9%25A6%2596%25E7%259B%25B8%25E5%25BD%2593%25E4%25BC%2597%25E8%2580%258D%25E4%25BA%2586%26dgr%3D0%26cate%3D5001%26pos%3D24%26stream_entry_id%3D31%26lcate%3D5001%26flag%3D0%26display_time%3D1760419849%26pre_seqid%3D17604198491490376833734",
-          "source": "微博",
-          "ranks": [
-            23,
-            16,
-            17,
-            18
-          ],
-          "is_new": false,
-          "appearance_count": 5,
-          "time_info": "[13时33分 ~ 14时21分]"
-        },
-        {
-          "title": "特朗普C位合影喊话：大家笑起来",
-          "url": "https://www.toutiao.com/trending/7560888494140182043/",
-          "source": "今日头条",
-          "ranks": [
-            20,
-            19,
-            21
-          ],
-          "is_new": false,
-          "appearance_count": 5,
-          "time_info": "[13时33分 ~ 14时21分]"
         },
         {
           "title": "市场消息：特朗普在加沙峰会后离开埃及。",
@@ -675,6 +678,28 @@
       "match_count": 16,
       "titles": [
         {
+          "title": "TACO交易！科技股力撑美股反弹，博通涨近10%，黄金突破4100关口，历史性逼空助白银新高",
+          "url": "https://wallstreetcn.com/articles/3757049",
+          "source": "华尔街见闻",
+          "ranks": [
+            1
+          ],
+          "is_new": false,
+          "appearance_count": 9,
+          "time_info": "[09时52分 ~ 14时43分]"
+        },
+        {
+          "title": "【早报】美联储发声，美股全线反弹、国际金银价格飙升；中方对美船舶收取特别港务费，今起正式施行",
+          "url": "https://www.cls.cn/detail/2168275",
+          "source": "财联社热门",
+          "ranks": [
+            1
+          ],
+          "is_new": false,
+          "appearance_count": 9,
+          "time_info": "[09时52分 ~ 14时43分]"
+        },
+        {
           "title": "美股收盘：三大指数强势反弹 中国金龙指数涨超3%",
           "url": "https://www.cls.cn/detail/2168249",
           "source": "财联社热门",
@@ -697,28 +722,6 @@
           "is_new": false,
           "appearance_count": 8,
           "time_info": "[00时33分 ~ 06时25分]"
-        },
-        {
-          "title": "TACO交易！科技股力撑美股反弹，博通涨近10%，黄金突破4100关口，历史性逼空助白银新高",
-          "url": "https://wallstreetcn.com/articles/3757049",
-          "source": "华尔街见闻",
-          "ranks": [
-            1
-          ],
-          "is_new": false,
-          "appearance_count": 8,
-          "time_info": "[09时52分 ~ 14时21分]"
-        },
-        {
-          "title": "【早报】美联储发声，美股全线反弹、国际金银价格飙升；中方对美船舶收取特别港务费，今起正式施行",
-          "url": "https://www.cls.cn/detail/2168275",
-          "source": "财联社热门",
-          "ranks": [
-            1
-          ],
-          "is_new": false,
-          "appearance_count": 8,
-          "time_info": "[09时52分 ~ 14时21分]"
         },
         {
           "title": "美股三大期指明显反弹 芯片股、稀土概念涨幅居前 | 今夜看点",
@@ -1029,8 +1032,8 @@
             3
           ],
           "is_new": false,
-          "appearance_count": 7,
-          "time_info": "[13时33分 ~ 14时21分]"
+          "appearance_count": 8,
+          "time_info": "[13时33分 ~ 14时43分]"
         },
         {
           "title": "OpenAI再签重磅协议：计划未来四年与博通合作部署10千兆瓦定制化芯片和网络设备",
@@ -1039,11 +1042,12 @@
           "ranks": [
             10,
             7,
-            8
+            8,
+            9
           ],
           "is_new": false,
-          "appearance_count": 9,
-          "time_info": "[07时21分 ~ 14时21分]"
+          "appearance_count": 10,
+          "time_info": "[07时21分 ~ 14时43分]"
         },
         {
           "title": "OpenAI或将成为最大的无人公司",
@@ -1197,8 +1201,8 @@
             19
           ],
           "is_new": false,
-          "appearance_count": 5,
-          "time_info": "[13时33分 ~ 14时21分]"
+          "appearance_count": 6,
+          "time_info": "[13时33分 ~ 14时43分]"
         },
         {
           "title": "乒乓球亚锦赛中国男队3:1伊朗",
@@ -1239,7 +1243,7 @@
     },
     {
       "keyword_group": "金价",
-      "match_count": 3,
+      "match_count": 4,
       "titles": [
         {
           "title": "目前的金价，你还敢追吗？",
@@ -1279,6 +1283,17 @@
           "is_new": false,
           "appearance_count": 2,
           "time_info": "[00时34分 ~ 01时23分]"
+        },
+        {
+          "title": "金价银价跳水",
+          "url": "https://m.weibo.cn/search?containerid=100103type%3D1%26t%3D10%26q%3D%23%E9%87%91%E4%BB%B7%E9%93%B6%E4%BB%B7%E8%B7%B3%E6%B0%B4%23&stream_entry_id=31&isnewpage=1&extparam=seat%3D1%26flag%3D1%26cate%3D5001%26band_rank%3D28%26dgr%3D0%26realpos%3D28%26pos%3D28%26lcate%3D5001%26q%3D%2523%25E9%2587%2591%25E4%25BB%25B7%25E9%2593%25B6%25E4%25BB%25B7%25E8%25B7%25B3%25E6%25B0%25B4%2523%26filter_type%3Drealtimehot%26stream_entry_id%3D31%26c_type%3D31%26display_time%3D1760424230%26pre_seqid%3D17604242304260379741917",
+          "source": "微博",
+          "ranks": [
+            28
+          ],
+          "is_new": true,
+          "appearance_count": 1,
+          "time_info": "14时43分"
         }
       ]
     },
