@@ -1,12 +1,23 @@
 {
-  "generated_at": "2025-10-14T14:46:37.612980+08:00",
-  "total_titles_processed": 1184,
+  "generated_at": "2025-10-14T14:52:53.137083+08:00",
+  "total_titles_processed": 1197,
   "failed_sources": [],
   "trends": [
     {
       "keyword_group": "特朗普",
       "match_count": 56,
       "titles": [
+        {
+          "title": "鲁比奥没夸到位？特朗普当场反问：才50年？",
+          "url": "https://v.ifeng.com/c/8nRLZYpIezc",
+          "source": "凤凰网",
+          "ranks": [
+            5
+          ],
+          "is_new": false,
+          "appearance_count": 11,
+          "time_info": "[13时59分 ~ 14时52分]"
+        },
         {
           "title": "特朗普称「加沙战争已结束，哈马斯将解除武装」，加沙地区会迎来持久的和平吗？",
           "url": "https://www.zhihu.com/question/1961110110400116359",
@@ -20,17 +31,6 @@
           "is_new": false,
           "appearance_count": 10,
           "time_info": "[00时33分 ~ 09时52分]"
-        },
-        {
-          "title": "鲁比奥没夸到位？特朗普当场反问：才50年？",
-          "url": "https://v.ifeng.com/c/8nRLZYpIezc",
-          "source": "凤凰网",
-          "ranks": [
-            5
-          ],
-          "is_new": false,
-          "appearance_count": 9,
-          "time_info": "[13时59分 ~ 14时46分]"
         },
         {
           "title": "特朗普以色列议会演讲遭抗议者打断",
@@ -61,6 +61,18 @@
           "time_info": "[00时33分 ~ 09时52分]"
         },
         {
+          "title": "特朗普签署加沙停火协议",
+          "url": "https://search.bilibili.com/all?keyword=%E7%89%B9%E6%9C%97%E6%99%AE%E7%AD%BE%E7%BD%B2%E5%8A%A0%E6%B2%99%E5%81%9C%E7%81%AB%E5%8D%8F%E8%AE%AE",
+          "source": "bilibili 热搜",
+          "ranks": [
+            9,
+            7
+          ],
+          "is_new": false,
+          "appearance_count": 10,
+          "time_info": "[09时52分 ~ 14时52分]"
+        },
+        {
           "title": "737天！特朗普与内塔尼亚胡双双宣布：加沙战争结束",
           "url": "https://m.thepaper.cn/newsDetail_forward_31770585",
           "source": "澎湃新闻",
@@ -73,8 +85,8 @@
             17
           ],
           "is_new": false,
-          "appearance_count": 18,
-          "time_info": "[00时33分 ~ 14时46分]"
+          "appearance_count": 19,
+          "time_info": "[00时33分 ~ 14时52分]"
         },
         {
           "title": "自扇耳光?特朗普关税战求和中国",
@@ -87,8 +99,8 @@
             18
           ],
           "is_new": false,
-          "appearance_count": 18,
-          "time_info": "[00时33分 ~ 14时46分]"
+          "appearance_count": 19,
+          "time_info": "[00时33分 ~ 14时52分]"
         },
         {
           "title": "梅德韦杰夫：向乌供应“战斧”将让所有人遭殃 ，尤其是特朗普",
@@ -101,18 +113,6 @@
           "is_new": false,
           "appearance_count": 9,
           "time_info": "[00时33分 ~ 07时21分]"
-        },
-        {
-          "title": "特朗普签署加沙停火协议",
-          "url": "https://search.bilibili.com/all?keyword=%E7%89%B9%E6%9C%97%E6%99%AE%E7%AD%BE%E7%BD%B2%E5%8A%A0%E6%B2%99%E5%81%9C%E7%81%AB%E5%8D%8F%E8%AE%AE",
-          "source": "bilibili 热搜",
-          "ranks": [
-            9,
-            7
-          ],
-          "is_new": false,
-          "appearance_count": 9,
-          "time_info": "[09时52分 ~ 14时46分]"
         },
         {
           "title": "内塔尼亚胡向特朗普赠送金鸽子雕塑",
@@ -129,6 +129,20 @@
           "is_new": false,
           "appearance_count": 9,
           "time_info": "[00时33分 ~ 07时21分]"
+        },
+        {
+          "title": "特朗普C位合影喊话：大家笑起来",
+          "url": "https://www.toutiao.com/trending/7560888494140182043/",
+          "source": "今日头条",
+          "ranks": [
+            20,
+            19,
+            21,
+            26
+          ],
+          "is_new": false,
+          "appearance_count": 9,
+          "time_info": "[13时33分 ~ 14时52分]"
         },
         {
           "title": "解决了加沙问题能不能上天堂？特朗普：不这么认为",
@@ -167,20 +181,6 @@
             17,
             18,
             27
-          ],
-          "is_new": false,
-          "appearance_count": 8,
-          "time_info": "[13时33分 ~ 14时46分]"
-        },
-        {
-          "title": "特朗普C位合影喊话：大家笑起来",
-          "url": "https://www.toutiao.com/trending/7560888494140182043/",
-          "source": "今日头条",
-          "ranks": [
-            20,
-            19,
-            21,
-            26
           ],
           "is_new": false,
           "appearance_count": 8,
@@ -474,6 +474,17 @@
           "time_info": "[00时34分 ~ 01时23分]"
         },
         {
+          "title": "唐驳虎：特朗普的口风越来越软",
+          "url": "https://www.toutiao.com/trending/7560940853548568118/",
+          "source": "今日头条",
+          "ranks": [
+            24
+          ],
+          "is_new": false,
+          "appearance_count": 2,
+          "time_info": "[14时46分 ~ 14时52分]"
+        },
+        {
           "title": "诺贝尔经济学奖得主批评特朗普关税",
           "url": "https://news.ifeng.com/c/8nQpqMAF9lj",
           "source": "凤凰网",
@@ -571,17 +582,6 @@
           "is_new": false,
           "appearance_count": 1,
           "time_info": "14时11分"
-        },
-        {
-          "title": "唐驳虎：特朗普的口风越来越软",
-          "url": "https://www.toutiao.com/trending/7560940853548568118/",
-          "source": "今日头条",
-          "ranks": [
-            24
-          ],
-          "is_new": true,
-          "appearance_count": 1,
-          "time_info": "14时46分"
         },
         {
           "title": "乌克兰总统泽连斯基：已与美国总统特朗普分享了关于乌克兰所需“战斧”导弹数量的“愿景”，并将于周五讨论具体细节。",
@@ -696,8 +696,8 @@
             1
           ],
           "is_new": false,
-          "appearance_count": 11,
-          "time_info": "[09时52分 ~ 14时46分]"
+          "appearance_count": 13,
+          "time_info": "[09时52分 ~ 14时52分]"
         },
         {
           "title": "【早报】美联储发声，美股全线反弹、国际金银价格飙升；中方对美船舶收取特别港务费，今起正式施行",
@@ -707,8 +707,8 @@
             1
           ],
           "is_new": false,
-          "appearance_count": 11,
-          "time_info": "[09时52分 ~ 14时46分]"
+          "appearance_count": 13,
+          "time_info": "[09时52分 ~ 14时52分]"
         },
         {
           "title": "美股收盘：三大指数强势反弹 中国金龙指数涨超3%",
@@ -1043,8 +1043,8 @@
             3
           ],
           "is_new": false,
-          "appearance_count": 10,
-          "time_info": "[13时33分 ~ 14时46分]"
+          "appearance_count": 12,
+          "time_info": "[13时33分 ~ 14时52分]"
         },
         {
           "title": "OpenAI再签重磅协议：计划未来四年与博通合作部署10千兆瓦定制化芯片和网络设备",
@@ -1057,8 +1057,8 @@
             9
           ],
           "is_new": false,
-          "appearance_count": 12,
-          "time_info": "[07时21分 ~ 14时46分]"
+          "appearance_count": 14,
+          "time_info": "[07时21分 ~ 14时52分]"
         },
         {
           "title": "OpenAI或将成为最大的无人公司",
@@ -1197,8 +1197,8 @@
             19
           ],
           "is_new": false,
-          "appearance_count": 8,
-          "time_info": "[13时33分 ~ 14时46分]"
+          "appearance_count": 9,
+          "time_info": "[13时33分 ~ 14时52分]"
         },
         {
           "title": "亚锦赛男团中国3比1伊朗晋级四强",
@@ -1288,11 +1288,12 @@
           "url": "https://m.weibo.cn/search?containerid=100103type%3D1%26t%3D10%26q%3D%23%E9%87%91%E4%BB%B7%E9%93%B6%E4%BB%B7%E8%B7%B3%E6%B0%B4%23&stream_entry_id=31&isnewpage=1&extparam=seat%3D1%26flag%3D1%26cate%3D5001%26band_rank%3D28%26dgr%3D0%26realpos%3D28%26pos%3D28%26lcate%3D5001%26q%3D%2523%25E9%2587%2591%25E4%25BB%25B7%25E9%2593%25B6%25E4%25BB%25B7%25E8%25B7%25B3%25E6%25B0%25B4%2523%26filter_type%3Drealtimehot%26stream_entry_id%3D31%26c_type%3D31%26display_time%3D1760424230%26pre_seqid%3D17604242304260379741917",
           "source": "微博",
           "ranks": [
-            28
+            28,
+            19
           ],
           "is_new": false,
-          "appearance_count": 3,
-          "time_info": "[14时43分 ~ 14时46分]"
+          "appearance_count": 4,
+          "time_info": "[14时43分 ~ 14时52分]"
         },
         {
           "title": "现货黄金突破4100美元/盎司关口，刷新历史高位至4103.90美元，日内涨幅超过2.0%。 2025年迄今，金价累计上涨1479美元，累计涨幅超过56%。",
