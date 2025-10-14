@@ -3,7 +3,8 @@ name: Hot News Crawler (build & deploy)
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 1 * * *'   # 北京时间09:00，可按需改
+    # 北京时间 09:00 运行（UTC+8）
+    - cron: "0 1 * * *"
 
 permissions:
   contents: write
@@ -35,10 +36,38 @@ jobs:
       - name: Run crawler
         run: python main.py
 
+      # 若你按我之前建议添加了 tools/generate_outputs.py，用于生成 metrics.json + 占位日报
       - name: Generate front-end artifacts
-        run: python tools/generate_outputs.py
+        run: |
+          if [ -f tools/generate_outputs.py ]; then
+            python tools/generate_outputs.py
+          fi
 
-      # 把站点内容打包给 Pages（根目录有 index.html）
+      # 关键：保留你自定义的首页，不让脚本覆盖
+      - name: Keep custom index.html
+        run: |
+          git checkout HEAD -- index.html || true
+
+      # 只提交数据产物，避免把模板/首页等被动改动一起提交
+      - name: Commit and push data changes
+        run: |
+          git config user.name  "actions-user"
+          git config user.email "actions@github.com"
+
+          # 清空暂存区，再仅添加数据目录与数据文件
+          git restore --staged . || true
+          git add output/ || true
+          git add api/trends.json || true
+
+          # 如果有变更再提交
+          if ! git diff --cached --quiet; then
+            git commit -m "Auto update data"
+            git push
+          else
+            echo "No data changes to commit."
+          fi
+
+      # 将站点内容打包为 Pages 工件（根目录已有 index.html）
       - name: Upload site content
         uses: actions/upload-pages-artifact@v3
         with:
@@ -50,7 +79,6 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
