@@ -4,11 +4,11 @@ permissions:
   contents: write
   pages: write
   id-token: write
-  
+
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 */4 * * *"  # 每4小时自动执行一次，可自行调整
+    - cron: "0 */4 * * *" # 每4小时自动执行，可自行调整
 
 jobs:
   crawl_build_deploy:
@@ -30,26 +30,33 @@ jobs:
 
       - name: Run crawler
         run: |
-          echo ">>> 运行 main.py 爬虫..."
+          echo ">>> 开始运行爬虫 main.py"
           python main.py
-          echo ">>> 爬虫完成，检查生成文件：api/trends.json"
-          ls -l api
+          echo ">>> 爬虫完成，检查输出文件："
+          ls -lh api || true
 
       - name: Generate metrics.json
         run: |
-          echo ">>> 生成 metrics.json ..."
-          python main.py  # 你的 main.py 最后已经自动包含 build_metrics_from_trends
-          echo ">>> 检查输出目录"
+          echo ">>> 生成 metrics.json"
+          python main.py
+          echo ">>> 检查输出目录："
           ls -R output || true
+
+      - name: Restore dashboard index.html
+        run: |
+          echo ">>> 恢复新版首页 layout"
+          mkdir -p tools/dashboard
+          cp -f tools/dashboard/index.html ./index.html
+          git add index.html || true
 
       - name: Commit and push data changes
         run: |
-          echo ">>> 提交更新..."
+          echo ">>> 提交更新数据..."
           git config --global user.email "actions@github.com"
           git config --global user.name "GitHub Actions"
           git add api/trends.json || true
           git add output || true
-          git commit -m "Auto update by GitHub Actions at $(date '+%Y-%m-%d %H:%M:%S')" || echo "No changes"
+          git commit -m "Auto update by GitHub Actions at $(date '+%Y-%m-%d %H:%M:%S')" || echo "No changes to commit"
           git push || echo "No push (forked repo)"
 
       - name: Upload site content
