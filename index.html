@@ -7,100 +7,45 @@
   <link rel="icon" href="./img/trend-icon.png" />
   <meta name="description" content="TrendRadar 投资热点自动追踪系统" />
 
-  <!-- 颜色变量：亮/暗主题共用一套语义色 -->
   <style>
     :root{
-      --bg: #f5f7fa;
-      --card: #ffffff;
-      --text: #1f2d3d;
-      --subtext:#6b7280;
-      --brand:#2563eb;
-      --muted:#eef2f7;
-      --shadow: 0 2px 12px rgba(0,0,0,.06);
-      --header:#0f172a; --headerText:#fff;
-      --chip:#f1f5f9; --chipHover:#e2e8f0; --chipText:#1f2937;
-      --border:#e5e7eb;
+      --bg: #f5f7fa; --card: #ffffff; --text: #1f2d3d; --subtext:#6b7280;
+      --brand:#2563eb; --muted:#eef2f7; --shadow: 0 2px 12px rgba(0,0,0,.06);
+      --header:#0f172a; --headerText:#fff; --chip:#f1f5f9; --chipHover:#e2e8f0;
+      --chipText:#1f2937; --border:#e5e7eb;
     }
     .dark{
-      --bg:#0b1018;
-      --card:#0f1622;
-      --text:#e5e7eb;
-      --subtext:#9aa4b2;
-      --brand:#4f8cff;
-      --muted:#0b121c;
-      --shadow: 0 2px 14px rgba(0,0,0,.35);
-      --header:#070b12; --headerText:#e5e7eb;
-      --chip:#101827; --chipHover:#122036; --chipText:#cbd5e1;
-      --border:#213044;
+      --bg:#0b1018; --card:#0f1622; --text:#e5e7eb; --subtext:#9aa4b2;
+      --brand:#4f8cff; --muted:#0b121c; --shadow: 0 2px 14px rgba(0,0,0,.35);
+      --header:#070b12; --headerText:#e5e7eb; --chip:#101827; --chipHover:#122036;
+      --chipText:#cbd5e1; --border:#213044;
     }
-
     *{box-sizing:border-box}
-    body{
-      font-family: "Inter","PingFang SC","Microsoft Yahei",sans-serif;
-      margin:0; background:var(--bg); color:var(--text);
-    }
-
-    /* 顶部栏 */
-    .header{
-      background:var(--header); color:var(--headerText);
-      padding:12px 20px; display:flex; align-items:center; justify-content:space-between;
-      position:sticky; top:0; z-index:10; box-shadow:var(--shadow);
-    }
-    .header-left{display:flex; align-items:center; gap:10px; font-weight:700;}
-    .logo{width:28px; height:28px}
-    .update-time{font-size:.9rem; color:var(--subtext)}
-    .actions{display:flex; align-items:center; gap:10px}
-    .btn{
-      border:1px solid var(--border); background:transparent; color:var(--headerText);
-      padding:6px 10px; border-radius:8px; cursor:pointer; font-size:.9rem;
-    }
+    body{font-family:"Inter","PingFang SC","Microsoft Yahei",sans-serif;margin:0;background:var(--bg);color:var(--text)}
+    .header{background:var(--header);color:var(--headerText);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;box-shadow:var(--shadow)}
+    .header-left{display:flex;align-items:center;gap:10px;font-weight:700}
+    .logo{width:28px;height:28px}
+    .update-time{font-size:.9rem;color:var(--subtext)}
+    .actions{display:flex;align-items:center;gap:10px}
+    .btn{border:1px solid var(--border);background:transparent;color:var(--headerText);padding:6px 10px;border-radius:8px;cursor:pointer;font-size:.9rem}
     .btn:hover{background:rgba(255,255,255,.06)}
     .btn:active{transform:translateY(1px)}
-
-    /* 主体布局 */
-    .container{
-      max-width:1100px; margin:32px auto; padding:0 18px;
-      display:grid; grid-template-columns:2fr 1fr; gap:22px;
-    }
-    .card{
-      background:var(--card); border-radius:12px; box-shadow:var(--shadow); padding:22px;
-      border:1px solid var(--border);
-    }
-    h2{
-      margin:0 0 16px; font-size:1.1rem; color:var(--brand);
-      border-left:4px solid var(--brand); padding-left:10px;
-    }
-
-    /* 趋势列表 */
-    .trend-card{padding:12px 0; border-bottom:1px solid var(--border)}
+    .container{max-width:1100px;margin:32px auto;padding:0 18px;display:grid;grid-template-columns:2fr 1fr;gap:22px}
+    .card{background:var(--card);border-radius:12px;box-shadow:var(--shadow);padding:22px;border:1px solid var(--border)}
+    h2{margin:0 0 16px;font-size:1.1rem;color:var(--brand);border-left:4px solid var(--brand);padding-left:10px}
+    .trend-card{padding:12px 0;border-bottom:1px solid var(--border)}
     .trend-card:last-child{border-bottom:none}
-    .trend-card h3{margin:0 0 6px}
-    .source{color:var(--subtext); font-size:.92rem}
-
-    /* 关键词 chips */
-    .keywords{display:flex; flex-wrap:wrap; gap:8px}
-    .keywords span{
-      background:var(--chip); color:var(--chipText); padding:6px 12px; border-radius:999px;
-      border:1px solid var(--border); cursor:pointer; transition:.15s;
-      user-select:none; font-size:.9rem;
-    }
+    .trend-card h3{margin:0 0 6px;font-size:1rem}
+    .source{color:var(--subtext);font-size:.92rem}
+    .keywords{display:flex;flex-wrap:wrap;gap:8px}
+    .keywords span{background:var(--chip);color:var(--chipText);padding:6px 12px;border-radius:999px;border:1px solid var(--border);cursor:pointer;transition:.15s;user-select:none;font-size:.9rem}
     .keywords span:hover{background:var(--chipHover)}
-
-    /* 图表卡片 */
     .chart-wrap{height:280px}
-
-    /* 页脚 */
-    .footer{ text-align:center; color:var(--subtext); padding:24px 10px; font-size:.88rem }
-
-    /* 响应式 */
-    @media (max-width:860px){
-      .container{grid-template-columns:1fr; gap:18px}
-      .chart-wrap{height:240px}
-    }
+    .footer{text-align:center;color:var(--subtext);padding:24px 10px;font-size:.88rem}
+    @media (max-width:860px){.container{grid-template-columns:1fr;gap:18px}.chart-wrap{height:240px}}
   </style>
 </head>
 <body>
-  <!-- 顶部 -->
   <header class="header">
     <div class="header-left">
       <img src="./img/trend-icon.png" class="logo" alt="logo"/>
@@ -112,18 +57,12 @@
     </div>
   </header>
 
-  <!-- 主体 -->
   <main class="container">
-    <!-- 左：趋势内容（可被日报 HTML 覆盖） -->
     <section class="card" id="trend-content">
       <h2>📈 今日重点趋势</h2>
-      <div class="trend-card">
-        <h3>数据加载中...</h3>
-        <div class="source">请稍候</div>
-      </div>
+      <div class="trend-card"><h3>数据加载中...</h3><div class="source">请稍候</div></div>
     </section>
 
-    <!-- 右上：热词 Chips -->
     <section class="card">
       <h2>🔥 热搜关键词</h2>
       <div class="keywords" id="kw">
@@ -132,7 +71,6 @@
       </div>
     </section>
 
-    <!-- 右下：热度曲线 -->
     <section class="card">
       <h2>📊 热词热度趋势</h2>
       <div class="chart-wrap"><canvas id="hotChart"></canvas></div>
@@ -144,102 +82,65 @@
     © 2025 TrendRadar | 数据来源：华尔街见闻 · 新浪财经 · 百度指数
   </footer>
 
-  <!-- Chart.js CDN -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
 
   <script>
-    /* ========== 更新时间 ========== */
+    /* ===== 更新时间 ===== */
     const upEl = document.getElementById("update-time");
     upEl.textContent = "更新于 " + new Date().toLocaleString("zh-CN", {hour12:false});
 
-    /* ========== 主题：跟随系统 + 手动切换 + 持久化 ========== */
+    /* ===== 主题切换 ===== */
     const key = "tr-theme";
     const toggleBtn = document.getElementById("theme-toggle");
     const applyTheme = (t) => {
       if(t==="dark"){ document.documentElement.classList.add("dark"); toggleBtn.textContent="☀️ 亮色"; }
       else { document.documentElement.classList.remove("dark"); toggleBtn.textContent="🌙 暗黑"; }
     };
-    (()=>{ // 初始化
-      const saved = localStorage.getItem(key);
+    (()=>{ const saved = localStorage.getItem(key);
       if(saved){ applyTheme(saved); }
-      else{
-        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-        applyTheme(prefersDark?"dark":"light");
-      }
+      else{ applyTheme(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"); }
     })();
-    toggleBtn.onclick = () => {
-      const nowDark = document.documentElement.classList.contains("dark");
-      const next = nowDark ? "light":"dark";
-      applyTheme(next); localStorage.setItem(key,next);
-    };
+    toggleBtn.onclick = () => { const next = document.documentElement.classList.contains("dark")?"light":"dark"; applyTheme(next); localStorage.setItem(key,next); };
 
-    /* ========== 自动加载最新日报（如果有） ========== */
-    async function loadLatestReport(){
-      try{
-        // 访问 output 目录索引（若禁用目录索引会失败，自动忽略）
-        const resp = await fetch("./output/");
-        const txt = await resp.text();
-        const m = [...txt.matchAll(/href="(\d{8,})\/"/g)];
-        if(!m.length) return;
-        const latest = m[m.length-1][1];
-        const report = `./output/${latest}/html/当日热点.html`;
-        const r = await fetch(report);
-        if(r.ok){
-          const html = await r.text();
-          // 直接将日报卡内容写入 trend-content 容器
-          document.getElementById("trend-content").innerHTML = html;
-        }
-      }catch(e){ /* 无目录索引时忽略 */ }
-    }
-    loadLatestReport();
-
-    /* ========== 热度曲线：优先读取 metrics.json，失败则用示例数据 ========== */
-    async function loadMetrics(){
-      const note = document.getElementById("chart-note");
-      let data;
-      try{
-        // 找最新日期目录
-        const dirResp = await fetch("./output/");
-        const text = await dirResp.text();
-        const ms = [...text.matchAll(/href="(\d{8,})\/"/g)];
-        if(ms.length){
-          const latest = ms[ms.length-1][1];
-          const url = `./output/${latest}/metrics.json`; // 约定：爬虫可输出该 JSON
-          const r = await fetch(url);
-          if(r.ok){ data = await r.json(); note.textContent = `数据源：${url}`; }
-        }
-      }catch(e){ /* ignore */ }
-
-      // 示例结构：
-      // data = {
-      //   labels:["09:30","10:00","10:30","11:00","13:00","14:00","14:30","15:00"],
-      //   series:[ {name:"人工智能", data:[12,18,25,27,30,28,35,40]}, ... ]
-      // }
-
-      if(!data){
-        // 回退示例
-        data = {
-          labels:["09:30","10:00","10:30","11:00","13:00","14:00","14:30","15:00"],
-          series:[
-            {name:"人工智能", data:[12,18,25,27,30,28,35,40]},
-            {name:"光伏", data:[8,12,14,18,20,22,21,24]},
-            {name:"台积电", data:[10,11,13,15,16,18,19,22]}
-          ]
-        };
-        note.textContent = "数据源：示例（未检测到 metrics.json）";
-      }
-      renderChart(data);
-    }
-
+    /* ===== 颜色工具 ===== */
+    function cssVar(n){ return getComputedStyle(document.documentElement).getPropertyValue(n); }
     function getColors(n){
       const light = ["#4f8cff","#22c55e","#f59e0b","#ef4444","#a78bfa","#14b8a6","#e879f9"];
       const dark  = ["#7ab0ff","#37d688","#ffb84d","#ff6b6b","#c4b5fd","#2dd4bf","#f472d0"];
       const use = document.documentElement.classList.contains("dark") ? dark : light;
-      const out = [];
-      for(let i=0;i<n;i++) out.push(use[i%use.length]);
-      return out;
+      return Array.from({length:n},(_,i)=>use[i%use.length]);
     }
 
+    /* ===== 渲染：趋势列表 ===== */
+    function renderTrends(list){
+      const box = document.getElementById("trend-content");
+      let html = `<h2>📈 今日重点趋势</h2>`;
+      if(!list?.length){ html += `<div class="trend-card"><h3>暂无数据</h3><div class="source">等待下一次抓取</div></div>`; box.innerHTML = html; return; }
+      list.slice(0,20).forEach(item=>{
+        const title = item.title || item.name || "未命名";
+        const url   = item.url   || item.link || "#";
+        const src   = item.source|| item.platform || "未知来源";
+        const time  = item.time  || item.ts || item.datetime || "";
+        html += `
+          <div class="trend-card">
+            <h3><a href="${url}" target="_blank" rel="noopener noreferrer">${title}</a></h3>
+            <div class="source">来源：${src}${time ? " · " + time : ""}</div>
+          </div>`;
+      });
+      box.innerHTML = html;
+    }
+
+    /* ===== 渲染：热搜关键词 chips ===== */
+    function renderKeywords(arr){
+      const el = document.getElementById("kw");
+      if(!arr?.length) return;
+      el.innerHTML = arr.slice(0,20).map(k=>{
+        const text = (k.word || k.name || k[0] || k || "").toString();
+        return `<span>${text}</span>`;
+      }).join("");
+    }
+
+    /* ===== 渲染：热度曲线 ===== */
     let chart;
     function renderChart(dataset){
       const ctx = document.getElementById("hotChart");
@@ -255,22 +156,120 @@
         options:{
           responsive:true, maintainAspectRatio:false,
           scales:{
-            x:{ grid:{display:false}, ticks:{ color:getComputedStyle(document.documentElement).getPropertyValue('--subtext') } },
-            y:{ grid:{ color:getComputedStyle(document.documentElement).getPropertyValue('--border') }, ticks:{ color:getComputedStyle(document.documentElement).getPropertyValue('--subtext') } }
+            x:{ grid:{display:false}, ticks:{ color:cssVar('--subtext') } },
+            y:{ grid:{ color:cssVar('--border') }, ticks:{ color:cssVar('--subtext') } }
           },
-          plugins:{
-            legend:{ labels:{ color:getComputedStyle(document.documentElement).getPropertyValue('--text') } },
-            tooltip:{ mode:"index", intersect:false }
-          }
+          plugins:{ legend:{ labels:{ color:cssVar('--text') } }, tooltip:{ mode:"index", intersect:false } }
         }
       });
     }
 
-    // 主题变化时刷新图表配色
     const obs = new MutationObserver(()=>{ if(chart){ chart.update(); } });
     obs.observe(document.documentElement,{attributes:true, attributeFilter:["class"]});
 
-    loadMetrics();
+    /* ===== 从 api/trends.json 加载数据 ===== */
+    async function loadFromAPI(){
+      const NOTE = document.getElementById("chart-note");
+      try{
+        const r = await fetch("./api/trends.json", {cache:"no-store"});
+        if(!r.ok) throw new Error("no api");
+        const j = await r.json();
+
+        // 更新时间
+        const ts = j.updated_at || j.generated_at || j.time || "";
+        if(ts) upEl.textContent = "更新于 " + ts;
+
+        // 趋势列表（兼容多种字段）
+        const trendList = j.trends || j.items || j.data || j.top_trends || [];
+        if(trendList.length) renderTrends(trendList);
+
+        // 关键词
+        const kws = j.keywords || j.hot_keywords || j.tags || [];
+        if(kws.length) renderKeywords(kws);
+
+        // 曲线：优先使用 j.metrics / j.chart / j.series
+        let data;
+        if(j.metrics?.labels && j.metrics?.series){ data = j.metrics; }
+        else if(j.chart?.labels && j.chart?.series){ data = j.chart; }
+        else if(j.series && j.labels){ data = {labels:j.labels, series:j.series}; }
+
+        if(!data){
+          // 回退示例
+          data = {
+            labels:["09:30","10:00","10:30","11:00","13:00","14:00","14:30","15:00"],
+            series:[
+              {name:"人工智能", data:[12,18,25,27,30,28,35,40]},
+              {name:"光伏", data:[8,12,14,18,20,22,21,24]},
+              {name:"台积电", data:[10,11,13,15,16,18,19,22]}
+            ]
+          };
+          NOTE.textContent = "数据源：示例（trends.json 未提供曲线）";
+        }else{
+          NOTE.textContent = "数据源：/api/trends.json";
+        }
+        renderChart(data);
+        return true;
+      }catch(e){
+        return false;
+      }
+    }
+
+    /* ===== 回退：从 output 目录尝试填充左侧卡片 + metrics.json 图表 ===== */
+    async function loadFromOutput(){
+      const NOTE = document.getElementById("chart-note");
+      try{
+        const resp = await fetch("./output/", {cache:"no-store"});
+        const txt = await resp.text();
+        const m = [...txt.matchAll(/href="(\d{8,})\/"/g)];
+        if(!m.length) throw new Error("no-dir");
+        const latest = m[m.length-1][1];
+
+        // 左侧日报 HTML
+        const report = `./output/${latest}/html/当日热点.html`;
+        const r = await fetch(report, {cache:"no-store"});
+        if(r.ok){
+          const html = await r.text();
+          document.getElementById("trend-content").innerHTML = html;
+        }
+
+        // 图表 metrics.json
+        let data;
+        try{
+          const rm = await fetch(`./output/${latest}/metrics.json`, {cache:"no-store"});
+          if(rm.ok){ data = await rm.json(); NOTE.textContent = `数据源：/output/${latest}/metrics.json`; }
+        }catch(e){}
+
+        if(!data){
+          data = {
+            labels:["09:30","10:00","10:30","11:00","13:00","14:00","14:30","15:00"],
+            series:[
+              {name:"人工智能", data:[12,18,25,27,30,28,35,40]},
+              {name:"光伏", data:[8,12,14,18,20,22,21,24]},
+              {name:"台积电", data:[10,11,13,15,16,18,19,22]}
+            ]
+          };
+          NOTE.textContent = "数据源：示例（未检测到 metrics.json）";
+        }
+        renderChart(data);
+      }catch(e){
+        // 彻底回退：左侧保持“加载中…”，图表用示例
+        const data = {
+          labels:["09:30","10:00","10:30","11:00","13:00","14:00","14:30","15:00"],
+          series:[
+            {name:"人工智能", data:[12,18,25,27,30,28,35,40]},
+            {name:"光伏", data:[8,12,14,18,20,22,21,24]},
+            {name:"台积电", data:[10,11,13,15,16,18,19,22]}
+          ]
+        };
+        NOTE.textContent = "数据源：示例（未检测到 output 目录）";
+        renderChart(data);
+      }
+    }
+
+    (async ()=>{
+      const ok = await loadFromAPI();
+      if(!ok) await loadFromOutput();
+    })();
   </script>
 </body>
 </html>
