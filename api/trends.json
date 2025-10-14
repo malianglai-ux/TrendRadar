@@ -1,11 +1,11 @@
 {
-  "generated_at": "2025-10-14T15:06:28.283971+08:00",
-  "total_titles_processed": 1217,
+  "generated_at": "2025-10-14T15:22:47.537906+08:00",
+  "total_titles_processed": 1275,
   "failed_sources": [],
   "trends": [
     {
       "keyword_group": "特朗普",
-      "match_count": 56,
+      "match_count": 59,
       "titles": [
         {
           "title": "鲁比奥没夸到位？特朗普当场反问：才50年？",
@@ -15,8 +15,8 @@
             5
           ],
           "is_new": false,
-          "appearance_count": 13,
-          "time_info": "[13时59分 ~ 15时06分]"
+          "appearance_count": 14,
+          "time_info": "[13时59分 ~ 15时22分]"
         },
         {
           "title": "特朗普称「加沙战争已结束，哈马斯将解除武装」，加沙地区会迎来持久的和平吗？",
@@ -67,11 +67,12 @@
           "ranks": [
             9,
             7,
-            8
+            8,
+            10
           ],
           "is_new": false,
-          "appearance_count": 12,
-          "time_info": "[09时52分 ~ 15时06分]"
+          "appearance_count": 13,
+          "time_info": "[09时52分 ~ 15时22分]"
         },
         {
           "title": "737天！特朗普与内塔尼亚胡双双宣布：加沙战争结束",
@@ -86,8 +87,8 @@
             17
           ],
           "is_new": false,
-          "appearance_count": 21,
-          "time_info": "[00时33分 ~ 15时06分]"
+          "appearance_count": 22,
+          "time_info": "[00时33分 ~ 15时22分]"
         },
         {
           "title": "自扇耳光?特朗普关税战求和中国",
@@ -97,11 +98,12 @@
             12,
             14,
             19,
-            18
+            18,
+            20
           ],
           "is_new": false,
-          "appearance_count": 21,
-          "time_info": "[00时33分 ~ 15时06分]"
+          "appearance_count": 22,
+          "time_info": "[00时33分 ~ 15时22分]"
         },
         {
           "title": "特朗普C位合影喊话：大家笑起来",
@@ -114,8 +116,8 @@
             26
           ],
           "is_new": false,
-          "appearance_count": 11,
-          "time_info": "[13时33分 ~ 15时06分]"
+          "appearance_count": 12,
+          "time_info": "[13时33分 ~ 15时22分]"
         },
         {
           "title": "梅德韦杰夫：向乌供应“战斧”将让所有人遭殃 ，尤其是特朗普",
@@ -509,6 +511,28 @@
           "time_info": "00时34分"
         },
         {
+          "title": "伊朗外交部：强烈谴责特朗普对伊朗毫无根据的指控及不负责任的荒谬言论",
+          "url": "https://flash.jin10.com/detail/20251014151144241800",
+          "source": "金十数据",
+          "ranks": [
+            9
+          ],
+          "is_new": true,
+          "appearance_count": 1,
+          "time_info": "15时22分"
+        },
+        {
+          "title": "特朗普关税由谁买单？高盛最新分析：美国消费者将负担超五成成本",
+          "url": "https://www.cls.cn/detail/2168315",
+          "source": "财联社热门",
+          "ranks": [
+            13
+          ],
+          "is_new": true,
+          "appearance_count": 1,
+          "time_info": "15时22分"
+        },
+        {
           "title": "市场消息：美国总统特朗普在埃及峰会上会见巴勒斯坦总统阿巴斯。",
           "url": "https://flash.jin10.com/detail/20251014000708653800",
           "source": "金十数据",
@@ -551,6 +575,17 @@
           "is_new": false,
           "appearance_count": 1,
           "time_info": "09时52分"
+        },
+        {
+          "title": "特朗普卡尼互动英首相想加入遭无视",
+          "url": "https://www.toutiao.com/trending/7560307195448655898/",
+          "source": "今日头条",
+          "ranks": [
+            20
+          ],
+          "is_new": true,
+          "appearance_count": 1,
+          "time_info": "15时22分"
         },
         {
           "title": "市场消息：塞西和特朗普在和平峰会上发表声明。",
@@ -698,8 +733,8 @@
             1
           ],
           "is_new": false,
-          "appearance_count": 15,
-          "time_info": "[09时52分 ~ 15时06分]"
+          "appearance_count": 16,
+          "time_info": "[09时52分 ~ 15时22分]"
         },
         {
           "title": "【早报】美联储发声，美股全线反弹、国际金银价格飙升；中方对美船舶收取特别港务费，今起正式施行",
@@ -1045,8 +1080,8 @@
             3
           ],
           "is_new": false,
-          "appearance_count": 14,
-          "time_info": "[13时33分 ~ 15时06分]"
+          "appearance_count": 15,
+          "time_info": "[13时33分 ~ 15时22分]"
         },
         {
           "title": "OpenAI再签重磅协议：计划未来四年与博通合作部署10千兆瓦定制化芯片和网络设备",
@@ -1059,8 +1094,8 @@
             9
           ],
           "is_new": false,
-          "appearance_count": 16,
-          "time_info": "[07时21分 ~ 15时06分]"
+          "appearance_count": 17,
+          "time_info": "[07时21分 ~ 15时22分]"
         },
         {
           "title": "OpenAI或将成为最大的无人公司",
@@ -1188,7 +1223,7 @@
     },
     {
       "keyword_group": "金价",
-      "match_count": 5,
+      "match_count": 6,
       "titles": [
         {
           "title": "金价银价跳水",
@@ -1200,8 +1235,8 @@
             2
           ],
           "is_new": false,
-          "appearance_count": 6,
-          "time_info": "[14时43分 ~ 15时06分]"
+          "appearance_count": 7,
+          "time_info": "[14时43分 ~ 15时22分]"
         },
         {
           "title": "目前的金价，你还敢追吗？",
@@ -1235,11 +1270,12 @@
           "url": "https://www.toutiao.com/trending/7560952972620860947/",
           "source": "今日头条",
           "ranks": [
-            7
+            7,
+            9
           ],
           "is_new": false,
-          "appearance_count": 2,
-          "time_info": "[15时05分 ~ 15时06分]"
+          "appearance_count": 3,
+          "time_info": "[15时05分 ~ 15时22分]"
         },
         {
           "title": "现货黄金突破4100美元/盎司关口，刷新历史高位至4103.90美元，日内涨幅超过2.0%。 2025年迄今，金价累计上涨1479美元，累计涨幅超过56%。",
@@ -1252,6 +1288,17 @@
           "is_new": false,
           "appearance_count": 2,
           "time_info": "[00时34分 ~ 01时23分]"
+        },
+        {
+          "title": "金十图示：2025年10月14日（周二）上海金午盘价为936.14元/克，较国际金价(942.9元/克)低6.76元/克",
+          "url": "https://flash.jin10.com/detail/20251014151253070800",
+          "source": "金十数据",
+          "ranks": [
+            7
+          ],
+          "is_new": true,
+          "appearance_count": 1,
+          "time_info": "15时22分"
         }
       ]
     },
