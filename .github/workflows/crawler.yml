@@ -43,7 +43,8 @@ jobs:
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: |
           python main.py
-
+      - name: Generate front-end artifacts
+        run: python tools/generate_outputs.py
       - name: Commit changes (if any)
         run: |
           git config user.name "actions-user"
