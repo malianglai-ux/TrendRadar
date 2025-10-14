@@ -9,207 +9,305 @@
 
   <style>
     :root{
-      --bg: #f5f7fa;
-      --card: #ffffff;
-      --text: #1f2d3d;
-      --subtext:#6b7280;
-      --brand:#2563eb;
-      --muted:#eef2f7;
-      --shadow: 0 2px 12px rgba(0,0,0,.06);
+      --bg:#f5f7fa; --card:#fff; --text:#111827; --sub:#6b7280;
+      --brand:#2563eb; --muted:#eef2f7; --border:#e5e7eb; --shadow:0 2px 12px rgba(0,0,0,.06);
       --header:#0f172a; --headerText:#fff;
       --chip:#f1f5f9; --chipHover:#e2e8f0; --chipText:#1f2937;
-      --border:#e5e7eb;
+      --ok:#16a34a; --warn:#eab308; --danger:#ef4444;
     }
     .dark{
-      --bg:#0b1018;
-      --card:#0f1622;
-      --text:#e5e7eb;
-      --subtext:#9aa4b2;
-      --brand:#4f8cff;
-      --muted:#0b121c;
-      --shadow: 0 2px 14px rgba(0,0,0,.35);
+      --bg:#0b1018; --card:#0f1622; --text:#e5e7eb; --sub:#9aa4b2;
+      --brand:#4f8cff; --muted:#0b121c; --border:#213044; --shadow:0 2px 16px rgba(0,0,0,.35);
       --header:#070b12; --headerText:#e5e7eb;
       --chip:#101827; --chipHover:#122036; --chipText:#cbd5e1;
-      --border:#213044;
     }
     *{box-sizing:border-box}
-    body{font-family:"Inter","PingFang SC","Microsoft Yahei",sans-serif;margin:0;background:var(--bg);color:var(--text);}
+    html,body{height:100%}
+    body{margin:0; font-family:"Inter","PingFang SC","Microsoft Yahei",system-ui,-apple-system,sans-serif; background:var(--bg); color:var(--text)}
+
+    /* 顶部栏 */
     .header{
-      background:var(--header);color:var(--headerText);
-      padding:12px 20px;display:flex;align-items:center;justify-content:space-between;
-      position:sticky;top:0;z-index:10;box-shadow:var(--shadow);
+      background:var(--header); color:var(--headerText);
+      position:sticky; top:0; z-index:10; padding:12px 20px;
+      display:flex; align-items:center; justify-content:space-between; box-shadow:var(--shadow);
     }
-    .header-left{display:flex;align-items:center;gap:10px;font-weight:700;}
+    .logo-wrap{display:flex;align-items:center;gap:10px;font-weight:700}
     .logo{width:28px;height:28px}
-    .update-time{font-size:.9rem;color:var(--subtext)}
-    .btn{border:1px solid var(--border);background:transparent;color:var(--headerText);
-      padding:6px 10px;border-radius:8px;cursor:pointer;font-size:.9rem;}
+    .actions{display:flex;align-items:center;gap:10px}
+    .btn{
+      border:1px solid var(--border); background:transparent; color:var(--headerText);
+      padding:6px 10px; border-radius:8px; cursor:pointer; font-size:.9rem;
+    }
     .btn:hover{background:rgba(255,255,255,.06)}
+    .update-time{font-size:.9rem; color:var(--sub)}
+
+    /* 主体布局 */
     .container{
-      max-width:1100px;margin:32px auto;padding:0 18px;
-      display:grid;grid-template-columns:2fr 1fr;gap:22px;
+      max-width:1160px; margin:30px auto; padding:0 18px;
+      display:grid; grid-template-columns:2fr 1fr; gap:22px;
     }
     .card{
-      background:var(--card);border-radius:12px;box-shadow:var(--shadow);padding:22px;
-      border:1px solid var(--border);
+      background:var(--card); border:1px solid var(--border);
+      border-radius:12px; padding:20px; box-shadow:var(--shadow);
     }
-    h2{margin:0 0 16px;font-size:1.1rem;color:var(--brand);
-      border-left:4px solid var(--brand);padding-left:10px;}
-    .trend-card{padding:12px 0;border-bottom:1px solid var(--border)}
-    .trend-card:last-child{border-bottom:none}
-    .trend-card h3{margin:0 0 6px;font-size:1rem;}
-    .trend-card a{text-decoration:none;color:var(--text);}
-    .trend-card a:hover{text-decoration:underline;color:var(--brand);}
-    .source{color:var(--subtext);font-size:.92rem}
-    .keywords{display:flex;flex-wrap:wrap;gap:8px}
-    .keywords span{background:var(--chip);color:var(--chipText);padding:6px 12px;
-      border-radius:999px;border:1px solid var(--border);cursor:pointer;transition:.15s;
-      user-select:none;font-size:.9rem;}
-    .keywords span:hover{background:var(--chipHover)}
-    .chart-wrap{height:280px}
-    .footer{text-align:center;color:var(--subtext);padding:24px 10px;font-size:.88rem}
-    @media(max-width:860px){.container{grid-template-columns:1fr;gap:18px}.chart-wrap{height:240px}}
+    h2{
+      margin:0 0 16px; font-size:1.08rem; color:var(--brand);
+      border-left:4px solid var(--brand); padding-left:10px;
+      display:flex; align-items:center; gap:6px;
+    }
+    .hint{color:var(--sub); font-size:.92rem}
+    .divider{height:1px;background:var(--border);margin:12px 0}
+
+    /* 趋势列表 */
+    .trend-list{display:flex;flex-direction:column;gap:14px}
+    .trend-item{padding-bottom:12px;border-bottom:1px solid var(--border)}
+    .trend-item:last-child{border-bottom:none;padding-bottom:0}
+    .trend-title{
+      margin:0 0 6px; font-weight:600; line-height:1.45; font-size:1rem;
+    }
+    .trend-title a{color:inherit; text-decoration:none}
+    .trend-title a:hover{color:var(--brand); text-decoration:underline}
+    .meta{color:var(--sub); font-size:.9rem; display:flex; gap:10px; flex-wrap:wrap}
+    .badge{
+      display:inline-flex; align-items:center; gap:6px; font-size:.78rem;
+      padding:2px 8px; border-radius:999px; border:1px solid var(--border); background:var(--chip); color:var(--chipText);
+    }
+
+    /* 关键词 Chips */
+    .chips{display:flex;flex-wrap:wrap;gap:8px}
+    .chip{
+      background:var(--chip); color:var(--chipText); padding:6px 12px; border-radius:999px;
+      border:1px solid var(--border); cursor:pointer; transition:.15s; user-select:none; font-size:.9rem;
+    }
+    .chip:hover{background:var(--chipHover)}
+
+    /* 图表卡片 */
+    .chart-wrap{height:300px}
+    .src-note{color:var(--sub); font-size:.9rem; margin-top:8px}
+
+    /* 页脚 */
+    .footer{ text-align:center; color:var(--sub); padding:24px 12px; font-size:.88rem }
+
+    /* 响应式 */
+    @media (max-width:860px){
+      .container{grid-template-columns:1fr; gap:18px}
+      .chart-wrap{height:240px}
+    }
   </style>
 </head>
 <body>
+  <!-- 顶部 -->
   <header class="header">
-    <div class="header-left">
-      <img src="./img/trend-icon.png" class="logo" alt="logo"/>
+    <div class="logo-wrap">
+      <img class="logo" src="./img/trend-icon.png" alt="logo" />
       <div>投资热点 | TrendRadar</div>
     </div>
     <div class="actions">
       <div class="update-time" id="update-time">加载中...</div>
-      <button class="btn" id="theme-toggle" aria-label="切换主题">🌙 暗黑</button>
+      <button id="theme-toggle" class="btn" aria-label="切换主题">🌙 暗黑</button>
     </div>
   </header>
 
+  <!-- 主体 -->
   <main class="container">
-    <section class="card" id="trend-content">
-      <h2>📈 今日重点趋势</h2>
-      <div class="trend-card"><h3>数据加载中...</h3><div class="source">请稍候</div></div>
-    </section>
-
+    <!-- 左：趋势内容 -->
     <section class="card">
-      <h2>🔥 热搜关键词</h2>
-      <div class="keywords" id="kw">
-        <span>人工智能</span><span>台积电</span><span>碳中和</span><span>ChatGPT</span><span>光伏</span><span>减税</span><span>汽车芯片</span>
+      <h2>📈 今日重点趋势</h2>
+      <div class="hint" id="trend-hint">优先加载 api/trends.json，若无则显示占位</div>
+      <div class="divider"></div>
+      <div id="trend-list" class="trend-list">
+        <!-- JS 渲染 -->
       </div>
     </section>
 
+    <!-- 右上：热搜关键词 -->
+    <section class="card">
+      <h2>🔥 热搜关键词</h2>
+      <div class="chips" id="chips">
+        <span class="chip">人工智能</span>
+        <span class="chip">台积电</span>
+        <span class="chip">碳中和</span>
+        <span class="chip">ChatGPT</span>
+        <span class="chip">光伏</span>
+        <span class="chip">减税</span>
+        <span class="chip">汽车芯片</span>
+      </div>
+    </section>
+
+    <!-- 右下：热度曲线 -->
     <section class="card">
       <h2>📊 热词热度趋势</h2>
       <div class="chart-wrap"><canvas id="hotChart"></canvas></div>
-      <div class="source" id="chart-note">数据加载中…</div>
+      <div id="chart-note" class="src-note">数据加载中…</div>
     </section>
   </main>
 
-  <footer class="footer">© 2025 TrendRadar | 数据来源：华尔街见闻 · 新浪财经 · 百度指数</footer>
+  <footer class="footer">
+    © 2025 TrendRadar | 数据来源：华尔街见闻 · 新浪财经 · 百度指数
+  </footer>
+
+  <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
 
   <script>
-    const upEl=document.getElementById("update-time");
-    upEl.textContent="更新于 "+new Date().toLocaleString("zh-CN",{hour12:false});
+    /* ========== 更新时间 ========== */
+    const upEl = document.getElementById("update-time");
+    upEl.textContent = "更新于 " + new Date().toLocaleString("zh-CN", {hour12:false});
 
-    const key="tr-theme",btn=document.getElementById("theme-toggle");
-    const apply=t=>{
-      if(t==="dark"){document.documentElement.classList.add("dark");btn.textContent="☀️ 亮色";}
-      else{document.documentElement.classList.remove("dark");btn.textContent="🌙 暗黑";}
-    };
-    (()=>{const s=localStorage.getItem(key);
-      if(s)apply(s);else{apply(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");}
-    })();
-    btn.onclick=()=>{const n=document.documentElement.classList.contains("dark");
-      const next=n?"light":"dark";apply(next);localStorage.setItem(key,next);};
-
-    /* 载入日报 */
-    async function loadLatestReport(){
-      try{
-        const r=await fetch("./output/");
-        const t=await r.text();const m=[...t.matchAll(/href="(\d{8,})\/"/g)];
-        if(!m.length)return;
-        const latest=m[m.length-1][1];
-        const f=`./output/${latest}/html/当日热点.html`;
-        const rf=await fetch(f);
-        if(rf.ok){const h=await rf.text();document.getElementById("trend-content").innerHTML=h;}
-      }catch(e){}
+    /* ========== 主题：跟随系统 + 手动切换 + 持久化 ========== */
+    const THEME_KEY = "tr-theme";
+    const toggleBtn = document.getElementById("theme-toggle");
+    function applyTheme(mode){
+      if(mode==="dark"){ document.documentElement.classList.add("dark"); toggleBtn.textContent="☀️ 亮色"; }
+      else{ document.documentElement.classList.remove("dark"); toggleBtn.textContent="🌙 暗黑"; }
     }
-
-    /* 载入 trends.json (你的结构适配) */
-    async function loadTrendsAndKeywords(){
-      try{
-        const r=await fetch('./api/trends.json',{cache:'no-store'});
-        if(!r.ok)throw new Error('no json');
-        const j=await r.json();
-        const groups=Array.isArray(j.trends)?j.trends:[];
-        const items=groups.flatMap(g=>(g.titles||[]).map(t=>({
-          title:t.title||t.name||'未命名',
-          url:t.url||t.link||'#',
-          source:t.source||'未知来源',
-          time:t.time_info||'',
-          keyword:g.keyword_group||''
-        })));
-        const box=document.getElementById('trend-content');
-        const html=items.slice(0,10).map(x=>`
-          <div class="trend-card">
-            <h3><a href="${x.url}" target="_blank" rel="noopener">${x.title}</a></h3>
-            <div class="source">来源：${x.source}${x.keyword?` · 主题：${x.keyword}`:''}${x.time?` · ${x.time}`:''}</div>
-          </div>`).join('');
-        box.innerHTML=`<h2>📈 今日重点趋势</h2>${html}`;
-        const kws=[...new Set(groups.map(g=>g.keyword_group).filter(Boolean))];
-        if(kws.length)document.getElementById('kw').innerHTML=kws.slice(0,12).map(k=>`<span>${k}</span>`).join('');
-        const up=j.generated_at||j.updated_at;
-        if(up)upEl.textContent=`更新于 ${up.replace('T',' ').replace('+08:00','')}`;
-      }catch(e){console.warn(e);}
-    }
-
-    /* 热度图 */
-    async function loadMetrics(){
-      const note=document.getElementById("chart-note");let data;
-      try{
-        const r1=await fetch("./output/");
-        const tx=await r1.text();const m=[...tx.matchAll(/href="(\d{8,})\/"/g)];
-        if(m.length){
-          const latest=m[m.length-1][1];
-          const url=`./output/${latest}/metrics.json`;
-          const r2=await fetch(url);
-          if(r2.ok){data=await r2.json();note.textContent=`数据源：${url}`;}
-        }
-      }catch(e){}
-      if(!data){
-        data={labels:["09:30","10:00","10:30","11:00","13:00","14:00","14:30","15:00"],
-          series:[
-            {name:"人工智能",data:[12,18,25,27,30,28,35,40]},
-            {name:"光伏",data:[8,12,14,18,20,22,21,24]},
-            {name:"台积电",data:[10,11,13,15,16,18,19,22]}
-          ]};
-        note.textContent="数据源：示例（未检测到 metrics.json）";
+    (function initTheme(){
+      const saved = localStorage.getItem(THEME_KEY);
+      if(saved){ applyTheme(saved); }
+      else{
+        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        applyTheme(prefersDark ? "dark":"light");
       }
-      renderChart(data);
+    })();
+    toggleBtn.onclick = () => {
+      const dark = document.documentElement.classList.contains("dark");
+      const next = dark ? "light":"dark";
+      applyTheme(next); localStorage.setItem(THEME_KEY,next);
+      // 主题切换后更新图表色
+      if(window.__hotChart){ window.__hotChart.update(); }
+    };
+
+    /* ========== 趋势列表：优先 api/trends.json ========== */
+    async function loadTrends(){
+      const hint = document.getElementById("trend-hint");
+      const box = document.getElementById("trend-list");
+      box.innerHTML = "";
+
+      try{
+        const r = await fetch("./api/trends.json", {cache: "no-store"});
+        if(!r.ok) throw new Error("no trends.json");
+        const data = await r.json();
+
+        hint.textContent = `报告生成时间：${(data.generated_at||"未知").replace("T"," ").replace("+"," GMT+")} · 共处理 ${data.total_titles_processed||"-"} 条`;
+        // 取第一个关键词组的标题作为展示；也可拼接多个分组
+        const groups = Array.isArray(data.trends)? data.trends : [];
+        const items = groups.length ? groups[0].titles || [] : [];
+
+        if(items.length === 0){
+          hint.textContent += " · 未获取到标题，显示占位";
+          renderPlaceholders(box);
+          return;
+        }
+
+        items.slice(0, 12).forEach((t, idx) => {
+          const el = document.createElement("div");
+          el.className = "trend-item";
+          el.innerHTML = `
+            <div class="trend-title">
+              <a href="${t.url||'#'}" target="_blank" rel="noopener">${escapeHtml(t.title||"未命名")}</a>
+            </div>
+            <div class="meta">
+              <span class="badge">来源：${escapeHtml(t.source||"未知")}</span>
+              ${t.time_info ? `<span class="badge">时段：${escapeHtml(t.time_info)}</span>` : ""}
+              ${Array.isArray(t.ranks) ? `<span class="badge">榜位：${t.ranks.join(",")}</span>` : ""}
+              ${typeof t.appearance_count==="number" ? `<span class="badge">出现：${t.appearance_count}次</span>`:""}
+            </div>
+          `;
+          box.appendChild(el);
+        });
+      }catch(e){
+        hint.textContent = "未检测到 api/trends.json · 显示占位数据";
+        renderPlaceholders(box);
+      }
     }
 
-    function getColors(n){
-      const light=["#4f8cff","#22c55e","#f59e0b","#ef4444","#a78bfa","#14b8a6","#e879f9"];
-      const dark=["#7ab0ff","#37d688","#ffb84d","#ff6b6b","#c4b5fd","#2dd4bf","#f472d0"];
-      const use=document.documentElement.classList.contains("dark")?dark:light;
-      return Array.from({length:n},(_,i)=>use[i%use.length]);
+    function renderPlaceholders(container){
+      const mock = new Array(6).fill(0).map((_,i)=>({
+        title:`未命名 ${i+1}`, url:"#", source:"未知来源"
+      }));
+      mock.forEach(m=>{
+        const el = document.createElement("div");
+        el.className = "trend-item";
+        el.innerHTML = `
+          <div class="trend-title"><a href="#">${escapeHtml(m.title)}</a></div>
+          <div class="meta"><span class="badge">来源：${m.source}</span></div>
+        `;
+        container.appendChild(el);
+      });
     }
-    let chart;
-    function renderChart(dataset){
-      const ctx=document.getElementById("hotChart");
-      const colors=getColors(dataset.series.length);
-      const ds=dataset.series.map((s,i)=>({label:s.name,data:s.data,borderColor:colors[i],backgroundColor:"transparent",tension:.25,borderWidth:2,pointRadius:2}));
-      chart&&chart.destroy();
-      chart=new Chart(ctx,{type:"line",data:{labels:dataset.labels,datasets:ds},
-        options:{responsive:true,maintainAspectRatio:false,
-          scales:{x:{grid:{display:false},ticks:{color:getComputedStyle(document.documentElement).getPropertyValue('--subtext')}},
-                  y:{grid:{color:getComputedStyle(document.documentElement).getPropertyValue('--border')},ticks:{color:getComputedStyle(document.documentElement).getPropertyValue('--subtext')}}},
-          plugins:{legend:{labels:{color:getComputedStyle(document.documentElement).getPropertyValue('--text')}},tooltip:{mode:"index",intersect:false}}}});
-    }
-    const obs=new MutationObserver(()=>{if(chart)chart.update();});
-    obs.observe(document.documentElement,{attributes:true,attributeFilter:["class"]});
 
-    loadLatestReport();
-    loadTrendsAndKeywords();
+    function escapeHtml(s){ return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+
+    /* ========== 热度曲线：优先最新 output/<day>/metrics.json ========== */
+    async function loadMetrics(){
+      const note = document.getElementById("chart-note");
+      let metrics = null, sourceUrl = "";
+
+      try{
+        // 尝试读取目录索引（你的 Pages 默认允许），找最新日期文件夹
+        const dir = await fetch("./output/", {cache:"no-store"}).then(r=>r.text());
+        const ms = [...dir.matchAll(/href="(\d{8,})\/"/g)];
+        if(ms.length){
+          const latest = ms[ms.length-1][1];
+          const url = `./output/${latest}/metrics.json`;
+          const r = await fetch(url, {cache:"no-store"});
+          if(r.ok){ metrics = await r.json(); sourceUrl = url; }
+        }
+      }catch(e){ /* ignore */ }
+
+      if(!metrics){
+        metrics = {
+          labels:["09:30","10:00","10:30","11:00","13:00","14:00","14:30","15:00"],
+          series:[
+            {name:"人工智能", data:[12,18,25,27,30,28,35,40]},
+            {name:"光伏", data:[8,12,14,18,20,22,21,24]},
+            {name:"台积电", data:[10,11,13,15,16,18,19,22]}
+          ]
+        };
+        note.textContent = "数据源：示例（未检测到 metrics.json）";
+      }else{
+        note.textContent = "数据源：" + sourceUrl;
+      }
+
+      renderChart(metrics);
+    }
+
+    function palette(n){
+      const light = ["#4f8cff","#22c55e","#f59e0b","#ef4444","#a78bfa","#14b8a6","#e879f9","#06b6d4"];
+      const dark  = ["#7ab0ff","#37d688","#ffb84d","#ff6b6b","#c4b5fd","#2dd4bf","#f472d0","#67e8f9"];
+      const use = document.documentElement.classList.contains("dark") ? dark : light;
+      return Array.from({length:n}, (_,i)=>use[i%use.length]);
+    }
+
+    function renderChart(d){
+      const ctx = document.getElementById("hotChart");
+      const colors = palette(d.series.length);
+      const datasets = d.series.map((s,i)=>({
+        label:s.name, data:s.data,
+        borderColor:colors[i], backgroundColor:"transparent",
+        tension:.25, borderWidth:2, pointRadius:2
+      }));
+      if(window.__hotChart) window.__hotChart.destroy();
+      window.__hotChart = new Chart(ctx,{
+        type:"line",
+        data:{ labels:d.labels, datasets },
+        options:{
+          responsive:true, maintainAspectRatio:false,
+          scales:{
+            x:{ grid:{display:false}, ticks:{ color:getCss('--sub') } },
+            y:{ grid:{ color:getCss('--border') }, ticks:{ color:getCss('--sub') } }
+          },
+          plugins:{
+            legend:{ labels:{ color:getCss('--text') } },
+            tooltip:{ mode:"index", intersect:false }
+          }
+        }
+      });
+    }
+    function getCss(v){ return getComputedStyle(document.documentElement).getPropertyValue(v); }
+
+    /* Init */
+    loadTrends();
     loadMetrics();
   </script>
 </body>
