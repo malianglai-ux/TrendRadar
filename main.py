@@ -3690,3 +3690,106 @@ def main():
 
 if __name__ == "__main__":
     main()
+# =========================================================
+# 自动生成 metrics.json (热度曲线数据)
+# =========================================================
+
+import os, json, datetime as dt
+
+def build_metrics_from_trends(trends_json_path: str, out_dir: str, date_str: str, top_keywords=None):
+    """
+    从 trends.json 统计关键词出现时段，输出 metrics.json
+    """
+    import re
+    from collections import defaultdict
+
+    # 时间刻度
+    SLOTS = ["09:30","10:00","10:30","11:00","13:00","14:00","14:30","15:00"]
+    DEFAULT_KEYWORDS = ["人工智能", "光伏", "台积电"]
+    TIME_RE = re.compile(r"\[(\d{2})时(\d{2})分\s*~\s*(\d{2})时(\d{2})分\]")
+
+    def hm_to_min(hm: str) -> int:
+        h, m = hm.split(":")
+        return int(h)*60 + int(m)
+
+    SLOT_MINUTES = [hm_to_min(x) for x in SLOTS]
+
+    def parse_time_info_span(time_info: str):
+        if not time_info: return None
+        m = TIME_RE.search(time_info)
+        if not m: return None
+        sh, sm, eh, em = map(int, m.groups())
+        start, end = sh*60+sm, eh*60+em
+        if end < start: end = start
+        return start, end
+
+    def put_to_slot_index(minute_val: int) -> int:
+        idx = 0
+        for i, base in enumerate(SLOT_MINUTES):
+            if minute_val >= base:
+                idx = i
+            else:
+                break
+        return idx
+
+    # 读取趋势文件
+    with open(trends_json_path, "r", encoding="utf-8") as f:
+        data = json.load(f)
+
+    trends = data.get("trends", [])
+    kw_list = top_keywords or DEFAULT_KEYWORDS
+    buckets = {kw: [0]*len(SLOTS) for kw in kw_list}
+
+    for item in trends:
+        kw = item.get("keyword_group", "")
+        if kw not in buckets: continue
+        titles = item.get("titles", [])
+        for t in titles:
+            time_info = t.get("time_info", "")
+            span = parse_time_info_span(time_info)
+            if not span: continue
+            _, end_min = span
+            slot_idx = put_to_slot_index(end_min)
+            buckets[kw][slot_idx] += 1
+
+    # 平滑累计曲线
+    for kw in buckets:
+        acc = 0
+        for i,v in enumerate(buckets[kw]):
+            acc += v
+            buckets[kw][i] = acc
+
+    metrics = {
+        "labels": SLOTS,
+        "series": [{"name": kw, "data": buckets[kw]} for kw in kw_list]
+    }
+
+    os.makedirs(out_dir, exist_ok=True)
+    out_path = os.path.join(out_dir, "metrics.json")
+    with open(out_path, "w", encoding="utf-8") as f:
+        json.dump(metrics, f, ensure_ascii=False, indent=2)
+
+    print(f"[metrics] 输出完成: {out_path}")
+    return out_path
+
+
+# =========================================================
+# 主执行逻辑（放在 main.py 的末尾）
+# =========================================================
+if __name__ == "__main__":
+    # 假定你爬虫前面已经生成了 api/trends.json
+    trends_path = os.path.join("api", "trends.json")
+    today = dt.datetime.now().strftime("%Y%m%d")
+    out_dir = os.path.join("output", today)
+
+    # 自动获取前3个关键词作为展示对象
+    try:
+        with open(trends_path, "r", encoding="utf-8") as f:
+            jj = json.load(f)
+        auto_kw = [x["keyword_group"] for x in jj.get("trends", [])[:3]]
+        auto_kw = auto_kw or ["人工智能","光伏","台积电"]
+    except Exception:
+        auto_kw = ["人工智能","光伏","台积电"]
+
+    # 调用生成函数
+    build_metrics_from_trends(trends_path, out_dir, today, top_keywords=auto_kw)
