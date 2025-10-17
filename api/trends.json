@@ -1,94 +1,249 @@
 {
-  "generated_at": "2025-10-16T11:29:51.831301+08:00",
-  "total_titles_processed": 315,
+  "generated_at": "2025-10-17T11:27:12.833984+08:00",
+  "total_titles_processed": 307,
   "failed_sources": [],
   "trends": [
     {
-      "keyword_group": "金价",
-      "match_count": 4,
-      "titles": [
-        {
-          "title": "金十图示：2025年10月16日（周四）上海金早盘价为967.36元/克，较国际金价(971.33元/克)，低3.97元/克",
-          "url": "https://flash.jin10.com/detail/20251016110308601800",
-          "source": "金十数据",
-          "ranks": [
-            6
-          ],
-          "is_new": false,
-          "appearance_count": 1,
-          "time_info": "11时29分"
-        },
-        {
-          "title": "金店老板说金价跌起来像泄洪",
-          "url": "https://m.weibo.cn/search?containerid=100103type%3D1%26t%3D10%26q%3D%23%E9%87%91%E5%BA%97%E8%80%81%E6%9D%BF%E8%AF%B4%E9%87%91%E4%BB%B7%E8%B7%8C%E8%B5%B7%E6%9D%A5%E5%83%8F%E6%B3%84%E6%B4%AA%23&stream_entry_id=31&isnewpage=1&extparam=seat%3D1%26filter_type%3Drealtimehot%26flag%3D0%26c_type%3D31%26lcate%3D5001%26band_rank%3D9%26pos%3D10%26stream_entry_id%3D31%26realpos%3D9%26dgr%3D0%26q%3D%2523%25E9%2587%2591%25E5%25BA%2597%25E8%2580%2581%25E6%259D%25BF%25E8%25AF%25B4%25E9%2587%2591%25E4%25BB%25B7%25E8%25B7%258C%25E8%25B5%25B7%25E6%259D%25A5%25E5%2583%258F%25E6%25B3%2584%25E6%25B4%25AA%2523%26cate%3D5001%26display_time%3D1760585296%26pre_seqid%3D17605852967860066578",
-          "source": "微博",
-          "ranks": [
-            9
-          ],
-          "is_new": false,
-          "appearance_count": 1,
-          "time_info": "11时29分"
-        },
-        {
-          "title": "金店老板：金价跌起来像泄洪",
-          "url": "https://www.baidu.com/s?wd=%E9%87%91%E5%BA%97%E8%80%81%E6%9D%BF%EF%BC%9A%E9%87%91%E4%BB%B7%E8%B7%8C%E8%B5%B7%E6%9D%A5%E5%83%8F%E6%B3%84%E6%B4%AA",
-          "source": "百度热搜",
-          "ranks": [
-            21
-          ],
-          "is_new": false,
-          "appearance_count": 1,
-          "time_info": "11时29分"
-        },
-        {
-          "title": "下周金价会重演2015年行情吗",
-          "url": "https://www.toutiao.com/trending/7561615409112157705/",
-          "source": "今日头条",
-          "ranks": [
-            26
-          ],
-          "is_new": false,
-          "appearance_count": 1,
-          "time_info": "11时29分"
-        }
-      ]
-    },
-    {
       "keyword_group": "特朗普",
-      "match_count": 3,
+      "match_count": 12,
       "titles": [
         {
-          "title": "特朗普宣布一个大消息，印度人都不敢相信",
-          "url": "https://news.ifeng.com/c/8nUPhsh5ie6",
+          "title": "特朗普：可能会在未来两周内与普京会面",
+          "url": "https://news.ifeng.com/c/8nVhO0vuMg8",
           "source": "凤凰网",
           "ranks": [
-            4
+            2
           ],
           "is_new": false,
-          "appearance_count": 1,
-          "time_info": "11时29分"
+          "appearance_count": 2,
+          "time_info": "[11时26分 ~ 11时27分]"
         },
         {
-          "title": "汽车巨头将部分生产线从加拿大迁至美国，加省长矛头对准特朗普",
-          "url": "https://news.ifeng.com/c/8nUfvzJIjxX",
+          "title": "特朗普称与普京通话取得进展，计划在布达佩斯进行会面",
+          "url": "https://www.cls.cn/detail/2172088",
+          "source": "财联社热门",
+          "ranks": [
+            5
+          ],
+          "is_new": false,
+          "appearance_count": 2,
+          "time_info": "[11时26分 ~ 11时27分]"
+        },
+        {
+          "title": "普京三板斧，轻松搞定特朗普",
+          "url": "https://news.ifeng.com/c/8nW9pmO1Xsq",
           "source": "凤凰网",
           "ranks": [
             5
           ],
           "is_new": false,
-          "appearance_count": 1,
-          "time_info": "11时29分"
+          "appearance_count": 2,
+          "time_info": "[11时26分 ~ 11时27分]"
         },
         {
-          "title": "特朗普已授权中情局在委内瑞拉开展行动 Anthropic发布Claude Haiku 4.5 | 环球市场",
-          "url": "https://www.cls.cn/detail/2170822",
+          "title": "特朗普与普京约定在匈牙利会面",
+          "url": "https://search.bilibili.com/all?keyword=%E7%89%B9%E6%9C%97%E6%99%AE%E4%B8%8E%E6%99%AE%E4%BA%AC%E7%BA%A6%E5%AE%9A%E5%9C%A8%E5%8C%88%E7%89%99%E5%88%A9%E4%BC%9A%E9%9D%A2",
+          "source": "bilibili 热搜",
+          "ranks": [
+            5
+          ],
+          "is_new": true,
+          "appearance_count": 1,
+          "time_info": "11时27分"
+        },
+        {
+          "title": "特朗普与普京将在布达佩斯举行会晤 美军3架B52飞赴委内瑞拉近海 | 环球市场",
+          "url": "https://www.cls.cn/detail/2172120",
           "source": "财联社热门",
           "ranks": [
-            8
+            6
           ],
           "is_new": false,
+          "appearance_count": 2,
+          "time_info": "[11时26分 ~ 11时27分]"
+        },
+        {
+          "title": "博尔顿遭起诉，特朗普：他是个坏人",
+          "url": "https://news.ifeng.com/c/8nWGFkRLtLt",
+          "source": "凤凰网",
+          "ranks": [
+            7
+          ],
+          "is_new": false,
+          "appearance_count": 2,
+          "time_info": "[11时26分 ~ 11时27分]"
+        },
+        {
+          "title": "俄方发起、长2.5小时，俄美总统时隔近两月再通话，特朗普将与普京在布达佩斯会面",
+          "url": "https://wallstreetcn.com/articles/3757333",
+          "source": "华尔街见闻",
+          "ranks": [
+            9
+          ],
+          "is_new": false,
+          "appearance_count": 2,
+          "time_info": "[11时26分 ~ 11时27分]"
+        },
+        {
+          "title": "中方回应特朗普让中国停买俄石油",
+          "url": "https://www.baidu.com/s?wd=%E4%B8%AD%E6%96%B9%E5%9B%9E%E5%BA%94%E7%89%B9%E6%9C%97%E6%99%AE%E8%AE%A9%E4%B8%AD%E5%9B%BD%E5%81%9C%E4%B9%B0%E4%BF%84%E7%9F%B3%E6%B2%B9",
+          "source": "百度热搜",
+          "ranks": [
+            6
+          ],
+          "is_new": true,
           "appearance_count": 1,
-          "time_info": "11时29分"
+          "time_info": "11时27分"
+        },
+        {
+          "title": "牛弹琴：普京三板斧轻松搞定特朗普",
+          "url": "https://www.toutiao.com/trending/7561990485552664115/",
+          "source": "今日头条",
+          "ranks": [
+            7
+          ],
+          "is_new": true,
+          "appearance_count": 1,
+          "time_info": "11时27分"
+        },
+        {
+          "title": "俄美峰会地点定了！俄方公布13点普京特朗普通话成果，释放何信号？",
+          "url": "https://m.thepaper.cn/newsDetail_forward_31796058",
+          "source": "澎湃新闻",
+          "ranks": [
+            15
+          ],
+          "is_new": true,
+          "appearance_count": 1,
+          "time_info": "11时27分"
+        },
+        {
+          "title": "一图看懂｜特朗普对委内瑞拉发动“毒品战争”，真能禁毒？",
+          "url": "https://m.thepaper.cn/newsDetail_forward_31791900",
+          "source": "澎湃新闻",
+          "ranks": [
+            18
+          ],
+          "is_new": true,
+          "appearance_count": 1,
+          "time_info": "11时27分"
+        },
+        {
+          "title": "特朗普：可能在匈牙利与普京会面",
+          "url": "https://www.baidu.com/s?wd=%E7%89%B9%E6%9C%97%E6%99%AE%EF%BC%9A%E5%8F%AF%E8%83%BD%E5%9C%A8%E5%8C%88%E7%89%99%E5%88%A9%E4%B8%8E%E6%99%AE%E4%BA%AC%E4%BC%9A%E9%9D%A2",
+          "source": "百度热搜",
+          "ranks": [
+            25
+          ],
+          "is_new": true,
+          "appearance_count": 1,
+          "time_info": "11时27分"
+        }
+      ]
+    },
+    {
+      "keyword_group": "金价",
+      "match_count": 4,
+      "titles": [
+        {
+          "title": "【早报】俄美总统再通话，或将在两周内会面；加速拉升！国际金价涨破4300美元",
+          "url": "https://www.cls.cn/detail/2172128",
+          "source": "财联社热门",
+          "ranks": [
+            1
+          ],
+          "is_new": false,
+          "appearance_count": 2,
+          "time_info": "[11时26分 ~ 11时27分]"
+        },
+        {
+          "title": "金价逼近4380美元 黄金成终极避风港",
+          "url": "https://www.toutiao.com/trending/7561991351475113514/",
+          "source": "今日头条",
+          "ranks": [
+            10
+          ],
+          "is_new": true,
+          "appearance_count": 1,
+          "time_info": "11时27分"
+        },
+        {
+          "title": "金十图示：2025年10月17日（周五）上海金早盘价为990.35元/克，较国际金价(991.18元/克)，低0.83元/克",
+          "url": "https://flash.jin10.com/detail/20251017102909542800",
+          "source": "金十数据",
+          "ranks": [
+            21
+          ],
+          "is_new": true,
+          "appearance_count": 1,
+          "time_info": "11时27分"
+        },
+        {
+          "title": "今年金价已经创45次新高",
+          "url": "https://www.baidu.com/s?wd=%E4%BB%8A%E5%B9%B4%E9%87%91%E4%BB%B7%E5%B7%B2%E7%BB%8F%E5%88%9B45%E6%AC%A1%E6%96%B0%E9%AB%98",
+          "source": "百度热搜",
+          "ranks": [
+            24
+          ],
+          "is_new": true,
+          "appearance_count": 1,
+          "time_info": "11时27分"
+        }
+      ]
+    },
+    {
+      "keyword_group": "chatgpt openai",
+      "match_count": 2,
+      "titles": [
+        {
+          "title": "OpenAI模型Sora 2上线微软Azure AI Foundry（国际版）",
+          "url": "https://wallstreetcn.com/livenews/2989420",
+          "source": "华尔街见闻-快讯",
+          "ranks": [
+            1
+          ],
+          "is_new": true,
+          "appearance_count": 1,
+          "time_info": "11时27分"
+        },
+        {
+          "title": "如何评价 OpenAI 将推出成人版 ChatGPT？它为什么要这么做？可能带来哪些风险？",
+          "url": "https://www.zhihu.com/question/1961867297695166783",
+          "source": "知乎",
+          "ranks": [
+            1
+          ],
+          "is_new": true,
+          "appearance_count": 1,
+          "time_info": "11时27分"
+        }
+      ]
+    },
+    {
+      "keyword_group": "美债",
+      "match_count": 2,
+      "titles": [
+        {
+          "title": "银行坏账担忧冲击美股，黄金首次升破4300美元，美债拉升，“恐慌指数”涨超20%",
+          "url": "https://wallstreetcn.com/articles/3757299",
+          "source": "华尔街见闻",
+          "ranks": [
+            1
+          ],
+          "is_new": false,
+          "appearance_count": 2,
+          "time_info": "[11时26分 ~ 11时27分]"
+        },
+        {
+          "title": "美债、黄金大涨！美国信贷“蟑螂”成群出没 区域银行危机再现？",
+          "url": "https://www.cls.cn/detail/2172233",
+          "source": "财联社热门",
+          "ranks": [
+            7
+          ],
+          "is_new": false,
+          "appearance_count": 2,
+          "time_info": "[11时26分 ~ 11时27分]"
         }
       ]
     },
@@ -97,43 +252,26 @@
       "match_count": 2,
       "titles": [
         {
-          "title": "美股收盘：三大股指涨跌不一 投资者关注贸易局势进展",
-          "url": "https://www.cls.cn/detail/2170808",
+          "title": "美股收盘：区域银行信贷“暴雷”引发担忧 三大指数集体收跌",
+          "url": "https://www.cls.cn/detail/2172108",
           "source": "财联社热门",
           "ranks": [
-            2
+            3
           ],
           "is_new": false,
-          "appearance_count": 1,
-          "time_info": "11时29分"
+          "appearance_count": 2,
+          "time_info": "[11时26分 ~ 11时27分]"
         },
         {
-          "title": "中证协通报2024年券商研究业务经营情况：大型券商加速推进A股、港股、美股研究一体化布局",
-          "url": "https://wallstreetcn.com/livenews/2988624",
-          "source": "华尔街见闻-快讯",
+          "title": "美股三大期指集体走高 台积电业绩领芯片股普涨 | 今夜看点",
+          "url": "https://www.cls.cn/detail/2171914",
+          "source": "财联社热门",
           "ranks": [
             12
           ],
           "is_new": false,
-          "appearance_count": 1,
-          "time_info": "11时29分"
-        }
-      ]
-    },
-    {
-      "keyword_group": "chatgpt openai",
-      "match_count": 1,
-      "titles": [
-        {
-          "title": "OpenAI：所有用户现在可在SORA应用和网页端生成最长15秒的视频，专业用户最长可达25秒。",
-          "url": "https://flash.jin10.com/detail/20251016105501420800",
-          "source": "金十数据",
-          "ranks": [
-            18
-          ],
-          "is_new": false,
-          "appearance_count": 1,
-          "time_info": "11时29分"
+          "appearance_count": 2,
+          "time_info": "[11时26分 ~ 11时27分]"
         }
       ]
     }
