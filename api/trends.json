@@ -1,294 +1,227 @@
 {
-  "generated_at": "2025-10-19T11:46:18.958294+08:00",
-  "total_titles_processed": 315,
+  "generated_at": "2025-10-20T11:55:04.732663+08:00",
+  "total_titles_processed": 311,
   "failed_sources": [],
   "trends": [
     {
       "keyword_group": "特朗普",
-      "match_count": 15,
+      "match_count": 13,
       "titles": [
         {
-          "title": "美媒：美方正商讨安排特朗普与金正恩会晤",
-          "url": "https://news.ifeng.com/c/8nZRSwQk7HS",
+          "title": "特朗普：对华征收100%关税对美经济“不能持久”",
+          "url": "https://news.ifeng.com/c/8nbAb1jLGoo",
           "source": "凤凰网",
           "ranks": [
             1
           ],
           "is_new": false,
-          "appearance_count": 1,
-          "time_info": "11时46分"
+          "appearance_count": 2,
+          "time_info": "[11时54分 ~ 11时55分]"
         },
         {
-          "title": "特朗普发AI视频挑衅抗议者",
-          "url": "https://flash.jin10.com/detail/20251019112407399800",
-          "source": "金十数据",
+          "title": "特朗普专机着陆机场附近现可疑物",
+          "url": "https://news.ifeng.com/c/8nbCKtQ9LFh",
+          "source": "凤凰网",
           "ranks": [
             2
           ],
           "is_new": false,
-          "appearance_count": 1,
-          "time_info": "11时46分"
+          "appearance_count": 2,
+          "time_info": "[11时54分 ~ 11时55分]"
         },
         {
-          "title": "美乌总统会晤，特朗普数次语气强硬",
-          "url": "https://news.ifeng.com/c/8nYPgJ16sO6",
+          "title": "泽连斯基：愿意参加特朗普与普京在匈牙利的会晤",
+          "url": "https://news.ifeng.com/c/8naqHMsvJOK",
           "source": "凤凰网",
           "ranks": [
             3
           ],
           "is_new": false,
-          "appearance_count": 1,
-          "time_info": "11时46分"
+          "appearance_count": 2,
+          "time_info": "[11时54分 ~ 11时55分]"
         },
         {
-          "title": "各种“豁免”！在11月美国高院听证会前，特朗普政府“调整”关税策略",
-          "url": "https://wallstreetcn.com/articles/3757439",
-          "source": "华尔街见闻",
+          "title": "释疑｜普京向特朗普提新要求，顿巴斯因何成兵家必争？",
+          "url": "https://m.thepaper.cn/newsDetail_forward_31449774",
+          "source": "澎湃新闻",
           "ranks": [
-            4
+            3
           ],
-          "is_new": false,
+          "is_new": true,
           "appearance_count": 1,
-          "time_info": "11时46分"
+          "time_info": "11时55分"
         },
         {
-          "title": "特朗普称美军摧毁一大型潜艇",
-          "url": "https://m.weibo.cn/search?containerid=100103type%3D1%26t%3D10%26q%3D%23%E7%89%B9%E6%9C%97%E6%99%AE%E7%A7%B0%E7%BE%8E%E5%86%9B%E6%91%A7%E6%AF%81%E4%B8%80%E5%A4%A7%E5%9E%8B%E6%BD%9C%E8%89%87%23&stream_entry_id=31&isnewpage=1&extparam=seat%3D1%26pos%3D4%26band_rank%3D4%26cate%3D5001%26realpos%3D4%26dgr%3D0%26stream_entry_id%3D31%26lcate%3D5001%26flag%3D0%26filter_type%3Drealtimehot%26q%3D%2523%25E7%2589%25B9%25E6%259C%2597%25E6%2599%25AE%25E7%25A7%25B0%25E7%25BE%258E%25E5%2586%259B%25E6%2591%25A7%25E6%25AF%2581%25E4%25B8%2580%25E5%25A4%25A7%25E5%259E%258B%25E6%25BD%259C%25E8%2589%2587%2523%26c_type%3D31%26display_time%3D1760844606%26pre_seqid%3D176084460666502733819101",
-          "source": "微博",
+          "title": "不要国王！全美700万人上街抗议，特朗普用AI视频回击",
+          "url": "https://m.thepaper.cn/newsDetail_forward_31806849",
+          "source": "澎湃新闻",
           "ranks": [
-            4
+            11
           ],
-          "is_new": false,
+          "is_new": true,
           "appearance_count": 1,
-          "time_info": "11时46分"
+          "time_info": "11时55分"
         },
         {
-          "title": "特朗普：美军摧毁“运毒潜艇” 两名幸存者被遣返",
-          "url": "https://flash.jin10.com/detail/20251019105221054800",
-          "source": "金十数据",
+          "title": "特朗普被曝与泽连斯基再度激烈争吵",
+          "url": "https://www.baidu.com/s?wd=%E7%89%B9%E6%9C%97%E6%99%AE%E8%A2%AB%E6%9B%9D%E4%B8%8E%E6%B3%BD%E8%BF%9E%E6%96%AF%E5%9F%BA%E5%86%8D%E5%BA%A6%E6%BF%80%E7%83%88%E4%BA%89%E5%90%B5",
+          "source": "百度热搜",
           "ranks": [
-            5
+            12
           ],
-          "is_new": false,
+          "is_new": true,
           "appearance_count": 1,
-          "time_info": "11时46分"
+          "time_info": "11时55分"
         },
         {
-          "title": "特朗普与泽连斯基再度会面：希望能在不动用“战斧”的情况下结束冲突",
-          "url": "https://www.cls.cn/detail/2173372",
-          "source": "财联社热门",
+          "title": "特朗普专机附近疑发现狙击狩猎台",
+          "url": "https://www.toutiao.com/trending/7563020612747165715/",
+          "source": "今日头条",
           "ranks": [
-            6
+            15
           ],
-          "is_new": false,
+          "is_new": true,
           "appearance_count": 1,
-          "time_info": "11时46分"
+          "time_info": "11时55分"
         },
         {
           "title": "特朗普对华服软,关税讹诈玩不转",
           "url": "https://tieba.baidu.com/hottopic/browse/hottopic?topic_id=28345924&amp;topic_name=%E7%89%B9%E6%9C%97%E6%99%AE%E5%AF%B9%E5%8D%8E%E6%9C%8D%E8%BD%AF%2C%E5%85%B3%E7%A8%8E%E8%AE%B9%E8%AF%88%E7%8E%A9%E4%B8%8D%E8%BD%AC",
           "source": "贴吧",
           "ranks": [
-            8
-          ],
-          "is_new": false,
-          "appearance_count": 1,
-          "time_info": "11时46分"
-        },
-        {
-          "title": "美媒：普京在与特朗普的通话中“要求乌克兰交出关键领土”",
-          "url": "https://flash.jin10.com/detail/20251019095513376800",
-          "source": "金十数据",
-          "ranks": [
-            11
-          ],
-          "is_new": false,
-          "appearance_count": 1,
-          "time_info": "11时46分"
-        },
-        {
-          "title": "特朗普政府“调整”关税策略",
-          "url": "https://www.toutiao.com/trending/7562753652985695754/",
-          "source": "今日头条",
-          "ranks": [
-            12
-          ],
-          "is_new": false,
-          "appearance_count": 1,
-          "time_info": "11时46分"
-        },
-        {
-          "title": "特朗普称美军摧毁一艘“载有毒品”的大型潜艇",
-          "url": "https://wallstreetcn.com/livenews/2990101",
-          "source": "华尔街见闻-快讯",
-          "ranks": [
-            13
-          ],
-          "is_new": false,
-          "appearance_count": 1,
-          "time_info": "11时46分"
-        },
-        {
-          "title": "特朗普又抛歪理：都怪尼克松引出中国",
-          "url": "https://www.toutiao.com/trending/7562460355021619227/",
-          "source": "今日头条",
-          "ranks": [
-            15
-          ],
-          "is_new": false,
-          "appearance_count": 1,
-          "time_info": "11时46分"
-        },
-        {
-          "title": "韩企掌门与特朗普打高球 是否谈投资和关税引关注",
-          "url": "https://flash.jin10.com/detail/20251019092957862800",
-          "source": "金十数据",
-          "ranks": [
             16
           ],
-          "is_new": false,
+          "is_new": true,
           "appearance_count": 1,
-          "time_info": "11时46分"
+          "time_info": "11时55分"
         },
         {
-          "title": "泽连斯基承认：特朗普未明确拒绝向乌提供“战斧”导弹",
-          "url": "https://wallstreetcn.com/livenews/2990095",
-          "source": "华尔街见闻-快讯",
+          "title": "特朗普专机附近疑发现狙击狩猎台",
+          "url": "https://www.baidu.com/s?wd=%E7%89%B9%E6%9C%97%E6%99%AE%E4%B8%93%E6%9C%BA%E9%99%84%E8%BF%91%E7%96%91%E5%8F%91%E7%8E%B0%E7%8B%99%E5%87%BB%E7%8B%A9%E7%8C%8E%E5%8F%B0",
+          "source": "百度热搜",
           "ranks": [
-            21
+            17
           ],
-          "is_new": false,
+          "is_new": true,
           "appearance_count": 1,
-          "time_info": "11时46分"
+          "time_info": "11时55分"
         },
         {
-          "title": "美国白宫经济顾问Hassett：计划一到两周内做一个关于人工智能的演讲。 特朗普仍然希望政府关门问题得到友好解决。 政府关门几乎可能导致除了国防之外的任何事情停摆。",
-          "url": "https://wallstreetcn.com/livenews/2990084",
-          "source": "华尔街见闻-快讯",
-          "ranks": [
-            26
-          ],
-          "is_new": false,
-          "appearance_count": 1,
-          "time_info": "11时46分"
-        }
-      ]
-    },
-    {
-      "keyword_group": "美股",
-      "match_count": 3,
-      "titles": [
-        {
-          "title": "美股收盘：银行信贷恐慌退潮 贸易紧张局势缓和 三大指数集体收涨",
-          "url": "https://www.cls.cn/detail/2173368",
-          "source": "财联社热门",
-          "ranks": [
-            3
-          ],
-          "is_new": false,
-          "appearance_count": 1,
-          "time_info": "11时46分"
-        },
-        {
-          "title": "“恐慌指数”飙升：美股平静期宣告结束？",
-          "url": "https://www.cls.cn/detail/2173450",
-          "source": "财联社热门",
-          "ranks": [
-            13
-          ],
-          "is_new": false,
-          "appearance_count": 1,
-          "time_info": "11时46分"
-        },
-        {
-          "title": "韩国散户押注杠杆VIX ，对冲美股高估值风险",
-          "url": "https://flash.jin10.com/detail/20251019091747896800",
-          "source": "金十数据",
+          "title": "泽连斯基：愿参加特朗普与普京的会晤",
+          "url": "https://www.baidu.com/s?wd=%E6%B3%BD%E8%BF%9E%E6%96%AF%E5%9F%BA%EF%BC%9A%E6%84%BF%E5%8F%82%E5%8A%A0%E7%89%B9%E6%9C%97%E6%99%AE%E4%B8%8E%E6%99%AE%E4%BA%AC%E7%9A%84%E4%BC%9A%E6%99%A4",
+          "source": "百度热搜",
           "ranks": [
             18
           ],
-          "is_new": false,
+          "is_new": true,
           "appearance_count": 1,
-          "time_info": "11时46分"
-        }
-      ]
-    },
-    {
-      "keyword_group": "金价",
-      "match_count": 2,
-      "titles": [
-        {
-          "title": "黄金在全球“外汇黄金储备“比例已升至30%，若追平美元，金价需升至5790美元",
-          "url": "https://wallstreetcn.com/articles/3757430",
-          "source": "华尔街见闻",
-          "ranks": [
-            3
-          ],
-          "is_new": false,
-          "appearance_count": 1,
-          "time_info": "11时46分"
+          "time_info": "11时55分"
         },
         {
-          "title": "金价为何下跌",
-          "url": "https://www.toutiao.com/trending/7562708312681090570/",
+          "title": "曝特朗普与泽连斯基再发生激烈争吵",
+          "url": "https://www.toutiao.com/trending/7562448720101461547/",
           "source": "今日头条",
           "ranks": [
-            21
+            19
           ],
-          "is_new": false,
+          "is_new": true,
           "appearance_count": 1,
-          "time_info": "11时46分"
-        }
-      ]
-    },
-    {
-      "keyword_group": "DeepSeek 梁文锋",
-      "match_count": 1,
-      "titles": [
+          "time_info": "11时55分"
+        },
         {
-          "title": "deepseek 本地部署能做到阅读几百万字文本吗？",
-          "url": "https://www.zhihu.com/question/11521332735",
-          "source": "知乎",
+          "title": "俄美共建白令海峡隧道？特朗普回应",
+          "url": "https://www.baidu.com/s?wd=%E4%BF%84%E7%BE%8E%E5%85%B1%E5%BB%BA%E7%99%BD%E4%BB%A4%E6%B5%B7%E5%B3%A1%E9%9A%A7%E9%81%93%EF%BC%9F%E7%89%B9%E6%9C%97%E6%99%AE%E5%9B%9E%E5%BA%94",
+          "source": "百度热搜",
           "ranks": [
-            11
+            24
           ],
-          "is_new": false,
+          "is_new": true,
           "appearance_count": 1,
-          "time_info": "11时46分"
-        }
-      ]
-    },
-    {
-      "keyword_group": "chatgpt openai",
-      "match_count": 1,
-      "titles": [
+          "time_info": "11时55分"
+        },
         {
-          "title": "微软(MSFT.O)领导人担心，要满足OpenAI快速增长的计算需求，可能会导致服务器过度建设，而这可能无法产生经济回报。",
-          "url": "https://flash.jin10.com/detail/20251019102338888800",
-          "source": "金十数据",
+          "title": "美17州检察长起诉特朗普政府说明啥",
+          "url": "https://www.toutiao.com/trending/7563083390186950170/",
+          "source": "今日头条",
           "ranks": [
-            8
+            25
           ],
-          "is_new": false,
+          "is_new": true,
           "appearance_count": 1,
-          "time_info": "11时46分"
+          "time_info": "11时55分"
         }
       ]
     },
     {
       "keyword_group": "伊朗",
+      "match_count": 3,
+      "titles": [
+        {
+          "title": "伊朗逊尼派部族领袖遇害，革命卫队：以色列指使的",
+          "url": "https://news.ifeng.com/c/8naUXXhxDm5",
+          "source": "凤凰网",
+          "ranks": [
+            7
+          ],
+          "is_new": false,
+          "appearance_count": 2,
+          "time_info": "[11时54分 ~ 11时55分]"
+        },
+        {
+          "title": "特稿｜战火和制裁“逼不退”的中国商人：“伊朗同行总说他们赚钱很容易”",
+          "url": "https://m.thepaper.cn/newsDetail_forward_31793329",
+          "source": "澎湃新闻",
+          "ranks": [
+            20
+          ],
+          "is_new": true,
+          "appearance_count": 1,
+          "time_info": "11时55分"
+        },
+        {
+          "title": "伊朗突发恐怖袭击 多名部族领袖遇害",
+          "url": "https://www.baidu.com/s?wd=%E4%BC%8A%E6%9C%97%E7%AA%81%E5%8F%91%E6%81%90%E6%80%96%E8%A2%AD%E5%87%BB+%E5%A4%9A%E5%90%8D%E9%83%A8%E6%97%8F%E9%A2%86%E8%A2%96%E9%81%87%E5%AE%B3",
+          "source": "百度热搜",
+          "ranks": [
+            25
+          ],
+          "is_new": true,
+          "appearance_count": 1,
+          "time_info": "11时55分"
+        }
+      ]
+    },
+    {
+      "keyword_group": "美股",
       "match_count": 1,
       "titles": [
         {
-          "title": "伊朗谴责以色列违反加沙停火协议，并批评其拒绝履行重新开放拉法口岸的承诺",
-          "url": "https://wallstreetcn.com/livenews/2990096",
-          "source": "华尔街见闻-快讯",
+          "title": "担心“泡沫”，“赌性最大”的韩国人开始买“美股VIX”了",
+          "url": "https://wallstreetcn.com/articles/3757446",
+          "source": "华尔街见闻",
           "ranks": [
-            16
+            6
           ],
           "is_new": false,
-          "appearance_count": 1,
-          "time_info": "11时46分"
+          "appearance_count": 2,
+          "time_info": "[11时54分 ~ 11时55分]"
+        }
+      ]
+    },
+    {
+      "keyword_group": "美元",
+      "match_count": 1,
+      "titles": [
+        {
+          "title": "关键一周开启！日经225指数升至历史新高，日元显著走软，黄金一度跌至4220美元下方",
+          "url": "https://wallstreetcn.com/articles/3757466",
+          "source": "华尔街见闻",
+          "ranks": [
+            9
+          ],
+          "is_new": false,
+          "appearance_count": 2,
+          "time_info": "[11时54分 ~ 11时55分]"
         }
       ]
     }
