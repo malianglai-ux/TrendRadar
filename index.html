@@ -68,11 +68,6 @@
       border-left:4px solid var(--brand); padding-left:10px;
     }
 
-    .trend-card{padding:12px 0; border-bottom:1px solid var(--border)}
-    .trend-card:last-child{border-bottom:none}
-    .trend-card h3{margin:0 0 6px}
-    .source{color:var(--subtext); font-size:.92rem}
-
     .keywords{display:flex; flex-wrap:wrap; gap:8px}
     .keywords span{
       background:var(--chip); color:var(--chipText); padding:6px 12px; border-radius:999px;
@@ -104,19 +99,21 @@
   </header>
 
   <main class="container">
+    <!-- 使用 iframe 显示日报，防止样式冲突 -->
     <section class="card" id="trend-content">
       <h2>📈 今日重点趋势</h2>
-      <div class="trend-card">
-        <h3>数据加载中...</h3>
-        <div class="source">请稍候</div>
-      </div>
+      <iframe id="report-frame"
+              title="当日热点"
+              style="width:100%;border:0;border-radius:8px; background:transparent; min-height: 1200px;"
+              loading="lazy"></iframe>
+      <div class="source" id="report-note">正在加载日报…</div>
     </section>
 
     <section class="card">
       <h2>🔥 热搜关键词</h2>
       <div class="keywords" id="kw">
         <span>人工智能</span><span>台积电</span><span>碳中和</span>
-        <span>ChatGPT</span><span>光伏</span><span>减税</span><span>汽车芯片</span>
+        <span>ChatGPT</span><span>光伏</span><span>新能源</span><span>苹果</span>
       </div>
     </section>
 
@@ -157,44 +154,46 @@
       const nowDark = document.documentElement.classList.contains("dark");
       const next = nowDark ? "light":"dark";
       applyTheme(next); localStorage.setItem(keyTheme,next);
-      // 主题切换后重绘图表刻度色
-      if(chart){ chart.options.scales.x.ticks.color = getCss('--subtext');
-                 chart.options.scales.y.ticks.color = getCss('--subtext');
-                 chart.options.scales.y.grid.color  = getCss('--border');
-                 chart.options.plugins.legend.labels.color = getCss('--text');
-                 chart.update(); }
+      if(chart){ chart.update(); }
     };
 
-    // 工具
+    // 获取CSS变量
     const getCss = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
-    const cacheBust = () => `?v=${new Date().toISOString().slice(0,10).replace(/-/g,'')}-${Date.now()%1e7}`;
+    const cacheBust = () => `?v=${Date.now()}`;
 
-    // 注入最新日报（如果存在）
+    // 加载日报 iframe
     async function loadLatestReport(){
+      const note = document.getElementById("report-note");
+      const frame = document.getElementById("report-frame");
       try{
         const resp = await fetch("./output/");
         const html = await resp.text();
         const m = [...html.matchAll(/href="(\d{8,}|20\d{4}年\d{1,2}月\d{1,2}日)\/"/g)];
-        if(!m.length) return;
+        if(!m.length){ note.textContent = "未找到日报目录"; return; }
         const latest = m[m.length-1][1];
-        const reportUrl = `./output/${latest}/html/当日热点.html${cacheBust()}`;
-        const r = await fetch(reportUrl);
-        if(!r.ok) return;
-        const reportHtml = await r.text();
-        const container = document.getElementById("trend-content");
-        container.innerHTML = reportHtml;
-      }catch(e){ /* 无目录索引时忽略 */ }
+        const src = `./output/${latest}/html/当日热点.html${cacheBust()}`;
+        frame.src = src;
+        note.textContent = `数据源：${src}`;
+        frame.onload = () => {
+          try{
+            const h = frame.contentDocument?.body?.scrollHeight || 0;
+            if(h > 0) frame.style.minHeight = Math.min(h + 20, 4000) + "px";
+          }catch(_){} 
+        };
+      }catch(e){
+        note.textContent = "加载日报失败";
+      }
     }
     loadLatestReport();
 
-    // 只从 /api/metrics.json 取图表数据
+    // 加载 metrics.json
     async function loadMetrics(){
       const note = document.getElementById("chart-note");
       let data;
       try{
         const r = await fetch(`/TrendRadar/api/metrics.json${cacheBust()}`);
         if(r.ok){ data = await r.json(); note.textContent = "数据源：/api/metrics.json"; }
-      }catch(e){ /* ignore */ }
+      }catch(e){}
 
       if(!data){
         data = {
@@ -210,20 +209,14 @@
       renderChart(data);
     }
 
-    // 图表
+    // 绘图
     let chart;
-    function getColors(n){
-      const light = ["#4f8cff","#22c55e","#f59e0b","#ef4444","#a78bfa","#14b8a6","#e879f9"];
-      const dark  = ["#7ab0ff","#37d688","#ffb84d","#ff6b6b","#c4b5fd","#2dd4bf","#f472d0"];
-      const use = document.documentElement.classList.contains("dark") ? dark : light;
-      return Array.from({length:n},(_,i)=>use[i%use.length]);
-    }
     function renderChart(dataset){
       const ctx = document.getElementById("hotChart");
-      const colors = getColors(dataset.series.length);
+      const colors = ["#4f8cff","#22c55e","#f59e0b","#ef4444","#a78bfa"];
       const ds = dataset.series.map((s,i)=>({
-        label:s.name, data:s.data, borderColor:colors[i], backgroundColor:"transparent",
-        tension:.25, borderWidth:2, pointRadius:2
+        label:s.name, data:s.data, borderColor:colors[i%colors.length],
+        backgroundColor:"transparent", tension:.25, borderWidth:2, pointRadius:2
       }));
       chart && chart.destroy();
       chart = new Chart(ctx,{
@@ -232,13 +225,10 @@
         options:{
           responsive:true, maintainAspectRatio:false,
           scales:{
-            x:{ grid:{display:false}, ticks:{ color:getCss('--subtext') } },
-            y:{ grid:{ color:getCss('--border') }, ticks:{ color:getCss('--subtext') } }
+            x:{ ticks:{ color:getCss('--subtext') }, grid:{display:false} },
+            y:{ ticks:{ color:getCss('--subtext') }, grid:{ color:getCss('--border') } }
           },
-          plugins:{
-            legend:{ labels:{ color:getCss('--text') } },
-            tooltip:{ mode:"index", intersect:false }
-          }
+          plugins:{ legend:{ labels:{ color:getCss('--text') } } }
         }
       });
     }
