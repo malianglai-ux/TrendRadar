@@ -123,11 +123,13 @@
       const elTrends = document.getElementById("trends");
       const elKeywords = document.getElementById("keywords");
       try {
-        const res = await fetch("/api/trends.json?v=" + Date.now());
+        // ✅ 关键修复：改为相对路径
+        const res = await fetch("api/trends.json?v=" + Date.now());
         if (!res.ok) throw new Error("fetch failed");
         const data = await res.json();
+
         if (!data.topics || data.topics.length === 0) {
-          elTrends.innerHTML = "<p>暂无数据<br>检查 /api/trends.json</p>";
+          elTrends.innerHTML = "<p>暂无数据<br>请检查 /api/trends.json 是否存在</p>";
           elKeywords.innerHTML = "<span class='chip'>暂无关键词</span>";
           return;
         }
@@ -138,15 +140,15 @@
           .map(
             (t) => `
               <div class="item">
-                <a href="${t.links[0].url}" target="_blank">${t.title}</a>
+                <a href="${t.links?.[0]?.url || '#'}" target="_blank">${t.title}</a>
                 <div class="meta">
-                  来源：${t.sources.join("、")} ｜ 平台数：${t.cover} ｜ 热度分：${t.score.toFixed(2)}
+                  来源：${t.sources?.join("、") || "未知"} ｜ 平台数：${t.cover || 0} ｜ 热度分：${(t.score || 0).toFixed(2)}
                 </div>
               </div>`
           )
           .join("");
 
-        // 提取关键词（简单：拆分英文单词出现频次）
+        // 提取关键词
         const allTitles = data.topics.map(t => t.title).join(" ");
         const words = allTitles
           .toLowerCase()
