@@ -1,60 +1,93 @@
 name: Hot News Crawler (build & deploy)
 
 on:
-  workflow_dispatch:
+  # 手动触发
+  workflow_dispatch: {}
+  # 定时触发（UTC 时间；例：北京时间 08:30 与 20:30）
+  schedule:
+    - cron: "30 0 * * *"
+    - cron: "30 12 * * *"
+
+# 防止并发互相取消：同一分支上本工作流排队串行
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: false
+
+# GitHub Pages 需要的权限（修复 id-token 相关错误）
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+env:
+  TZ: Asia/Shanghai   # 统一为北京时间
 
 jobs:
   crawl_build_deploy:
+    name: crawl_build_deploy
     runs-on: ubuntu-latest
-
-    permissions:
-      contents: write
-      pages: write
-      id-token: write
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
-          python-version: "3.9"
+          python-version: '3.9'
 
-      - name: Install dependencies
+      - name: Cache pip
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Install deps
         run: |
-          pip install -r requirements.txt
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
+      # 运行你的爬虫。要求脚本把增量数据写到仓库内（例如 api/trends.json、output/** 等）
       - name: Run crawler
-        run: python main.py
-
-      - name: Generate front-end artifacts
         run: |
-          mkdir -p ./output
-          echo "Crawler finished. Preparing site content."
+          echo ">>> run main.py"
+          python main.py
 
-      - name: Keep index.html
+      # 构建 GitHub Pages 上传包：固定只上传 _site，避免根目录被任何文件覆盖首页
+      - name: Prepare Pages bundle
         run: |
-          cp ./index.html ./output/index.html
+          set -e
+          rm -rf _site && mkdir -p _site
+          # 复制爬虫产物
+          if [ -d output ]; then rsync -a output/ _site/output/; fi
+          if [ -d api ]; then rsync -a api/ _site/api/; fi
+          if [ -d img ]; then rsync -a img/ _site/img/; fi
+          # 关键：把仓库根目录的仪表盘首页作为最终首页，强制覆盖
+          cp -f index.html _site/index.html
+          # 可选：CNAME（如果你设置了自定义域名）
+          if [ -f CNAME ]; then cp -f CNAME _site/CNAME; fi
+          # 简单校验
+          echo ">>> _site tree"
+          find _site -maxdepth 2 -type f | sort || true
 
-      - name: Upload artifact for deployment
+      - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./output
+          path: _site
 
-  deploy:
-    needs: crawl_build_deploy
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
-    permissions:
-      contents: read
-      pages: write
-      id-token: write
-
-    steps:
+      # 发布到 GitHub Pages
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+        with:
+          timeout: 600000   # 10min，防止大文件偶发超时
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Done
+        run: |
+          echo "Pages URL: ${{ steps.deployment.outputs.page_url }}"
