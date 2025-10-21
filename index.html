@@ -39,7 +39,6 @@
       margin:0; background:var(--bg); color:var(--text);
     }
 
-    /* 顶部栏 */
     .header{
       background:var(--header); color:var(--headerText);
       padding:12px 20px; display:flex; align-items:center; justify-content:space-between;
@@ -56,7 +55,6 @@
     .btn:hover{background:rgba(255,255,255,.06)}
     .btn:active{transform:translateY(1px)}
 
-    /* 主体布局 */
     .container{
       max-width:1100px; margin:32px auto; padding:0 18px;
       display:grid; grid-template-columns:2fr 1fr; gap:22px;
@@ -70,13 +68,11 @@
       border-left:4px solid var(--brand); padding-left:10px;
     }
 
-    /* 趋势列表 */
     .trend-card{padding:12px 0; border-bottom:1px solid var(--border)}
     .trend-card:last-child{border-bottom:none}
     .trend-card h3{margin:0 0 6px}
     .source{color:var(--subtext); font-size:.92rem}
 
-    /* 关键词 chips */
     .keywords{display:flex; flex-wrap:wrap; gap:8px}
     .keywords span{
       background:var(--chip); color:var(--chipText); padding:6px 12px; border-radius:999px;
@@ -85,13 +81,9 @@
     }
     .keywords span:hover{background:var(--chipHover)}
 
-    /* 图表卡片 */
     .chart-wrap{height:280px}
-
-    /* 页脚 */
     .footer{ text-align:center; color:var(--subtext); padding:24px 10px; font-size:.88rem }
 
-    /* 响应式 */
     @media (max-width:860px){
       .container{grid-template-columns:1fr; gap:18px}
       .chart-wrap{height:240px}
@@ -99,7 +91,6 @@
   </style>
 </head>
 <body>
-  <!-- 顶部 -->
   <header class="header">
     <div class="header-left">
       <img src="./img/trend-icon.png" class="logo" alt="logo"/>
@@ -111,9 +102,7 @@
     </div>
   </header>
 
-  <!-- 主体 -->
   <main class="container">
-    <!-- 左：趋势内容（可被日报 HTML 覆盖） -->
     <section class="card" id="trend-content">
       <h2>📈 今日重点趋势</h2>
       <div class="trend-card">
@@ -122,7 +111,6 @@
       </div>
     </section>
 
-    <!-- 右上：热词 Chips -->
     <section class="card">
       <h2>🔥 热搜关键词</h2>
       <div class="keywords" id="kw">
@@ -131,7 +119,6 @@
       </div>
     </section>
 
-    <!-- 右下：热度曲线 -->
     <section class="card">
       <h2>📊 热词热度趋势</h2>
       <div class="chart-wrap"><canvas id="hotChart"></canvas></div>
@@ -143,22 +130,19 @@
     © 2025 TrendRadar | 数据来源：华尔街见闻 · 新浪财经 · 百度指数
   </footer>
 
-  <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
 
   <script>
-    /* ========== 更新时间 ========== */
     const upEl = document.getElementById("update-time");
     upEl.textContent = "更新于 " + new Date().toLocaleString("zh-CN", {hour12:false});
 
-    /* ========== 主题切换 + 持久化 ========== */
     const key = "tr-theme";
     const toggleBtn = document.getElementById("theme-toggle");
     const applyTheme = (t) => {
       if(t==="dark"){ document.documentElement.classList.add("dark"); toggleBtn.textContent="☀️ 亮色"; }
       else { document.documentElement.classList.remove("dark"); toggleBtn.textContent="🌙 暗黑"; }
     };
-    (()=>{ // 初始化
+    (()=>{ 
       const saved = localStorage.getItem(key);
       if(saved){ applyTheme(saved); }
       else{
@@ -172,29 +156,15 @@
       applyTheme(next); localStorage.setItem(key,next);
     };
 
-    /* ========== 可选：尝试载入最新日报 HTML（若你的仓库启用目录索引） ========== */
-    async function loadLatestReport(){
-      try{
-        const resp = await fetch("./output/");
-        const txt = await resp.text();
-        const m = [...txt.matchAll(/href="(\d{8,})\/"/g)];
-        if(!m.length) return;
-        const latest = m[m.length-1][1];
-        const report = `./output/${latest}/html/当日热点.html`;
-        const r = await fetch(report);
-        if(r.ok){
-          const html = await r.text();
-          document.getElementById("trend-content").innerHTML = html;
-        }
-      }catch(e){ /* 若禁用目录索引则忽略 */ }
+    /* 禁用旧日报注入（保留函数定义防报错） */
+    async function loadLatestReport() {
+      console.log("日报注入已禁用。");
     }
-    loadLatestReport();
 
-    /* ========== 仅请求固定 /api/metrics.json 的完整版函数（避免目录索引） ========== */
+    /* 加载固定 /api/metrics.json */
     async function loadMetrics(){
       const note = document.getElementById("chart-note");
       let data;
-
       try{
         const r = await fetch("/api/metrics.json", { cache: "no-store" });
         if (r.ok) {
@@ -207,11 +177,7 @@
         note.textContent = "加载 /api/metrics.json 失败，使用示例数据";
       }
 
-      // 兼容两种结构：
-      // 1) 规范：{ labels: [...], series: [{name:"xx", data:[...]}] }
-      // 2) 退化：{ "人工智能":[...], "光伏":[...], "labels":[...] } 或 {labels:..., datasets:{key:[...]}}
       if (!data || !data.labels) {
-        // fallback 示例
         data = {
           labels:["09:30","10:00","10:30","11:00","13:00","14:00","14:30","15:00"],
           series:[
@@ -221,32 +187,24 @@
           ]
         };
       } else if (!data.series) {
-        // 将 key-value 结构转成标准 series
         const labels = data.labels;
         const series = [];
         for (const k of Object.keys(data)) {
           if (k === "labels") continue;
           const arr = Array.isArray(data[k]) ? data[k] : [];
-          // 只接收与 labels 等长的数列
           if (arr.length === labels.length) {
             series.push({ name: k, data: arr });
           }
         }
-        if (!series.length) {
-          // 若仍无数据，回退示例
-          data = {
-            labels:["09:30","10:00","10:30","11:00","13:00","14:00","14:30","15:00"],
-            series:[
-              {name:"人工智能", data:[12,18,25,27,30,28,35,40]},
-              {name:"光伏", data:[8,12,14,18,20,22,21,24]},
-              {name:"台积电", data:[10,11,13,15,16,18,19,22]}
-            ]
-          };
-        } else {
-          data = { labels, series };
-        }
+        data = series.length ? { labels, series } : {
+          labels:["09:30","10:00","10:30","11:00","13:00","14:00","14:30","15:00"],
+          series:[
+            {name:"人工智能", data:[12,18,25,27,30,28,35,40]},
+            {name:"光伏", data:[8,12,14,18,20,22,21,24]},
+            {name:"台积电", data:[10,11,13,15,16,18,19,22]}
+          ]
+        };
       }
-
       renderChart(data);
     }
 
@@ -285,10 +243,8 @@
       });
     }
 
-    // 主题变化时刷新图表配色
     const obs = new MutationObserver(()=>{ if(chart){ chart.update(); } });
     obs.observe(document.documentElement,{attributes:true, attributeFilter:["class"]});
-
     loadMetrics();
   </script>
 </body>
