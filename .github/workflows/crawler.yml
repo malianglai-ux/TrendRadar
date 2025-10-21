@@ -1,92 +1,44 @@
 name: Hot News Crawler (build & deploy)
 
 on:
-  workflow_dispatch: {}
+  workflow_dispatch:
   schedule:
-    - cron: "30 0 * * *"
-    - cron: "30 12 * * *"
-
-concurrency:
-  group: pages-${{ github.ref }}
-  cancel-in-progress: false
-
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-env:
-  TZ: Asia/Shanghai
+    - cron: "0 */6 * * *"  # 每6小时执行一次
 
 jobs:
   crawl_build_deploy:
     runs-on: ubuntu-latest
-    name: crawl_build_deploy
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.9'
+          python-version: "3.9"
 
-      - name: Cache pip
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-pip-
-
-      - name: Install dependencies
+      - name: Install Python deps
         run: |
           python -m pip install --upgrade pip
-          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          pip install -r requirements.txt
 
-      - name: Run crawler
+      - name: Run Aggregator
         run: |
-          echo ">>> Running crawler main.py"
-          python main.py
+          python -m aggregator.run
 
       - name: Prepare Pages bundle
         run: |
-          set -e
-          rm -rf _site && mkdir -p _site
-          # 复制产物
-          if [ -d output ]; then rsync -a output/ _site/output/; fi
-          if [ -d api ]; then rsync -a api/ _site/api/; fi
-          if [ -d img ]; then rsync -a img/ _site/img/; fi
-          # 🔥 强制拷贝 home.html 作为首页（避免空白或旧模板）
-          if [ -f home.html ]; then
-            cp -f home.html _site/index.html
-          elif [ -f index.html ]; then
-            cp -f index.html _site/index.html
-          else
-            echo "<h1>TrendRadar 部署成功</h1>" > _site/index.html
-          fi
-          if [ -f CNAME ]; then cp -f CNAME _site/CNAME; fi
-          echo ">>> _site 目录结构"
-          find _site -maxdepth 2 -type f | sort || true
+          mkdir -p ./public/api
+          cp -r ./api/* ./public/api/ || true
+          cp index.html ./public/
+          cp home.html ./public/
+          cp -r ./img ./public/img || true
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: _site
+          path: ./public
 
       - name: Deploy to GitHub Pages
-        id: deployment
         uses: actions/deploy-pages@v4
-        with:
-          timeout: 600000
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Done
-        run: echo "✅ 部署完成，访问 ${{ steps.deployment.outputs.page_url }}"
-      - name: Run Aggregator
-        run: |
-          python -m aggregator.run
