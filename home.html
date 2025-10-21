@@ -11,47 +11,64 @@
       margin: 0;
       background: #f5f7fa;
       color: #1f2d3d;
+      overflow-x: hidden;
     }
+
     header {
       background: url("https://picx.zhimg.com/v2-53929aa63157aa2c5ff6fb2ecc22094b_r.jpg") center/cover no-repeat;
       color: white;
       text-align: center;
-      padding: 100px 20px 140px;
+      padding: 140px 20px 160px; /* 扩大高度 */
       position: relative;
+      z-index: 1;
     }
+
     header::after {
       content: "";
       position: absolute;
       left: 0;
       right: 0;
       bottom: 0;
-      height: 80px;
+      height: 120px; /* 增加渐变高度 */
       background: linear-gradient(to bottom, rgba(245,247,250,0) 0%, #f5f7fa 100%);
+      z-index: 2;
     }
+
     h1 {
-      font-size: 2rem;
+      font-size: 2.4rem;
       font-weight: 700;
       margin: 0;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.25);
     }
+
     h2 {
       font-size: 1rem;
       font-weight: 400;
-      opacity: 0.85;
+      opacity: 0.9;
+      margin-top: 8px;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.3);
     }
+
     main {
       max-width: 1200px;
-      margin: -80px auto 0;
+      margin: -100px auto 0;
       display: flex;
       gap: 20px;
-      padding: 0 20px 60px;
+      padding: 0 20px 80px;
+      position: relative;
+      z-index: 3;
     }
+
     section {
       background: white;
       border-radius: 16px;
       box-shadow: 0 2px 10px rgba(0,0,0,0.05);
       padding: 20px;
       flex: 1;
+      min-height: 400px;
     }
+
     section h3 {
       font-size: 1.1rem;
       font-weight: 600;
@@ -61,26 +78,32 @@
       align-items: center;
       gap: 6px;
     }
+
     .item {
       padding: 8px 0;
       border-bottom: 1px solid #f0f2f5;
     }
+
     .item:last-child {
       border: none;
     }
+
     .item a {
       text-decoration: none;
       color: #1f2d3d;
       font-weight: 500;
     }
+
     .item a:hover {
       color: #2563eb;
     }
+
     .meta {
       font-size: 0.85rem;
       color: #6b7280;
       margin-top: 4px;
     }
+
     .chip {
       display: inline-block;
       background: #f1f5f9;
@@ -90,6 +113,7 @@
       color: #374151;
       margin: 4px 4px 0 0;
     }
+
     footer {
       text-align: center;
       color: #9ca3af;
@@ -123,46 +147,40 @@
       const elTrends = document.getElementById("trends");
       const elKeywords = document.getElementById("keywords");
       try {
-        // ✅ 关键修复：改为相对路径
         const res = await fetch("api/trends.json?v=" + Date.now());
         if (!res.ok) throw new Error("fetch failed");
         const data = await res.json();
 
         if (!data.topics || data.topics.length === 0) {
-          elTrends.innerHTML = "<p>暂无数据<br>请检查 /api/trends.json 是否存在</p>";
+          elTrends.innerHTML = "<p>暂无数据<br>请检查 api/trends.json 是否存在</p>";
           elKeywords.innerHTML = "<span class='chip'>暂无关键词</span>";
           return;
         }
 
-        // 渲染趋势列表
-        elTrends.innerHTML = data.topics
-          .slice(0, 15)
-          .map(
-            (t) => `
-              <div class="item">
-                <a href="${t.links?.[0]?.url || '#'}" target="_blank">${t.title}</a>
-                <div class="meta">
-                  来源：${t.sources?.join("、") || "未知"} ｜ 平台数：${t.cover || 0} ｜ 热度分：${(t.score || 0).toFixed(2)}
-                </div>
-              </div>`
-          )
-          .join("");
+        // 渲染趋势
+        elTrends.innerHTML = data.topics.slice(0, 15)
+          .map(t => `
+            <div class="item">
+              <a href="${t.links?.[0]?.url || '#'}" target="_blank">${t.title}</a>
+              <div class="meta">
+                来源：${t.sources?.join("、") || "未知"} ｜ 平台数：${t.cover || 0} ｜ 热度分：${(t.score || 0).toFixed(2)}
+              </div>
+            </div>
+          `).join("");
 
-        // 提取关键词
+        // 关键词提取
         const allTitles = data.topics.map(t => t.title).join(" ");
-        const words = allTitles
-          .toLowerCase()
+        const words = allTitles.toLowerCase()
           .replace(/[^a-z\u4e00-\u9fa5\s]/g, "")
           .split(/\s+/)
           .filter(w => w.length > 2);
         const freq = {};
         words.forEach(w => freq[w] = (freq[w] || 0) + 1);
-        const topK = Object.entries(freq)
-          .sort((a,b) => b[1]-a[1])
-          .slice(0, 12);
+        const topK = Object.entries(freq).sort((a,b)=>b[1]-a[1]).slice(0,12);
         elKeywords.innerHTML = topK.length
-          ? topK.map(([w]) => `<span class="chip">${w}</span>`).join("")
+          ? topK.map(([w])=>`<span class="chip">${w}</span>`).join("")
           : "<span class='chip'>暂无关键词</span>";
+
       } catch (err) {
         elTrends.innerHTML = "<p>加载失败：" + err + "</p>";
         elKeywords.innerHTML = "<span class='chip'>暂无关键词</span>";
