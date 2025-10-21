@@ -3,85 +3,97 @@ from datetime import datetime
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.cluster import KMeans
 
-# ------------------------
-# 导入已有英文源
-# ------------------------
-from sources_rss import fetch_google_news  # 这是你原有英文RSS抓取逻辑文件
+# ===== 数据源导入 =====
+# 英文 RSS 抓取模块
+from .sources_rss import fetch_google_news
 
-# ------------------------
-# 导入中文源
-# ------------------------
-from zh_sources import (
+# 中文热搜抓取模块
+from .zh_sources import (
     fetch_zhihu_hot,
     fetch_weibo_hot,
     fetch_baidu_hot,
     fetch_toutiao_hot
 )
 
-# ------------------------
-# 文本清洗与聚类逻辑
-# ------------------------
-def clean_text(t):
-    return re.sub(r"[^\u4e00-\u9fa5a-zA-Z0-9]+", " ", t)
+# ===== 工具函数 =====
+def clean_text(text: str) -> str:
+    """清洗标题文本"""
+    text = re.sub(r"http\S+", "", text)
+    text = re.sub(r"[^\u4e00-\u9fa5A-Za-z0-9\s]", "", text)
+    return text.strip()
 
-def cluster_topics(titles, n_clusters=6):
-    if not titles:
-        return []
-    texts = [clean_text(t) for t in titles]
-    vectorizer = TfidfVectorizer(
-        tokenizer=lambda x: jieba.lcut(x),
-        max_features=500
-    )
-    X = vectorizer.fit_transform(texts)
-    km = KMeans(
-        n_clusters=min(n_clusters, len(texts)),
-        random_state=42
-    )
-    km.fit(X)
+def segment_texts(texts):
+    """根据语言分词"""
+    segs = []
+    for t in texts:
+        if re.search(r'[\u4e00-\u9fa5]', t):
+            segs.append(" ".join(jieba.cut(t)))
+        else:
+            segs.append(t)
+    return segs
+
+def cluster_topics(titles, num_clusters=10):
+    """基于 TF-IDF 的文本聚类"""
+    if len(titles) <= 2:
+        return [{"topic": t, "size": 1, "score": 1.0, "titles": [t]} for t in titles]
+
+    seg_titles = segment_texts(titles)
+    vectorizer = TfidfVectorizer(max_features=300)
+    X = vectorizer.fit_transform(seg_titles)
+
+    k = min(num_clusters, len(titles))
+    model = KMeans(n_clusters=k, random_state=42, n_init=10)
+    labels = model.fit_predict(X)
+
     clusters = {}
-    for i, label in enumerate(km.labels_):
+    for i, label in enumerate(labels):
         clusters.setdefault(label, []).append(titles[i])
-    return [
-        {"cluster": i, "samples": v[:5]} for i, v in clusters.items()
-    ]
 
-# ------------------------
-# 主程序入口
-# ------------------------
+    results = []
+    for label, items in clusters.items():
+        results.append({
+            "topic": items[0][:40],
+            "size": len(items),
+            "score": round(float(len(items) / len(titles)), 3),
+            "titles": items
+        })
+    return results
+
+
+# ===== 主程序 =====
 def main():
-    # 中文趋势
-    zh = (
-        fetch_zhihu_hot()
-        + fetch_weibo_hot()
-        + fetch_baidu_hot()
-        + fetch_toutiao_hot()
-    )
+    print("正在抓取中英文热点...")
 
-    # 英文趋势
-    en = fetch_google_news()
+    # 抓取英文源
+    en_news = fetch_google_news()
+    en_titles = [clean_text(i["title"]) for i in en_news]
 
-    # 合并
-    combined = zh + en
+    # 抓取中文源
+    zh_data = []
+    zh_data += fetch_zhihu_hot()
+    zh_data += fetch_weibo_hot()
+    zh_data += fetch_baidu_hot()
+    zh_data += fetch_toutiao_hot()
+    zh_titles = [clean_text(i["title"]) for i in zh_data]
 
     # 聚类
-    clusters = cluster_topics([t["title"] for t in combined])
+    all_titles = en_titles + zh_titles
+    topics = cluster_topics(all_titles, num_clusters=12)
 
-    # 汇总输出
-    result = {
-        "generated_at": datetime.now().isoformat(),
-        "source_count": len(set(t["source"] for t in combined)),
-        "topic_count": len(combined),
-        "topics": combined,
-        "clusters": clusters,
+    # 输出结果
+    data = {
+        "generated_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "source_count": len(all_titles),
+        "topic_count": len(topics),
+        "topics": topics,
     }
 
-    with open("../api/trends.json", "w", encoding="utf-8") as f:
-        json.dump(result, f, ensure_ascii=False, indent=2)
+    out_path = "./api/trends.json"
+    with open(out_path, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
 
-    print("✅ trends.json 已生成，共 %d 条记录。" % len(combined))
+    print(f"已生成聚合文件: {out_path} ({len(all_titles)} 条)")
 
-# ------------------------
-# 程序执行
-# ------------------------
+
 if __name__ == "__main__":
     main()
