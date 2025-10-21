@@ -1,1 +1,217 @@
-<!-- TR_DASHBOARD_V2 -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>投资热点 | TrendRadar</title>
+  <link rel="icon" href="./img/trend-icon.png" />
+  <meta name="description" content="TrendRadar 投资热点自动追踪系统" />
+  <!-- 标识：TR_DASHBOARD_V2 -->
+  <style>
+    :root{
+      --bg: #f5f7fa;
+      --card: #ffffff;
+      --text: #1f2d3d;
+      --subtext:#6b7280;
+      --brand:#2563eb;
+      --muted:#eef2f7;
+      --shadow: 0 2px 12px rgba(0,0,0,.06);
+      --header:#0f172a; --headerText:#fff;
+      --chip:#f1f5f9; --chipHover:#e2e8f0; --chipText:#1f2937;
+      --border:#e5e7eb;
+    }
+    .dark{
+      --bg:#0b1018;
+      --card:#0f1622;
+      --text:#e5e7eb;
+      --subtext:#9aa4b2;
+      --brand:#4f8cff;
+      --muted:#0b121c;
+      --shadow: 0 2px 14px rgba(0,0,0,.35);
+      --header:#070b12; --headerText:#e5e7eb;
+      --chip:#101827; --chipHover:#122036; --chipText:#cbd5e1;
+      --border:#213044;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      font-family: "Inter","PingFang SC","Microsoft Yahei",sans-serif;
+      margin:0; background:var(--bg); color:var(--text);
+    }
+
+    /* 顶部栏 */
+    .header{
+      background:var(--header); color:var(--headerText);
+      padding:12px 20px; display:flex; align-items:center; justify-content:space-between;
+      position:sticky; top:0; z-index:10; box-shadow:var(--shadow);
+    }
+    .header-left{display:flex; align-items:center; gap:10px; font-weight:700;}
+    .logo{width:28px; height:28px}
+    .update-time{font-size:.9rem; color:var(--subtext)}
+    .btn{
+      border:1px solid var(--border); background:transparent; color:var(--headerText);
+      padding:6px 10px; border-radius:8px; cursor:pointer; font-size:.9rem;
+    }
+    .btn:hover{background:rgba(255,255,255,.06)}
+
+    /* 主体布局 */
+    .container{
+      max-width:1100px; margin:32px auto; padding:0 18px;
+      display:grid; grid-template-columns:2fr 1fr; gap:22px;
+    }
+    .card{
+      background:var(--card); border-radius:12px; box-shadow:var(--shadow); padding:22px;
+      border:1px solid var(--border);
+    }
+    h2{
+      margin:0 0 16px; font-size:1.1rem; color:var(--brand);
+      border-left:4px solid var(--brand); padding-left:10px;
+    }
+
+    .trend-card{padding:12px 0; border-bottom:1px solid var(--border)}
+    .trend-card:last-child{border-bottom:none}
+    .trend-card h3{margin:0 0 6px; font-size:1rem;}
+    .source{color:var(--subtext); font-size:.9rem}
+
+    .keywords{display:flex; flex-wrap:wrap; gap:8px}
+    .keywords span{
+      background:var(--chip); color:var(--chipText); padding:6px 12px; border-radius:999px;
+      border:1px solid var(--border); cursor:pointer; transition:.15s;
+      user-select:none; font-size:.9rem;
+    }
+    .keywords span:hover{background:var(--chipHover)}
+
+    .chart-wrap{height:280px}
+    .footer{ text-align:center; color:var(--subtext); padding:24px 10px; font-size:.88rem }
+    @media (max-width:860px){
+      .container{grid-template-columns:1fr; gap:18px}
+      .chart-wrap{height:240px}
+    }
+  </style>
+</head>
+
+<body>
+  <header class="header">
+    <div class="header-left">
+      <img src="./img/trend-icon.png" class="logo" alt="logo"/>
+      <div>投资热点 | TrendRadar</div>
+    </div>
+    <div class="update-time" id="update-time">加载中...</div>
+  </header>
+
+  <main class="container">
+    <section class="card" id="trend-content">
+      <h2>📈 今日重点趋势</h2>
+      <div class="trend-card"><h3>数据加载中...</h3><div class="source">请稍候</div></div>
+    </section>
+
+    <section class="card">
+      <h2>🔥 热搜关键词</h2>
+      <div class="keywords" id="kw">
+        <span>人工智能</span><span>ChatGPT</span><span>台积电</span><span>光伏</span><span>汽车芯片</span>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>📊 热词热度趋势</h2>
+      <div class="chart-wrap"><canvas id="hotChart"></canvas></div>
+      <div class="source" id="chart-note">数据加载中…</div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    © 2025 TrendRadar | 数据来源：华尔街见闻 · 新浪财经 · 百度指数
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script>
+    document.getElementById("update-time").textContent = "更新于 " + new Date().toLocaleString("zh-CN",{hour12:false});
+
+    async function loadTrends(){
+      try{
+        const res = await fetch("./api/trends.json");
+        if(!res.ok) throw new Error("No trends");
+        const data = await res.json();
+        renderTrends(data);
+      }catch(e){
+        document.getElementById("trend-content").innerHTML = "<h2>📈 今日重点趋势</h2><div>暂无数据</div>";
+      }
+    }
+
+    function renderTrends(data){
+      const list = data.trends || [];
+      let html = "<h2>📈 今日重点趋势</h2>";
+      if(!list.length){
+        html += "<div>暂无数据</div>";
+      }else{
+        list.slice(0,8).forEach(t=>{
+          const kw = t.keyword_group;
+          const title = t.titles && t.titles[0] ? t.titles[0].title : "未知标题";
+          const src = t.titles && t.titles[0] ? t.titles[0].source : "未知来源";
+          html += `<div class="trend-card">
+            <h3>${title}</h3>
+            <div class="source">主题：${kw} · 来源：${src}</div>
+          </div>`;
+        });
+      }
+      document.getElementById("trend-content").innerHTML = html;
+    }
+
+    async function loadMetrics(){
+      const note = document.getElementById("chart-note");
+      try{
+        const r = await fetch("./api/metrics.json");
+        if(!r.ok) throw new Error("No metrics");
+        const data = await r.json();
+        renderChart(data);
+        note.textContent = "数据源：/api/metrics.json";
+      }catch(e){
+        note.textContent = "数据源：示例（未检测到 metrics.json）";
+        renderChart({
+          labels:["09:30","10:00","10:30","11:00","13:00","14:00","14:30","15:00"],
+          series:[
+            {name:"人工智能",data:[12,18,25,27,30,28,35,40]},
+            {name:"光伏",data:[8,12,14,18,20,22,21,24]},
+            {name:"台积电",data:[10,11,13,15,16,18,19,22]}
+          ]
+        });
+      }
+    }
+
+    function getColors(n){
+      const c = ["#4f8cff","#22c55e","#f59e0b","#ef4444","#a78bfa","#14b8a6","#e879f9"];
+      const d = document.documentElement.classList.contains("dark");
+      return c.slice(0,n).map(x=>d?x+"cc":x);
+    }
+
+    let chart;
+    function renderChart(dataset){
+      const ctx = document.getElementById("hotChart");
+      const ds = dataset.series.map((s,i)=>({
+        label:s.name,
+        data:s.data,
+        borderColor:getColors(dataset.series.length)[i],
+        borderWidth:2,
+        tension:.25,
+        pointRadius:2
+      }));
+      chart && chart.destroy();
+      chart = new Chart(ctx,{
+        type:"line",
+        data:{labels:dataset.labels,datasets:ds},
+        options:{
+          responsive:true, maintainAspectRatio:false,
+          plugins:{legend:{labels:{color:getComputedStyle(document.body).getPropertyValue('--text')}}},
+          scales:{
+            x:{ticks:{color:getComputedStyle(document.body).getPropertyValue('--subtext')}},
+            y:{ticks:{color:getComputedStyle(document.body).getPropertyValue('--subtext')}}
+          }
+        }
+      });
+    }
+
+    loadTrends();
+    loadMetrics();
+  </script>
+</body>
+</html>
