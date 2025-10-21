@@ -67,7 +67,7 @@ jobs:
           if [ -d api ]; then rsync -a api/ _site/api/; fi
           if [ -d img ]; then rsync -a img/ _site/img/; fi
           # 关键：把仓库根目录的仪表盘首页作为最终首页，强制覆盖
-          cp -f index.html _site/index.html
+          cp -f home.html _site/index.html
           # 可选：CNAME（如果你设置了自定义域名）
           if [ -f CNAME ]; then cp -f CNAME _site/CNAME; fi
           # 简单校验
