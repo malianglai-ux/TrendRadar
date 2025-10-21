@@ -1,227 +1,339 @@
 {
-  "generated_at": "2025-10-20T11:55:04.732663+08:00",
-  "total_titles_processed": 311,
+  "generated_at": "2025-10-21T11:34:06.150631+08:00",
+  "total_titles_processed": 309,
   "failed_sources": [],
   "trends": [
     {
       "keyword_group": "特朗普",
-      "match_count": 13,
+      "match_count": 12,
       "titles": [
         {
-          "title": "特朗普：对华征收100%关税对美经济“不能持久”",
-          "url": "https://news.ifeng.com/c/8nbAb1jLGoo",
+          "title": "特朗普被印度气坏了：莫迪向我保证过",
+          "url": "https://news.ifeng.com/c/8ncgfsHRFxN",
           "source": "凤凰网",
           "ranks": [
             1
           ],
           "is_new": false,
           "appearance_count": 2,
-          "time_info": "[11时54分 ~ 11时55分]"
+          "time_info": "[11时33分 ~ 11时34分]"
         },
         {
-          "title": "特朗普专机着陆机场附近现可疑物",
-          "url": "https://news.ifeng.com/c/8nbCKtQ9LFh",
+          "title": "印度否认通话后，特朗普还嘴硬：莫迪向我保证过",
+          "url": "https://news.ifeng.com/c/8nc5Dzj6yua",
           "source": "凤凰网",
+          "ranks": [
+            3
+          ],
+          "is_new": false,
+          "appearance_count": 2,
+          "time_info": "[11时33分 ~ 11时34分]"
+        },
+        {
+          "title": "特朗普预计中美将达成贸易协议，计划明年初访华",
+          "url": "https://news.ifeng.com/c/8ncoJZZhKAJ",
+          "source": "凤凰网",
+          "ranks": [
+            5
+          ],
+          "is_new": false,
+          "appearance_count": 2,
+          "time_info": "[11时33分 ~ 11时34分]"
+        },
+        {
+          "title": "特朗普大规模拆除白宫建筑",
+          "url": "https://www.toutiao.com/trending/7562786425306382375/",
+          "source": "今日头条",
           "ranks": [
             2
           ],
-          "is_new": false,
-          "appearance_count": 2,
-          "time_info": "[11时54分 ~ 11时55分]"
+          "is_new": true,
+          "appearance_count": 1,
+          "time_info": "11时34分"
         },
         {
-          "title": "泽连斯基：愿意参加特朗普与普京在匈牙利的会晤",
-          "url": "https://news.ifeng.com/c/8naqHMsvJOK",
-          "source": "凤凰网",
+          "title": "特朗普开飞机泼粪,美国再次味大",
+          "url": "https://tieba.baidu.com/hottopic/browse/hottopic?topic_id=28345976&amp;topic_name=%E7%89%B9%E6%9C%97%E6%99%AE%E5%BC%80%E9%A3%9E%E6%9C%BA%E6%B3%BC%E7%B2%AA%2C%E7%BE%8E%E5%9B%BD%E5%86%8D%E6%AC%A1%E5%91%B3%E5%A4%A7",
+          "source": "贴吧",
           "ranks": [
-            3
-          ],
-          "is_new": false,
-          "appearance_count": 2,
-          "time_info": "[11时54分 ~ 11时55分]"
-        },
-        {
-          "title": "释疑｜普京向特朗普提新要求，顿巴斯因何成兵家必争？",
-          "url": "https://m.thepaper.cn/newsDetail_forward_31449774",
-          "source": "澎湃新闻",
-          "ranks": [
-            3
+            6
           ],
           "is_new": true,
           "appearance_count": 1,
-          "time_info": "11时55分"
+          "time_info": "11时34分"
         },
         {
-          "title": "不要国王！全美700万人上街抗议，特朗普用AI视频回击",
-          "url": "https://m.thepaper.cn/newsDetail_forward_31806849",
-          "source": "澎湃新闻",
+          "title": "牛弹琴：特朗普被印度气坏了",
+          "url": "https://www.toutiao.com/trending/7563455829395902002/",
+          "source": "今日头条",
+          "ranks": [
+            7
+          ],
+          "is_new": true,
+          "appearance_count": 1,
+          "time_info": "11时34分"
+        },
+        {
+          "title": "特朗普计划明年初访华",
+          "url": "https://www.toutiao.com/trending/7562415983688908836/",
+          "source": "今日头条",
           "ranks": [
             11
           ],
           "is_new": true,
           "appearance_count": 1,
-          "time_info": "11时55分"
+          "time_info": "11时34分"
         },
         {
-          "title": "特朗普被曝与泽连斯基再度激烈争吵",
-          "url": "https://www.baidu.com/s?wd=%E7%89%B9%E6%9C%97%E6%99%AE%E8%A2%AB%E6%9B%9D%E4%B8%8E%E6%B3%BD%E8%BF%9E%E6%96%AF%E5%9F%BA%E5%86%8D%E5%BA%A6%E6%BF%80%E7%83%88%E4%BA%89%E5%90%B5",
+          "title": "牛弹琴：特朗普被印度气坏了",
+          "url": "https://www.baidu.com/s?wd=%E7%89%9B%E5%BC%B9%E7%90%B4%EF%BC%9A%E7%89%B9%E6%9C%97%E6%99%AE%E8%A2%AB%E5%8D%B0%E5%BA%A6%E6%B0%94%E5%9D%8F%E4%BA%86",
           "source": "百度热搜",
           "ranks": [
-            12
+            11
           ],
           "is_new": true,
           "appearance_count": 1,
-          "time_info": "11时55分"
+          "time_info": "11时34分"
         },
         {
-          "title": "特朗普专机附近疑发现狙击狩猎台",
-          "url": "https://www.toutiao.com/trending/7563020612747165715/",
-          "source": "今日头条",
-          "ranks": [
-            15
-          ],
-          "is_new": true,
-          "appearance_count": 1,
-          "time_info": "11时55分"
-        },
-        {
-          "title": "特朗普对华服软,关税讹诈玩不转",
-          "url": "https://tieba.baidu.com/hottopic/browse/hottopic?topic_id=28345924&amp;topic_name=%E7%89%B9%E6%9C%97%E6%99%AE%E5%AF%B9%E5%8D%8E%E6%9C%8D%E8%BD%AF%2C%E5%85%B3%E7%A8%8E%E8%AE%B9%E8%AF%88%E7%8E%A9%E4%B8%8D%E8%BD%AC",
-          "source": "贴吧",
-          "ranks": [
-            16
-          ],
-          "is_new": true,
-          "appearance_count": 1,
-          "time_info": "11时55分"
-        },
-        {
-          "title": "特朗普专机附近疑发现狙击狩猎台",
-          "url": "https://www.baidu.com/s?wd=%E7%89%B9%E6%9C%97%E6%99%AE%E4%B8%93%E6%9C%BA%E9%99%84%E8%BF%91%E7%96%91%E5%8F%91%E7%8E%B0%E7%8B%99%E5%87%BB%E7%8B%A9%E7%8C%8E%E5%8F%B0",
-          "source": "百度热搜",
+          "title": "释疑｜俄美要连起来了？俄方提议花8年打通“普京-特朗普”隧道有谱吗？",
+          "url": "https://m.thepaper.cn/newsDetail_forward_31813291",
+          "source": "澎湃新闻",
           "ranks": [
             17
           ],
           "is_new": true,
           "appearance_count": 1,
-          "time_info": "11时55分"
+          "time_info": "11时34分"
         },
         {
-          "title": "泽连斯基：愿参加特朗普与普京的会晤",
-          "url": "https://www.baidu.com/s?wd=%E6%B3%BD%E8%BF%9E%E6%96%AF%E5%9F%BA%EF%BC%9A%E6%84%BF%E5%8F%82%E5%8A%A0%E7%89%B9%E6%9C%97%E6%99%AE%E4%B8%8E%E6%99%AE%E4%BA%AC%E7%9A%84%E4%BC%9A%E6%99%A4",
-          "source": "百度热搜",
+          "title": "泽连斯基和特朗普对骂隐藏哪些信息",
+          "url": "https://www.toutiao.com/trending/7563487873530351143/",
+          "source": "今日头条",
           "ranks": [
             18
           ],
           "is_new": true,
           "appearance_count": 1,
-          "time_info": "11时55分"
+          "time_info": "11时34分"
         },
         {
-          "title": "曝特朗普与泽连斯基再发生激烈争吵",
-          "url": "https://www.toutiao.com/trending/7562448720101461547/",
-          "source": "今日头条",
+          "title": "特朗普计划明年初访华",
+          "url": "https://www.douyin.com/hot/2277203",
+          "source": "抖音",
+          "ranks": [
+            18
+          ],
+          "is_new": true,
+          "appearance_count": 1,
+          "time_info": "11时34分"
+        },
+        {
+          "title": "特朗普开始拆除白宫建筑改建宴会厅",
+          "url": "https://m.weibo.cn/search?containerid=100103type%3D1%26t%3D10%26q%3D%23%E7%89%B9%E6%9C%97%E6%99%AE%E5%BC%80%E5%A7%8B%E6%8B%86%E9%99%A4%E7%99%BD%E5%AE%AB%E5%BB%BA%E7%AD%91%E6%94%B9%E5%BB%BA%E5%AE%B4%E4%BC%9A%E5%8E%85%23&stream_entry_id=31&isnewpage=1&extparam=seat%3D1%26c_type%3D31%26pos%3D22%26flag%3D1%26q%3D%2523%25E7%2589%25B9%25E6%259C%2597%25E6%2599%25AE%25E5%25BC%2580%25E5%25A7%258B%25E6%258B%2586%25E9%2599%25A4%25E7%2599%25BD%25E5%25AE%25AB%25E5%25BB%25BA%25E7%25AD%2591%25E6%2594%25B9%25E5%25BB%25BA%25E5%25AE%25B4%25E4%25BC%259A%25E5%258E%2585%2523%26stream_entry_id%3D31%26cate%3D5001%26realpos%3D23%26lcate%3D5001%26dgr%3D0%26band_rank%3D23%26filter_type%3Drealtimehot%26display_time%3D1761017627%26pre_seqid%3D17610176270740229739225",
+          "source": "微博",
+          "ranks": [
+            23
+          ],
+          "is_new": true,
+          "appearance_count": 1,
+          "time_info": "11时34分"
+        }
+      ]
+    },
+    {
+      "keyword_group": "金价",
+      "match_count": 4,
+      "titles": [
+        {
+          "title": "金价再创历史新高！瑞银唱多：明年一季度前有望站上4700美元",
+          "url": "https://www.cls.cn/detail/2175165",
+          "source": "财联社热门",
+          "ranks": [
+            10
+          ],
+          "is_new": false,
+          "appearance_count": 2,
+          "time_info": "[11时33分 ~ 11时34分]"
+        },
+        {
+          "title": "财晓得｜金价幕后推手：他们在买黄金时，买的到底是什么？",
+          "url": "https://m.thepaper.cn/newsDetail_forward_31784199",
+          "source": "澎湃新闻",
+          "ranks": [
+            8
+          ],
+          "is_new": true,
+          "appearance_count": 1,
+          "time_info": "11时34分"
+        },
+        {
+          "title": "金十图示：2025年10月21日（周二）上海金早盘价为993.35元/克，较国际金价(995.35元/克)，低2元/克",
+          "url": "https://flash.jin10.com/detail/20251021102951257800",
+          "source": "金十数据",
           "ranks": [
             19
           ],
           "is_new": true,
           "appearance_count": 1,
-          "time_info": "11时55分"
+          "time_info": "11时34分"
         },
         {
-          "title": "俄美共建白令海峡隧道？特朗普回应",
-          "url": "https://www.baidu.com/s?wd=%E4%BF%84%E7%BE%8E%E5%85%B1%E5%BB%BA%E7%99%BD%E4%BB%A4%E6%B5%B7%E5%B3%A1%E9%9A%A7%E9%81%93%EF%BC%9F%E7%89%B9%E6%9C%97%E6%99%AE%E5%9B%9E%E5%BA%94",
-          "source": "百度热搜",
+          "title": "金价银价大反攻",
+          "url": "https://m.weibo.cn/search?containerid=100103type%3D1%26t%3D10%26q%3D%23%E9%87%91%E4%BB%B7%E9%93%B6%E4%BB%B7%E5%A4%A7%E5%8F%8D%E6%94%BB%23&stream_entry_id=31&isnewpage=1&extparam=seat%3D1%26c_type%3D31%26pos%3D20%26flag%3D2%26q%3D%2523%25E9%2587%2591%25E4%25BB%25B7%25E9%2593%25B6%25E4%25BB%25B7%25E5%25A4%25A7%25E5%258F%258D%25E6%2594%25BB%2523%26stream_entry_id%3D31%26cate%3D5001%26realpos%3D21%26lcate%3D5001%26dgr%3D0%26band_rank%3D21%26filter_type%3Drealtimehot%26display_time%3D1761017627%26pre_seqid%3D17610176270740229739225",
+          "source": "微博",
           "ranks": [
-            24
+            21
           ],
           "is_new": true,
           "appearance_count": 1,
-          "time_info": "11时55分"
-        },
-        {
-          "title": "美17州检察长起诉特朗普政府说明啥",
-          "url": "https://www.toutiao.com/trending/7563083390186950170/",
-          "source": "今日头条",
-          "ranks": [
-            25
-          ],
-          "is_new": true,
-          "appearance_count": 1,
-          "time_info": "11时55分"
+          "time_info": "11时34分"
         }
       ]
     },
     {
-      "keyword_group": "伊朗",
-      "match_count": 3,
+      "keyword_group": "DeepSeek 梁文锋",
+      "match_count": 2,
       "titles": [
         {
-          "title": "伊朗逊尼派部族领袖遇害，革命卫队：以色列指使的",
-          "url": "https://news.ifeng.com/c/8naUXXhxDm5",
-          "source": "凤凰网",
+          "title": "DeepSeek新模型被硅谷夸疯了！用二维视觉压缩一维文字，单GPU能跑，“谷歌核心机密被开源”",
+          "url": "https://wallstreetcn.com/articles/3757530",
+          "source": "华尔街见闻",
           "ranks": [
-            7
+            10
           ],
           "is_new": false,
           "appearance_count": 2,
-          "time_info": "[11时54分 ~ 11时55分]"
+          "time_info": "[11时33分 ~ 11时34分]"
         },
         {
-          "title": "特稿｜战火和制裁“逼不退”的中国商人：“伊朗同行总说他们赚钱很容易”",
-          "url": "https://m.thepaper.cn/newsDetail_forward_31793329",
-          "source": "澎湃新闻",
+          "title": "DeepSeek 团队发布视觉压缩 OCR 模型，哪些信息和技术亮点值得关注？",
+          "url": "https://www.zhihu.com/question/1963642369963426172",
+          "source": "知乎",
           "ranks": [
-            20
+            16
           ],
           "is_new": true,
           "appearance_count": 1,
-          "time_info": "11时55分"
-        },
-        {
-          "title": "伊朗突发恐怖袭击 多名部族领袖遇害",
-          "url": "https://www.baidu.com/s?wd=%E4%BC%8A%E6%9C%97%E7%AA%81%E5%8F%91%E6%81%90%E6%80%96%E8%A2%AD%E5%87%BB+%E5%A4%9A%E5%90%8D%E9%83%A8%E6%97%8F%E9%A2%86%E8%A2%96%E9%81%87%E5%AE%B3",
-          "source": "百度热搜",
-          "ranks": [
-            25
-          ],
-          "is_new": true,
-          "appearance_count": 1,
-          "time_info": "11时55分"
+          "time_info": "11时34分"
         }
       ]
     },
     {
       "keyword_group": "美股",
-      "match_count": 1,
+      "match_count": 2,
       "titles": [
         {
-          "title": "担心“泡沫”，“赌性最大”的韩国人开始买“美股VIX”了",
-          "url": "https://wallstreetcn.com/articles/3757446",
-          "source": "华尔街见闻",
+          "title": "美股收盘：三大指数均涨超1% 苹果大涨近4%",
+          "url": "https://www.cls.cn/detail/2175088",
+          "source": "财联社热门",
           "ranks": [
-            6
+            2
           ],
           "is_new": false,
           "appearance_count": 2,
-          "time_info": "[11时54分 ~ 11时55分]"
+          "time_info": "[11时33分 ~ 11时34分]"
+        },
+        {
+          "title": "现货黄金重返4300美元 美股稀土板块活跃走高 | 今夜看点",
+          "url": "https://www.cls.cn/detail/2174932",
+          "source": "财联社热门",
+          "ranks": [
+            5
+          ],
+          "is_new": false,
+          "appearance_count": 2,
+          "time_info": "[11时33分 ~ 11时34分]"
         }
       ]
     },
     {
       "keyword_group": "美元",
+      "match_count": 2,
+      "titles": [
+        {
+          "title": "美国股债汇齐涨，中概指数跑赢大盘，苹果涨近4%，黄金反弹创新高，比特币涨回11万美元",
+          "url": "https://wallstreetcn.com/articles/3757466",
+          "source": "华尔街见闻",
+          "ranks": [
+            1
+          ],
+          "is_new": false,
+          "appearance_count": 2,
+          "time_info": "[11时33分 ~ 11时34分]"
+        },
+        {
+          "title": "美贸协议乐观情绪推动亚股走高，日经225指数逼近5万关口，买入信号显现；现货黄金重回4300美元关口后，多头仍在观望，后市情绪如何？欢迎前往“数据库-嘉盛市场晴雨表”查看并订阅（数据每10分钟更新1次）",
+          "url": "https://flash.jin10.com/detail/20251021103630837800",
+          "source": "金十数据",
+          "ranks": [
+            16
+          ],
+          "is_new": true,
+          "appearance_count": 1,
+          "time_info": "11时34分"
+        }
+      ]
+    },
+    {
+      "keyword_group": "伊朗",
+      "match_count": 2,
+      "titles": [
+        {
+          "title": "伊朗称尚不具备与美谈判条件",
+          "url": "https://flash.jin10.com/detail/20251021101945997800",
+          "source": "金十数据",
+          "ranks": [
+            24
+          ],
+          "is_new": true,
+          "appearance_count": 1,
+          "time_info": "11时34分"
+        },
+        {
+          "title": "伊朗称尚不具备与美谈判条件",
+          "url": "https://wallstreetcn.com/livenews/2990959",
+          "source": "华尔街见闻-快讯",
+          "ranks": [
+            27
+          ],
+          "is_new": true,
+          "appearance_count": 1,
+          "time_info": "11时34分"
+        }
+      ]
+    },
+    {
+      "keyword_group": "谷歌 google gemini",
       "match_count": 1,
       "titles": [
         {
-          "title": "关键一周开启！日经225指数升至历史新高，日元显著走软，黄金一度跌至4220美元下方",
-          "url": "https://wallstreetcn.com/articles/3757466",
-          "source": "华尔街见闻",
+          "title": "为什么 Gemini 2.5pro 回答问题的时候 latex 格式总渲染不出数学公式的样子？",
+          "url": "https://www.zhihu.com/question/1917375398460781402",
+          "source": "知乎",
+          "ranks": [
+            10
+          ],
+          "is_new": true,
+          "appearance_count": 1,
+          "time_info": "11时34分"
+        }
+      ]
+    },
+    {
+      "keyword_group": "chatgpt openai",
+      "match_count": 1,
+      "titles": [
+        {
+          "title": "美国政府继续停摆 OpenAI收紧Sora监管｜环球市场",
+          "url": "https://www.cls.cn/detail/2175118",
+          "source": "财联社热门",
           "ranks": [
             9
           ],
           "is_new": false,
           "appearance_count": 2,
-          "time_info": "[11时54分 ~ 11时55分]"
+          "time_info": "[11时33分 ~ 11时34分]"
         }
       ]
     }
