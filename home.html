@@ -3,25 +3,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>投资热点 | TrendRadar</title>
+  <title>自建茧房 | TrendRadar</title>
   <link rel="icon" href="./img/trend-icon.png" />
-  <meta name="description" content="TrendRadar 投资热点自动追踪系统" />
+  <meta name="description" content="自建茧房 · 投资热点自动追踪系统" />
 
-  <!-- ====== 设计主题（亮/暗） ====== -->
   <style>
     :root{
-      --bg: #0b1018;           /* 页面背景（参考你给的报告图风格，默认偏深） */
-      --panel: #0f1622;        /* 卡片底色 */
-      --text: #e6edf6;         /* 主文字 */
-      --sub: #94a3b8;          /* 次级文字 */
-      --brand:#7aa2ff;         /* 品牌高亮色 */
-      --line:#253041;          /* 细分割线 */
+      --bg: #0b1018;
+      --panel: #0f1622;
+      --text: #e6edf6;
+      --sub: #94a3b8;
+      --brand:#7aa2ff;
+      --line:#253041;
       --shadow: 0 10px 24px rgba(0,0,0,.35);
-      --chip:#162238;          /* tag 胶囊 */
+      --chip:#162238;
       --chipText:#cbd5e1;
       --chipHover:#1a2a44;
-      --headerFg:#e6edf6;      /* 顶栏文字 */
-      --heroGrad: linear-gradient(180deg, rgba(12,18,30,.60) 0%, rgba(12,18,30,.90) 100%);
+      --headerFg:#e6edf6;
+      --heroGrad: linear-gradient(180deg, rgba(12,18,30,.50) 0%, rgba(12,18,30,.90) 100%);
     }
     .light{
       --bg:#f5f7fb;
@@ -43,25 +42,18 @@
     body{
       background:var(--bg);
       color:var(--text);
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, PingFang SC, Microsoft Yahei, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+      font-family:-apple-system, BlinkMacSystemFont, "PingFang SC","Microsoft YaHei", "Inter", sans-serif;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
 
-    /* ====== 顶栏 ====== */
     .topbar{
-      height:56px;
-      display:flex; align-items:center; justify-content:space-between;
-      padding:0 18px;
-      color:var(--headerFg);
-      border-bottom:1px solid var(--line);
-      position:sticky; top:0; z-index:50;
-      backdrop-filter: blur(6px);
+      height:56px; display:flex; align-items:center; justify-content:space-between;
+      padding:0 18px; color:var(--headerFg); border-bottom:1px solid var(--line);
+      position:sticky; top:0; z-index:50; backdrop-filter: blur(6px);
       background: rgba(12,18,30,.35);
     }
-    .brand{
-      display:flex; align-items:center; gap:10px; font-weight:700;
-    }
+    .brand{display:flex; align-items:center; gap:10px; font-weight:700;}
     .brand img{ width:22px; height:22px }
     .top-actions{ display:flex; align-items:center; gap:8px; color:var(--sub); }
     .btn{
@@ -70,102 +62,75 @@
     }
     .btn:hover{ background:rgba(255,255,255,.06) }
 
-    /* ====== Hero 横幅 ====== */
+    /* hero */
     .hero{
-      position:relative; overflow:hidden;
-      height:220px; border-bottom:1px solid var(--line);
-      background: url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=1920&auto=format&fit=crop') center/cover no-repeat;
+      position:relative; overflow:hidden; height:220px;
+      border-bottom:1px solid var(--line);
+      background:url('https://picx.zhimg.com/v2-53929aa63157aa2c5ff6fb2ecc22094b_r.jpg') center/cover no-repeat;
     }
-    .hero::after{
-      content:""; position:absolute; inset:0; background:var(--heroGrad);
-    }
+    .hero::after{content:"";position:absolute;inset:0;background:var(--heroGrad);}
     .hero-inner{
-      position:relative; z-index:1; height:100%;
-      display:flex; flex-direction:column; justify-content:flex-end;
+      position:relative;z-index:1;height:100%;
+      display:flex;flex-direction:column;justify-content:flex-end;
       padding:26px 22px 20px;
     }
-    .hero-title{
-      font-size:22px; font-weight:800; letter-spacing:.5px;
-    }
-    .hero-sub{ color:var(--sub); margin-top:6px; font-size:.92rem; }
+    .hero-title{font-size:22px;font-weight:800;letter-spacing:.5px;}
+    .hero-sub{color:var(--sub);margin-top:6px;font-size:.92rem;}
 
-    /* ====== 统计条 ====== */
     .stats{
-      display:grid; grid-template-columns:repeat(3, 1fr);
-      gap:12px; padding:14px 22px; background:transparent;
+      display:grid;grid-template-columns:repeat(3,1fr);gap:12px;
+      padding:14px 22px;background:transparent;
     }
     .stat{
-      background:var(--panel); border:1px solid var(--line); border-radius:14px;
-      box-shadow:var(--shadow); padding:14px 16px;
-      display:flex; align-items:center; justify-content:space-between;
+      background:var(--panel);border:1px solid var(--line);border-radius:14px;
+      box-shadow:var(--shadow);padding:14px 16px;
+      display:flex;align-items:center;justify-content:space-between;
     }
-    .stat h4{ margin:0; font-size:.92rem; color:var(--sub); font-weight:600 }
-    .stat b{ font-size:20px; color:var(--text) }
+    .stat h4{margin:0;font-size:.92rem;color:var(--sub);font-weight:600;}
+    .stat b{font-size:20px;color:var(--text);}
 
-    /* ====== 主体布局 ====== */
-    .container{ padding:18px 22px 40px; max-width:1200px; margin:0 auto; }
-    .grid{
-      display:grid; grid-template-columns:2.1fr 1fr; gap:18px;
-    }
+    .container{padding:18px 22px 40px;max-width:1200px;margin:0 auto;}
+    .grid{display:grid;grid-template-columns:2.1fr 1fr;gap:18px;}
 
     .card{
-      background:var(--panel); border:1px solid var(--line);
-      border-radius:14px; box-shadow:var(--shadow); overflow:hidden;
+      background:var(--panel);border:1px solid var(--line);
+      border-radius:14px;box-shadow:var(--shadow);overflow:hidden;
     }
     .card-hd{
-      display:flex; align-items:center; justify-content:space-between;
-      padding:14px 16px; border-bottom:1px solid var(--line);
+      display:flex;align-items:center;justify-content:space-between;
+      padding:14px 16px;border-bottom:1px solid var(--line);
     }
-    .card-hd h3{ margin:0; font-size:16px; font-weight:800; color:var(--brand) }
-    .card-bd{ padding:10px 12px 12px }
+    .card-hd h3{margin:0;font-size:16px;font-weight:800;color:var(--brand);}
+    .card-bd{padding:10px 12px 12px;}
 
-    /* ====== 新闻列表 ====== */
-    .news-item{
-      padding:12px 8px; border-bottom:1px solid var(--line);
-      display:flex; flex-direction:column; gap:6px;
-    }
-    .news-item:last-child{ border-bottom:none }
-    .news-title{
-      margin:0; font-size:15px; line-height:1.45;
-    }
-    .meta{
-      display:flex; gap:10px; flex-wrap:wrap; color:var(--sub);
-      font-size:.88rem;
-    }
-    .badge{
-      background:var(--chip); color:var(--chipText);
-      border:1px solid var(--line);
-      border-radius:999px; padding:2px 8px; font-size:.8rem;
-    }
+    .news-item{padding:12px 8px;border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:6px;}
+    .news-item:last-child{border-bottom:none;}
+    .news-title{margin:0;font-size:15px;line-height:1.45;}
+    .meta{display:flex;gap:10px;flex-wrap:wrap;color:var(--sub);font-size:.88rem;}
+    .badge{background:var(--chip);color:var(--chipText);border:1px solid var(--line);
+      border-radius:999px;padding:2px 8px;font-size:.8rem;}
 
-    /* ====== 关键词 ====== */
-    .chips{ display:flex; flex-wrap:wrap; gap:10px; }
+    .chips{display:flex;flex-wrap:wrap;gap:10px;}
     .chip{
-      background:var(--chip); border:1px solid var(--line);
-      color:var(--chipText); padding:8px 12px; border-radius:999px;
-      cursor:default; font-size:.92rem;
+      background:var(--chip);border:1px solid var(--line);color:var(--chipText);
+      padding:8px 12px;border-radius:999px;cursor:default;font-size:.92rem;
     }
-    .chip:hover{ background:var(--chipHover) }
+    .chip:hover{background:var(--chipHover);}
+    .footer{text-align:center;padding:28px 12px;color:var(--sub);font-size:.9rem;}
 
-    /* ====== 页脚 ====== */
-    .footer{
-      text-align:center; padding:28px 12px; color:var(--sub); font-size:.9rem;
-    }
-
-    @media (max-width: 980px){
-      .stats{ grid-template-columns:1fr; }
-      .grid{ grid-template-columns:1fr; }
-      .hero{ height:180px }
+    @media(max-width:980px){
+      .stats{grid-template-columns:1fr;}
+      .grid{grid-template-columns:1fr;}
+      .hero{height:180px;}
     }
   </style>
 </head>
 
 <body>
-  <!-- 顶部 -->
   <header class="topbar">
     <div class="brand">
       <img src="./img/trend-icon.png" alt="logo" />
-      <span>投资热点 | TrendRadar</span>
+      <span>自建茧房 | TrendRadar</span>
     </div>
     <div class="top-actions">
       <span id="uptime">更新中…</span>
@@ -173,181 +138,66 @@
     </div>
   </header>
 
-  <!-- 横幅 + 次级信息 -->
   <section class="hero">
     <div class="hero-inner">
-      <div class="hero-title">热点新闻分析 · 日报面板</div>
-      <div class="hero-sub">自动汇总全网趋势脉络 · 更快读懂市场</div>
+      <div class="hero-title">自建茧房 · 趋势洞察面板</div>
+      <div class="hero-sub">沉淀思考 · 守护专注 · 自动追踪全球信息脉络</div>
     </div>
   </section>
 
-  <!-- 统计条 -->
   <section class="stats">
-    <div class="stat">
-      <h4>报告类型</h4>
-      <b>当日汇总</b>
-    </div>
-    <div class="stat">
-      <h4>热点新闻</h4>
-      <b id="stat-news">—</b>
-    </div>
-    <div class="stat">
-      <h4>生成时间</h4>
-      <b id="stat-time">—</b>
-    </div>
+    <div class="stat"><h4>报告类型</h4><b>当日汇总</b></div>
+    <div class="stat"><h4>热点新闻</h4><b id="stat-news">—</b></div>
+    <div class="stat"><h4>生成时间</h4><b id="stat-time">—</b></div>
   </section>
 
-  <!-- 主体：两列布局（无热词热度趋势图） -->
   <main class="container">
     <div class="grid">
-      <!-- 左：重点趋势 -->
       <section class="card">
         <div class="card-hd"><h3>📌 今日重点趋势</h3></div>
         <div class="card-bd" id="newsList">
-          <!-- JS 注入 -->
-          <div class="news-item">
-            <p class="news-title">加载中…</p>
-            <div class="meta">
-              <span>来源：—</span><span>出现：—</span>
-            </div>
-          </div>
+          <div class="news-item"><p class="news-title">加载中…</p><div class="meta"><span>来源：—</span></div></div>
         </div>
       </section>
-
-      <!-- 右：关键词 -->
       <aside class="card">
         <div class="card-hd"><h3>🔥 热搜关键词</h3></div>
-        <div class="card-bd">
-          <div class="chips" id="kwChips">
-            <span class="chip">加载中…</span>
-          </div>
-        </div>
+        <div class="card-bd"><div class="chips" id="kwChips"><span class="chip">加载中…</span></div></div>
       </aside>
     </div>
   </main>
 
   <footer class="footer">
-    © 2025 TrendRadar · 数据源：华尔街见闻 · 新浪财经 · 百度指数
+    © 2025 自建茧房 | 数据源：华尔街见闻 · 新浪财经 · 百度指数
   </footer>
 
-  <!-- ====== 逻辑脚本（只读 /api/trends.json） ====== -->
   <script>
-    /* ========= 主题切换 ========= */
-    const keyTheme = "tr-theme";
-    const btn = document.getElementById("themeBtn");
-    const applyTheme = t => {
-      if(t === "light"){ document.documentElement.classList.add("light"); }
-      else{ document.documentElement.classList.remove("light"); }
-    };
-    (()=>{ applyTheme(localStorage.getItem(keyTheme) || "dark"); })();
-    btn.onclick = () => {
-      const isLight = document.documentElement.classList.contains("light");
-      const next = isLight ? "dark" : "light";
-      applyTheme(next);
-      localStorage.setItem(keyTheme, next);
-    };
+    const keyTheme="tr-theme";const btn=document.getElementById("themeBtn");
+    const applyTheme=t=>{t==="light"?document.documentElement.classList.add("light"):document.documentElement.classList.remove("light")};
+    (()=>{applyTheme(localStorage.getItem(keyTheme)||"dark")})();
+    btn.onclick=()=>{const isLight=document.documentElement.classList.contains("light");
+      const next=isLight?"dark":"light";applyTheme(next);localStorage.setItem(keyTheme,next)};
 
-    /* ========= 数据加载 ========= */
-    const newsEl = document.getElementById("newsList");
-    const kwEl = document.getElementById("kwChips");
-    const statNews = document.getElementById("stat-news");
-    const statTime = document.getElementById("stat-time");
-    const upEl = document.getElementById("uptime");
+    const newsEl=document.getElementById("newsList"),kwEl=document.getElementById("kwChips"),
+      statNews=document.getElementById("stat-news"),statTime=document.getElementById("stat-time"),upEl=document.getElementById("uptime");
+    const TRENDS_URL="/TrendRadar/api/trends.json";
 
-    // 只读 /api/trends.json
-    const TRENDS_URL = "/TrendRadar/api/trends.json";  // 若仓库根托管，该路径兼容 GitHub Pages 子路径
-
-    async function safeJSON(url){
-      try{
-        const r = await fetch(url, {cache:"no-store"});
-        if(!r.ok) throw new Error("status " + r.status);
-        return await r.json();
-      }catch(e){
-        console.error("fetch error =>", e);
-        return null;
-      }
+    async function safeJSON(u){try{const r=await fetch(u,{cache:"no-store"});if(!r.ok)throw 0;return await r.json()}catch{return null}}
+    function uniqBy(a,f){const m=new Map();a.forEach(x=>{const k=f(x);if(!m.has(k))m.set(k,x)});return[...m.values()]}
+    function renderEmpty(){newsEl.innerHTML=`<div class="news-item"><p class="news-title">暂无数据</p><div class="meta"><span>稍后再试或检查 /api/trends.json</span></div></div>`;
+      kwEl.innerHTML=`<span class="chip">暂无关键词</span>`;statNews.textContent="0 条";
+      const t=new Date().toLocaleString("zh-CN",{hour12:false});statTime.textContent=t;upEl.textContent="更新于 "+t}
+    function render(d){
+      const genAt=d.generated_at?new Date(d.generated_at):new Date();
+      const t=genAt.toLocaleString("zh-CN",{hour12:false});
+      statTime.textContent=t;upEl.textContent="更新于 "+t;
+      let items=[];(d.trends||[]).forEach(g=>(g.titles||[]).forEach(t=>{items.push({keyword_group:g.keyword_group||"",title:t.title||"",url:t.url||"",source:t.source||"",appearance:t.appearance_count||"",time_info:t.time_info||""})}));
+      items=uniqBy(items,x=>x.title).slice(0,30);statNews.textContent=(items.length||0)+" 条";
+      if(!items.length){renderEmpty();return;}
+      newsEl.innerHTML=items.map(n=>`<div class="news-item"><p class="news-title"><a href="${n.url}" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">${n.title.replace(/</g,"&lt;")}</a></p><div class="meta"><span>来源：${n.source||"未知"}</span>${n.appearance?`<span>出现：${n.appearance}次</span>`:""}${n.keyword_group?`<span class="badge">${n.keyword_group}</span>`:""}</div></div>`).join("");
+      const kws=uniqBy((d.trends||[]).map(g=>g.keyword_group).filter(Boolean),x=>x);
+      kwEl.innerHTML=kws.length?kws.slice(0,24).map(k=>`<span class="chip">${k}</span>`).join(""):`<span class="chip">暂无关键词</span>`;
     }
-
-    function uniqBy(arr, getKey){
-      const m = new Map();
-      arr.forEach(x => {
-        const k = getKey(x);
-        if(!m.has(k)) m.set(k, x);
-      });
-      return Array.from(m.values());
-    }
-
-    function renderEmpty(){
-      newsEl.innerHTML = `
-        <div class="news-item">
-          <p class="news-title">暂无数据</p>
-          <div class="meta"><span>稍后再试或检查 /api/trends.json</span></div>
-        </div>`;
-      kwEl.innerHTML = `<span class="chip">暂无关键词</span>`;
-      statNews.textContent = "0 条";
-      const t = new Date().toLocaleString("zh-CN",{hour12:false});
-      statTime.textContent = t;
-      upEl.textContent = "更新于 " + t;
-    }
-
-    function render(data){
-      // 统计
-      const genAt = data.generated_at ? new Date(data.generated_at) : new Date();
-      const genText = genAt.toLocaleString("zh-CN",{hour12:false});
-      statTime.textContent = genText;
-      upEl.textContent = "更新于 " + genText;
-
-      // 扁平化 titles
-      let items = [];
-      (data.trends || []).forEach(g => {
-        (g.titles || []).forEach(t => {
-          items.push({
-            keyword_group: g.keyword_group || "",
-            title: t.title || "",
-            url: t.url || "",
-            source: t.source || "",
-            appearance: t.appearance_count || t.appearence_count || t.appearance || "",
-            time_info: t.time_info || "",
-          });
-        });
-      });
-
-      // 去重，取前 30
-      items = uniqBy(items, x => x.title).slice(0, 30);
-      statNews.textContent = (items.length || 0) + " 条";
-
-      // 渲染列表
-      if(!items.length){ renderEmpty(); return; }
-      newsEl.innerHTML = items.map(n => `
-        <div class="news-item">
-          <p class="news-title">
-            <a href="${n.url}" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">
-              ${n.title.replace(/</g,"&lt;")}
-            </a>
-          </p>
-          <div class="meta">
-            <span>来源：${n.source || "未知"}</span>
-            ${n.appearance ? `<span>出现：${n.appearance}次</span>` : ``}
-            ${n.time_info ? `<span>${n.time_info}</span>` : ``}
-            ${n.keyword_group ? `<span class="badge">${n.keyword_group}</span>` : ``}
-          </div>
-        </div>
-      `).join("");
-
-      // 关键词 chips
-      const kws = uniqBy((data.trends || []).map(g => g.keyword_group).filter(Boolean), x=>x);
-      if(!kws.length){
-        kwEl.innerHTML = `<span class="chip">暂无关键词</span>`;
-      }else{
-        kwEl.innerHTML = kws.slice(0, 24).map(k => `<span class="chip">${k}</span>`).join("");
-      }
-    }
-
-    (async ()=>{
-      const data = await safeJSON(TRENDS_URL);
-      if(!data){ renderEmpty(); return; }
-      render(data);
-    })();
+    (async()=>{const d=await safeJSON(TRENDS_URL);if(!d){renderEmpty();return;}render(d)})();
   </script>
 </body>
 </html>
