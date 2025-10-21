@@ -1,129 +1,114 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>自建茧房 | TrendRadar</title>
-  <link rel="icon" href="./img/trend-icon.png" />
-  <meta name="description" content="自建茧房 · 投资热点自动追踪系统" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>自建茧房 | TrendRadar</title>
+<link rel="icon" href="./img/trend-icon.png" />
+<meta name="description" content="自建茧房 · 趋势洞察面板" />
 
-  <style>
-    :root{
-      --bg: #0b1018;
-      --panel: #0f1622;
-      --text: #e6edf6;
-      --sub: #94a3b8;
-      --brand:#7aa2ff;
-      --line:#253041;
-      --shadow: 0 10px 24px rgba(0,0,0,.35);
-      --chip:#162238;
-      --chipText:#cbd5e1;
-      --chipHover:#1a2a44;
-      --headerFg:#e6edf6;
-      --heroGrad: linear-gradient(180deg, rgba(12,18,30,.50) 0%, rgba(12,18,30,.90) 100%);
-    }
-    .light{
-      --bg:#f5f7fb;
-      --panel:#ffffff;
-      --text:#0f172a;
-      --sub:#6b7280;
-      --brand:#2563eb;
-      --line:#e5e7eb;
-      --shadow: 0 10px 24px rgba(16,24,40,.08);
-      --chip:#f1f5f9;
-      --chipText:#1f2937;
-      --chipHover:#e2e8f0;
-      --headerFg:#0f172a;
-      --heroGrad: linear-gradient(180deg, rgba(255,255,255,.10) 0%, rgba(255,255,255,.80) 100%);
-    }
+<style>
+  :root{
+    --bg:#0b1018; --panel:#0f1622; --text:#e6edf6; --sub:#94a3b8;
+    --brand:#7aa2ff; --line:#253041; --chip:#162238; --chipText:#cbd5e1;
+  }
+  .light{
+    --bg:#f5f7fb; --panel:#ffffff; --text:#0f172a; --sub:#6b7280;
+    --brand:#2563eb; --line:#e5e7eb; --chip:#eff4fb; --chipText:#1f2937;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    background:var(--bg); color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Inter",sans-serif;
+    -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+  }
 
-    *{ box-sizing:border-box; }
-    html,body{ margin:0; padding:0; }
-    body{
-      background:var(--bg);
-      color:var(--text);
-      font-family:-apple-system, BlinkMacSystemFont, "PingFang SC","Microsoft YaHei", "Inter", sans-serif;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
+  /* ===== 顶栏变为渐隐，不再是硬分割线 ===== */
+  .topbar{
+    height:56px; display:flex; align-items:center; justify-content:space-between;
+    padding:0 18px; color:var(--text); position:sticky; top:0; z-index:50;
+    background:linear-gradient(180deg, rgba(8,12,20,.55), rgba(8,12,20,.10) 60%, transparent);
+    backdrop-filter:blur(6px);
+  }
+  .brand{display:flex;align-items:center;gap:10px;font-weight:700}
+  .brand img{width:22px;height:22px}
+  .btn{
+    border:1px solid rgba(255,255,255,.12); background:transparent; color:var(--text);
+    padding:6px 10px; border-radius:10px; cursor:pointer; font-size:.92rem;
+  }
+  .btn:hover{background:rgba(255,255,255,.06)}
 
-    .topbar{
-      height:56px; display:flex; align-items:center; justify-content:space-between;
-      padding:0 18px; color:var(--headerFg); border-bottom:1px solid var(--line);
-      position:sticky; top:0; z-index:50; backdrop-filter: blur(6px);
-      background: rgba(12,18,30,.35);
-    }
-    .brand{display:flex; align-items:center; gap:10px; font-weight:700;}
-    .brand img{ width:22px; height:22px }
-    .top-actions{ display:flex; align-items:center; gap:8px; color:var(--sub); }
-    .btn{
-      border:1px solid var(--line); background:transparent; color:var(--headerFg);
-      padding:6px 10px; border-radius:10px; cursor:pointer; font-size:.92rem;
-    }
-    .btn:hover{ background:rgba(255,255,255,.06) }
+  /* ===== 顶部大图：底部渐变消失 + 玻璃信息条压在图上 ===== */
+  .hero{
+    position:relative; height:260px; overflow:hidden;
+    background:url('https://picx.zhimg.com/v2-53929aa63157aa2c5ff6fb2ecc22094b_r.jpg') center/cover no-repeat;
+  }
+  /* 底部渐隐到页面背景（无硬线） */
+  .hero::after{
+    content:""; position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(12,18,30,.25) 0%, rgba(12,18,30,.55) 55%, rgba(12,18,30,0) 100%);
+    pointer-events:none;
+  }
+  /* 再用 mask 做“消失边缘”，不同浏览器兜底 */
+  .hero{ -webkit-mask-image:linear-gradient(to bottom, rgba(0,0,0,1) 72%, rgba(0,0,0,0) 100%);
+         mask-image:linear-gradient(to bottom, rgba(0,0,0,1) 72%, rgba(0,0,0,0) 100%); }
 
-    /* hero */
-    .hero{
-      position:relative; overflow:hidden; height:220px;
-      border-bottom:1px solid var(--line);
-      background:url('https://picx.zhimg.com/v2-53929aa63157aa2c5ff6fb2ecc22094b_r.jpg') center/cover no-repeat;
-    }
-    .hero::after{content:"";position:absolute;inset:0;background:var(--heroGrad);}
-    .hero-inner{
-      position:relative;z-index:1;height:100%;
-      display:flex;flex-direction:column;justify-content:flex-end;
-      padding:26px 22px 20px;
-    }
-    .hero-title{font-size:22px;font-weight:800;letter-spacing:.5px;}
-    .hero-sub{color:var(--sub);margin-top:6px;font-size:.92rem;}
+  .hero-inner{
+    position:relative; z-index:1; height:100%;
+    display:flex; flex-direction:column; justify-content:flex-end;
+    padding:26px 22px 96px; /* 预留底部信息条高度 */
+  }
+  .hero-title{font-size:22px;font-weight:800;letter-spacing:.5px}
+  .hero-sub{color:var(--sub);margin-top:6px;font-size:.92rem}
 
-    .stats{
-      display:grid;grid-template-columns:repeat(3,1fr);gap:12px;
-      padding:14px 22px;background:transparent;
-    }
-    .stat{
-      background:var(--panel);border:1px solid var(--line);border-radius:14px;
-      box-shadow:var(--shadow);padding:14px 16px;
-      display:flex;align-items:center;justify-content:space-between;
-    }
-    .stat h4{margin:0;font-size:.92rem;color:var(--sub);font-weight:600;}
-    .stat b{font-size:20px;color:var(--text);}
+  /* ===== 两条“长条”做玻璃拟态，悬浮在图片上 ===== */
+  .floating-bars{
+    position:absolute; left:22px; right:22px; bottom:22px; z-index:2;
+    display:grid; grid-template-columns:2fr 1fr 1fr; gap:12px;
+  }
+  .glass{
+    background:rgba(15,22,34,.52);
+    border:1px solid rgba(255,255,255,.12);
+    box-shadow:0 8px 20px rgba(0,0,0,.28);
+    backdrop-filter:blur(8px);
+    color:var(--text); border-radius:14px; padding:12px 14px;
+    display:flex; align-items:center; justify-content:space-between;
+    min-height:44px;
+  }
+  .glass h4{margin:0;font-size:.92rem;color:var(--sub);font-weight:600}
+  .glass b{font-size:18px}
 
-    .container{padding:18px 22px 40px;max-width:1200px;margin:0 auto;}
-    .grid{display:grid;grid-template-columns:2.1fr 1fr;gap:18px;}
+  /* 内容容器向上叠一点，配合 hero 渐隐无缝衔接 */
+  .container{padding:0 22px 40px;max-width:1200px;margin:-36px auto 0}
+  .grid{display:grid;grid-template-columns:2.1fr 1fr;gap:18px}
 
-    .card{
-      background:var(--panel);border:1px solid var(--line);
-      border-radius:14px;box-shadow:var(--shadow);overflow:hidden;
-    }
-    .card-hd{
-      display:flex;align-items:center;justify-content:space-between;
-      padding:14px 16px;border-bottom:1px solid var(--line);
-    }
-    .card-hd h3{margin:0;font-size:16px;font-weight:800;color:var(--brand);}
-    .card-bd{padding:10px 12px 12px;}
+  .card{
+    background:var(--panel); border:1px solid var(--line);
+    border-radius:14px; box-shadow:0 8px 20px rgba(0,0,0,.22); overflow:hidden;
+  }
+  .card-hd{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--line)}
+  .card-hd h3{margin:0;font-size:16px;font-weight:800;color:var(--brand)}
+  .card-bd{padding:10px 12px 12px}
+  .news-item{padding:12px 8px;border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:6px}
+  .news-item:last-child{border-bottom:none}
+  .news-title{margin:0;font-size:15px;line-height:1.45}
+  .meta{display:flex;gap:10px;flex-wrap:wrap;color:var(--sub);font-size:.88rem}
+  .badge{background:var(--chip);color:var(--chipText);border:1px solid var(--line);
+         border-radius:999px;padding:2px 8px;font-size:.8rem}
+  .chips{display:flex;flex-wrap:wrap;gap:10px}
+  .chip{background:var(--chip);border:1px solid var(--line);color:var(--chipText);
+        padding:8px 12px;border-radius:999px;font-size:.92rem}
+  .chip:hover{background:#1a2a44}
+  .footer{text-align:center;padding:28px 12px;color:var(--sub);font-size:.9rem}
 
-    .news-item{padding:12px 8px;border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:6px;}
-    .news-item:last-child{border-bottom:none;}
-    .news-title{margin:0;font-size:15px;line-height:1.45;}
-    .meta{display:flex;gap:10px;flex-wrap:wrap;color:var(--sub);font-size:.88rem;}
-    .badge{background:var(--chip);color:var(--chipText);border:1px solid var(--line);
-      border-radius:999px;padding:2px 8px;font-size:.8rem;}
-
-    .chips{display:flex;flex-wrap:wrap;gap:10px;}
-    .chip{
-      background:var(--chip);border:1px solid var(--line);color:var(--chipText);
-      padding:8px 12px;border-radius:999px;cursor:default;font-size:.92rem;
-    }
-    .chip:hover{background:var(--chipHover);}
-    .footer{text-align:center;padding:28px 12px;color:var(--sub);font-size:.9rem;}
-
-    @media(max-width:980px){
-      .stats{grid-template-columns:1fr;}
-      .grid{grid-template-columns:1fr;}
-      .hero{height:180px;}
-    }
-  </style>
+  @media(max-width:980px){
+    .floating-bars{grid-template-columns:1fr;gap:10px}
+    .hero-inner{padding:22px 16px 120px}
+    .container{margin:-28px auto 0}
+    .grid{grid-template-columns:1fr}
+  }
+</style>
 </head>
 
 <body>
@@ -132,7 +117,7 @@
       <img src="./img/trend-icon.png" alt="logo" />
       <span>自建茧房 | TrendRadar</span>
     </div>
-    <div class="top-actions">
+    <div>
       <span id="uptime">更新中…</span>
       <button class="btn" id="themeBtn">切换主题</button>
     </div>
@@ -143,12 +128,13 @@
       <div class="hero-title">自建茧房 · 趋势洞察面板</div>
       <div class="hero-sub">沉淀思考 · 守护专注 · 自动追踪全球信息脉络</div>
     </div>
-  </section>
 
-  <section class="stats">
-    <div class="stat"><h4>报告类型</h4><b>当日汇总</b></div>
-    <div class="stat"><h4>热点新闻</h4><b id="stat-news">—</b></div>
-    <div class="stat"><h4>生成时间</h4><b id="stat-time">—</b></div>
+    <!-- 两个“长条” + 数量条 融合在图上 -->
+    <div class="floating-bars">
+      <div class="glass"><h4>报告类型</h4><b>当日汇总</b></div>
+      <div class="glass"><h4>热点新闻</h4><b id="stat-news">—</b></div>
+      <div class="glass"><h4>生成时间</h4><b id="stat-time">—</b></div>
+    </div>
   </section>
 
   <main class="container">
@@ -159,6 +145,7 @@
           <div class="news-item"><p class="news-title">加载中…</p><div class="meta"><span>来源：—</span></div></div>
         </div>
       </section>
+
       <aside class="card">
         <div class="card-hd"><h3>🔥 热搜关键词</h3></div>
         <div class="card-bd"><div class="chips" id="kwChips"><span class="chip">加载中…</span></div></div>
@@ -170,34 +157,49 @@
     © 2025 自建茧房 | 数据源：华尔街见闻 · 新浪财经 · 百度指数
   </footer>
 
-  <script>
-    const keyTheme="tr-theme";const btn=document.getElementById("themeBtn");
-    const applyTheme=t=>{t==="light"?document.documentElement.classList.add("light"):document.documentElement.classList.remove("light")};
-    (()=>{applyTheme(localStorage.getItem(keyTheme)||"dark")})();
-    btn.onclick=()=>{const isLight=document.documentElement.classList.contains("light");
-      const next=isLight?"dark":"light";applyTheme(next);localStorage.setItem(keyTheme,next)};
+<script>
+  /* 主题切换 */
+  const KEY="tr-theme",btn=document.getElementById("themeBtn");
+  const apply=t=>{t==="light"?document.documentElement.classList.add("light")
+                         :document.documentElement.classList.remove("light")};
+  apply(localStorage.getItem(KEY)||"dark");
+  btn.onclick=()=>{const n=document.documentElement.classList.contains("light")?"dark":"light";
+                   apply(n);localStorage.setItem(KEY,n)}
 
-    const newsEl=document.getElementById("newsList"),kwEl=document.getElementById("kwChips"),
-      statNews=document.getElementById("stat-news"),statTime=document.getElementById("stat-time"),upEl=document.getElementById("uptime");
-    const TRENDS_URL="/TrendRadar/api/trends.json";
+  /* 数据渲染 */
+  const newsEl=document.getElementById("newsList"),
+        kwEl=document.getElementById("kwChips"),
+        statNews=document.getElementById("stat-news"),
+        statTime=document.getElementById("stat-time"),
+        upEl=document.getElementById("uptime");
+  const TRENDS_URL="/TrendRadar/api/trends.json";
 
-    async function safeJSON(u){try{const r=await fetch(u,{cache:"no-store"});if(!r.ok)throw 0;return await r.json()}catch{return null}}
-    function uniqBy(a,f){const m=new Map();a.forEach(x=>{const k=f(x);if(!m.has(k))m.set(k,x)});return[...m.values()]}
-    function renderEmpty(){newsEl.innerHTML=`<div class="news-item"><p class="news-title">暂无数据</p><div class="meta"><span>稍后再试或检查 /api/trends.json</span></div></div>`;
-      kwEl.innerHTML=`<span class="chip">暂无关键词</span>`;statNews.textContent="0 条";
-      const t=new Date().toLocaleString("zh-CN",{hour12:false});statTime.textContent=t;upEl.textContent="更新于 "+t}
-    function render(d){
-      const genAt=d.generated_at?new Date(d.generated_at):new Date();
-      const t=genAt.toLocaleString("zh-CN",{hour12:false});
-      statTime.textContent=t;upEl.textContent="更新于 "+t;
-      let items=[];(d.trends||[]).forEach(g=>(g.titles||[]).forEach(t=>{items.push({keyword_group:g.keyword_group||"",title:t.title||"",url:t.url||"",source:t.source||"",appearance:t.appearance_count||"",time_info:t.time_info||""})}));
-      items=uniqBy(items,x=>x.title).slice(0,30);statNews.textContent=(items.length||0)+" 条";
-      if(!items.length){renderEmpty();return;}
-      newsEl.innerHTML=items.map(n=>`<div class="news-item"><p class="news-title"><a href="${n.url}" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">${n.title.replace(/</g,"&lt;")}</a></p><div class="meta"><span>来源：${n.source||"未知"}</span>${n.appearance?`<span>出现：${n.appearance}次</span>`:""}${n.keyword_group?`<span class="badge">${n.keyword_group}</span>`:""}</div></div>`).join("");
-      const kws=uniqBy((d.trends||[]).map(g=>g.keyword_group).filter(Boolean),x=>x);
-      kwEl.innerHTML=kws.length?kws.slice(0,24).map(k=>`<span class="chip">${k}</span>`).join(""):`<span class="chip">暂无关键词</span>`;
-    }
-    (async()=>{const d=await safeJSON(TRENDS_URL);if(!d){renderEmpty();return;}render(d)})();
-  </script>
+  async function j(u){try{const r=await fetch(u,{cache:"no-store"});if(!r.ok)throw 0;return await r.json()}catch{return null}}
+  function uniq(arr,by){const m=new Map();arr.forEach(x=>{const k=by(x);if(!m.has(k))m.set(k,x)});return[...m.values()]}
+  function empty(){
+    newsEl.innerHTML=`<div class="news-item"><p class="news-title">暂无数据</p><div class="meta"><span>检查 /api/trends.json</span></div></div>`;
+    kwEl.innerHTML=`<span class="chip">暂无关键词</span>`; statNews.textContent="0 条";
+    const t=new Date().toLocaleString("zh-CN",{hour12:false}); statTime.textContent=t; upEl.textContent="更新于 "+t;
+  }
+  function render(d){
+    const t=d.generated_at?new Date(d.generated_at):new Date();
+    const ts=t.toLocaleString("zh-CN",{hour12:false}); statTime.textContent=ts; upEl.textContent="更新于 "+ts;
+
+    let items=[]; (d.trends||[]).forEach(g=>(g.titles||[]).forEach(t=>{
+      items.push({k:g.keyword_group||"", title:t.title||"", url:t.url||"", src:t.source||"", cnt:t.appearance_count||""})
+    }));
+    items=uniq(items,x=>x.title).slice(0,30); statNews.textContent=(items.length||0)+" 条";
+    if(!items.length){empty();return;}
+    newsEl.innerHTML=items.map(n=>`<div class="news-item">
+      <p class="news-title"><a href="${n.url}" target="_blank" rel="noopener" style="color:inherit;text-decoration:none">${n.title.replace(/</g,"&lt;")}</a></p>
+      <div class="meta"><span>来源：${n.src||"未知"}</span>${n.cnt?`<span>出现：${n.cnt}次</span>`:""}${n.k?`<span class="badge">${n.k}</span>`:""}</div>
+    </div>`).join("");
+
+    const kws=uniq((d.trends||[]).map(g=>g.keyword_group).filter(Boolean),x=>x);
+    kwEl.innerHTML=kws.length?kws.slice(0,24).map(k=>`<span class="chip">${k}</span>`).join("")
+                       :`<span class="chip">暂无关键词</span>`;
+  }
+  (async()=>{const d=await j(TRENDS_URL); if(!d){empty();return;} render(d)})();
+</script>
 </body>
 </html>
