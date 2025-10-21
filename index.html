@@ -1,239 +1,46 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>投资热点 | TrendRadar</title>
-  <link rel="icon" href="./img/trend-icon.png" />
-  <meta name="description" content="TrendRadar 投资热点自动追踪系统" />
-
-  <style>
-    :root{
-      --bg: #f5f7fa;
-      --card: #ffffff;
-      --text: #1f2d3d;
-      --subtext:#6b7280;
-      --brand:#2563eb;
-      --muted:#eef2f7;
-      --shadow: 0 2px 12px rgba(0,0,0,.06);
-      --header:#0f172a; --headerText:#fff;
-      --chip:#f1f5f9; --chipHover:#e2e8f0; --chipText:#1f2937;
-      --border:#e5e7eb;
-    }
-    .dark{
-      --bg:#0b1018;
-      --card:#0f1622;
-      --text:#e5e7eb;
-      --subtext:#9aa4b2;
-      --brand:#4f8cff;
-      --muted:#0b121c;
-      --shadow: 0 2px 14px rgba(0,0,0,.35);
-      --header:#070b12; --headerText:#e5e7eb;
-      --chip:#101827; --chipHover:#122036; --chipText:#cbd5e1;
-      --border:#213044;
-    }
-
-    *{box-sizing:border-box}
-    body{
-      font-family: "Inter","PingFang SC","Microsoft Yahei",sans-serif;
-      margin:0; background:var(--bg); color:var(--text);
-    }
-
-    .header{
-      background:var(--header); color:var(--headerText);
-      padding:12px 20px; display:flex; align-items:center; justify-content:space-between;
-      position:sticky; top:0; z-index:10; box-shadow:var(--shadow);
-    }
-    .header-left{display:flex; align-items:center; gap:10px; font-weight:700;}
-    .logo{width:28px; height:28px}
-    .update-time{font-size:.9rem; color:var(--subtext)}
-    .actions{display:flex; align-items:center; gap:10px}
-    .btn{
-      border:1px solid var(--border); background:transparent; color:var(--headerText);
-      padding:6px 10px; border-radius:8px; cursor:pointer; font-size:.9rem;
-    }
-    .btn:hover{background:rgba(255,255,255,.06)}
-    .btn:active{transform:translateY(1px)}
-
-    .container{
-      max-width:1100px; margin:32px auto; padding:0 18px;
-      display:grid; grid-template-columns:2fr 1fr; gap:22px;
-    }
-    .card{
-      background:var(--card); border-radius:12px; box-shadow:var(--shadow); padding:22px;
-      border:1px solid var(--border);
-    }
-    h2{
-      margin:0 0 16px; font-size:1.1rem; color:var(--brand);
-      border-left:4px solid var(--brand); padding-left:10px;
-    }
-
-    .keywords{display:flex; flex-wrap:wrap; gap:8px}
-    .keywords span{
-      background:var(--chip); color:var(--chipText); padding:6px 12px; border-radius:999px;
-      border:1px solid var(--border); cursor:pointer; transition:.15s;
-      user-select:none; font-size:.9rem;
-    }
-    .keywords span:hover{background:var(--chipHover)}
-
-    .chart-wrap{height:280px}
-
-    .footer{ text-align:center; color:var(--subtext); padding:24px 10px; font-size:.88rem }
-
-    @media (max-width:860px){
-      .container{grid-template-columns:1fr; gap:18px}
-      .chart-wrap{height:240px}
-    }
-  </style>
-</head>
-<body>
-  <header class="header">
-    <div class="header-left">
-      <img src="./img/trend-icon.png" class="logo" alt="logo"/>
-      <div>投资热点 | TrendRadar</div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>自建茧房 · 趋势洞察面板</title>
+    <meta http-equiv="refresh" content="0; url=home.html" />
+    <style>
+      body {
+        font-family: "Inter", "PingFang SC", "Microsoft Yahei", sans-serif;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        background: #f5f7fa;
+        color: #1f2d3d;
+        margin: 0;
+      }
+      .msg {
+        text-align: center;
+      }
+      h1 {
+        font-size: 1.6rem;
+        margin-bottom: 8px;
+        color: #2563eb;
+      }
+      p {
+        font-size: 1rem;
+        color: #6b7280;
+      }
+      a {
+        color: #2563eb;
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="msg">
+      <h1>正在加载自建茧房仪表盘...</h1>
+      <p>若未自动跳转，请 <a href="home.html">点击这里访问 home.html</a></p>
     </div>
-    <div class="actions">
-      <div class="update-time" id="update-time">加载中...</div>
-      <button class="btn" id="theme-toggle" aria-label="切换主题">🌙 暗黑</button>
-    </div>
-  </header>
-
-  <main class="container">
-    <!-- 使用 iframe 显示日报，防止样式冲突 -->
-    <section class="card" id="trend-content">
-      <h2>📈 今日重点趋势</h2>
-      <iframe id="report-frame"
-              title="当日热点"
-              style="width:100%;border:0;border-radius:8px; background:transparent; min-height: 1200px;"
-              loading="lazy"></iframe>
-      <div class="source" id="report-note">正在加载日报…</div>
-    </section>
-
-    <section class="card">
-      <h2>🔥 热搜关键词</h2>
-      <div class="keywords" id="kw">
-        <span>人工智能</span><span>台积电</span><span>碳中和</span>
-        <span>ChatGPT</span><span>光伏</span><span>新能源</span><span>苹果</span>
-      </div>
-    </section>
-
-    <section class="card">
-      <h2>📊 热词热度趋势</h2>
-      <div class="chart-wrap"><canvas id="hotChart"></canvas></div>
-      <div class="source" id="chart-note">数据加载中…</div>
-    </section>
-  </main>
-
-  <footer class="footer">
-    © 2025 TrendRadar | 数据来源：华尔街见闻 · 新浪财经 · 百度指数
-  </footer>
-
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
-
-  <script>
-    // 更新时间
-    const upEl = document.getElementById("update-time");
-    upEl.textContent = "更新于 " + new Date().toLocaleString("zh-CN", {hour12:false});
-
-    // 主题切换
-    const keyTheme = "tr-theme";
-    const toggleBtn = document.getElementById("theme-toggle");
-    const applyTheme = (t) => {
-      if(t==="dark"){ document.documentElement.classList.add("dark"); toggleBtn.textContent="☀️ 亮色"; }
-      else { document.documentElement.classList.remove("dark"); toggleBtn.textContent="🌙 暗黑"; }
-    };
-    (()=>{ 
-      const saved = localStorage.getItem(keyTheme);
-      if(saved){ applyTheme(saved); }
-      else{
-        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-        applyTheme(prefersDark?"dark":"light");
-      }
-    })();
-    toggleBtn.onclick = () => {
-      const nowDark = document.documentElement.classList.contains("dark");
-      const next = nowDark ? "light":"dark";
-      applyTheme(next); localStorage.setItem(keyTheme,next);
-      if(chart){ chart.update(); }
-    };
-
-    // 获取CSS变量
-    const getCss = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
-    const cacheBust = () => `?v=${Date.now()}`;
-
-    // 加载日报 iframe
-    async function loadLatestReport(){
-      const note = document.getElementById("report-note");
-      const frame = document.getElementById("report-frame");
-      try{
-        const resp = await fetch("./output/");
-        const html = await resp.text();
-        const m = [...html.matchAll(/href="(\d{8,}|20\d{4}年\d{1,2}月\d{1,2}日)\/"/g)];
-        if(!m.length){ note.textContent = "未找到日报目录"; return; }
-        const latest = m[m.length-1][1];
-        const src = `./output/${latest}/html/当日热点.html${cacheBust()}`;
-        frame.src = src;
-        note.textContent = `数据源：${src}`;
-        frame.onload = () => {
-          try{
-            const h = frame.contentDocument?.body?.scrollHeight || 0;
-            if(h > 0) frame.style.minHeight = Math.min(h + 20, 4000) + "px";
-          }catch(_){} 
-        };
-      }catch(e){
-        note.textContent = "加载日报失败";
-      }
-    }
-    loadLatestReport();
-
-    // 加载 metrics.json
-    async function loadMetrics(){
-      const note = document.getElementById("chart-note");
-      let data;
-      try{
-        const r = await fetch(`/TrendRadar/api/metrics.json${cacheBust()}`);
-        if(r.ok){ data = await r.json(); note.textContent = "数据源：/api/metrics.json"; }
-      }catch(e){}
-
-      if(!data){
-        data = {
-          labels:["09:30","10:00","10:30","11:00","13:00","14:00","14:30","15:00"],
-          series:[
-            {name:"人工智能", data:[12,18,25,27,30,28,35,40]},
-            {name:"光伏", data:[8,12,14,18,20,22,21,24]},
-            {name:"台积电", data:[10,11,13,15,16,18,19,22]}
-          ]
-        };
-        note.textContent = "数据源：示例（未检测到 /api/metrics.json）";
-      }
-      renderChart(data);
-    }
-
-    // 绘图
-    let chart;
-    function renderChart(dataset){
-      const ctx = document.getElementById("hotChart");
-      const colors = ["#4f8cff","#22c55e","#f59e0b","#ef4444","#a78bfa"];
-      const ds = dataset.series.map((s,i)=>({
-        label:s.name, data:s.data, borderColor:colors[i%colors.length],
-        backgroundColor:"transparent", tension:.25, borderWidth:2, pointRadius:2
-      }));
-      chart && chart.destroy();
-      chart = new Chart(ctx,{
-        type:"line",
-        data:{ labels:dataset.labels, datasets:ds },
-        options:{
-          responsive:true, maintainAspectRatio:false,
-          scales:{
-            x:{ ticks:{ color:getCss('--subtext') }, grid:{display:false} },
-            y:{ ticks:{ color:getCss('--subtext') }, grid:{ color:getCss('--border') } }
-          },
-          plugins:{ legend:{ labels:{ color:getCss('--text') } } }
-        }
-      });
-    }
-
-    loadMetrics();
-  </script>
-</body>
+  </body>
 </html>
