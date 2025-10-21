@@ -6,7 +6,6 @@
 <title>自建茧房 | TrendRadar</title>
 <link rel="icon" href="./img/trend-icon.png" />
 <meta name="description" content="自建茧房 · 趋势洞察面板" />
-
 <style>
   :root{
     --bg:#0b1018; --panel:#0f1622; --text:#e6edf6; --sub:#94a3b8;
@@ -25,11 +24,11 @@
     overflow-x:hidden;
   }
 
-  /* ===== 背景固定可见 ===== */
+  /* 背景固定可见 */
   .hero-bg{
     position:fixed; top:0; left:0; width:100%; height:300px;
     background:url('https://picx.zhimg.com/v2-53929aa63157aa2c5ff6fb2ecc22094b_r.jpg') center/cover no-repeat;
-    z-index:-1;
+    z-index:-2;
   }
   .hero-overlay{
     position:fixed; top:0; left:0; width:100%; height:300px;
@@ -37,13 +36,7 @@
     z-index:-1;
   }
 
-  .hero-title{
-    position:fixed; top:120px; left:50%; transform:translateX(-50%);
-    text-align:center; color:#fff; z-index:10;
-  }
-  .hero-title h1{margin:0;font-size:26px;font-weight:800;}
-  .hero-title p{margin-top:6px;font-size:.95rem;color:#d1d5db;}
-
+  /* 顶部条：去掉图标，只保留文字 */
   .topbar{
     position:fixed; top:0; left:0; right:0;
     height:56px; display:flex; align-items:center; justify-content:space-between;
@@ -51,16 +44,27 @@
     background:linear-gradient(180deg, rgba(8,12,20,.55), rgba(8,12,20,.1) 70%, transparent);
     backdrop-filter:blur(6px);
   }
-  .brand{display:flex;align-items:center;gap:10px;font-weight:700}
-  .brand img{width:22px;height:22px}
+  .brand{font-weight:800}
+
   .btn{
     border:1px solid rgba(255,255,255,.15); background:transparent; color:#fff;
     padding:6px 10px; border-radius:10px; cursor:pointer; font-size:.9rem;
   }
   .btn:hover{background:rgba(255,255,255,.1)}
 
-  /* 内容区 */
+  /* 中间标语：降低层级，不遮盖内容 */
+  .hero-title{
+    position:fixed; top:120px; left:50%; transform:translateX(-50%);
+    text-align:center; color:#fff;
+    z-index:1;                /* 内容将盖在其上 */
+    pointer-events:none;      /* 不拦截点击/滚动 */
+  }
+  .hero-title h1{margin:0;font-size:26px;font-weight:800;}
+  .hero-title p{margin-top:6px;font-size:.95rem;color:#d1d5db;}
+
+  /* 内容区在上层 */
   main{
+    position:relative; z-index:2;  /* 高于标语 */
     margin-top:320px; padding:0 22px 40px; max-width:1200px; margin-left:auto; margin-right:auto;
   }
   .grid{display:grid;grid-template-columns:2.1fr 1fr;gap:18px}
@@ -90,16 +94,12 @@
   }
 </style>
 </head>
-
 <body>
   <div class="hero-bg"></div>
   <div class="hero-overlay"></div>
 
   <header class="topbar">
-    <div class="brand">
-      <img src="./img/trend-icon.png" alt="logo" />
-      <span>自建茧房 | TrendRadar</span>
-    </div>
+    <div class="brand">自建茧房 | TrendRadar</div>
     <div>
       <span id="uptime">更新中…</span>
       <button class="btn" id="themeBtn">切换主题</button>
@@ -137,8 +137,7 @@
   apply(localStorage.getItem(KEY)||"dark");
   btn.onclick=()=>{const n=document.documentElement.classList.contains("light")?"dark":"light";apply(n);localStorage.setItem(KEY,n)}
 
-  const newsEl=document.getElementById("newsList"),kwEl=document.getElementById("kwChips"),
-        statNewsCount=document.createElement('span'),upEl=document.getElementById("uptime");
+  const newsEl=document.getElementById("newsList"),kwEl=document.getElementById("kwChips"),upEl=document.getElementById("uptime");
   const URL="/TrendRadar/api/trends.json";
 
   async function j(u){try{const r=await fetch(u,{cache:"no-store"});if(!r.ok)throw 0;return await r.json()}catch{return null}}
