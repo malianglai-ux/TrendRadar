@@ -87,3 +87,6 @@ jobs:
 
       - name: Done
         run: echo "✅ 部署完成，访问 ${{ steps.deployment.outputs.page_url }}"
+      - name: Run Aggregator
+        run: |
+          python -m aggregator.run
