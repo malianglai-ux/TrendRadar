@@ -3793,3 +3793,13 @@ if __name__ == "__main__":
 
     # 调用生成函数
     build_metrics_from_trends(trends_path, out_dir, today, top_keywords=auto_kw)
+    # === 聚合热榜到 /api/trends.json ===
+    try:
+        print("[aggregator] start")
+        import sys, os
+        sys.path.append(os.path.abspath("."))  # 让 'aggregator' 可被 import
+        from aggregator.run import run as run_aggregator
+        run_aggregator()
+        print("[aggregator] done")
+    except Exception as e:
+        print("[aggregator] failed:", e)
