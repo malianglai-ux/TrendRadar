@@ -1,94 +1,60 @@
 name: Hot News Crawler (build & deploy)
 
 on:
-  workflow_dispatch: {}
-  schedule:
-    # UTC 01:00 -> 北京时间 09:00
-    - cron: "0 1 * * *"
-
-permissions:
-  contents: write
-  pages: write
-  id-token: write
-
-# 避免并发部署冲突（“Canceling since a higher priority … for pages exists”）
-concurrency:
-  group: "pages"
-  cancel-in-progress: true
+  workflow_dispatch:
 
 jobs:
   crawl_build_deploy:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
-    environment:
-      name: github-pages
-      url: ${{ steps.deploy.outputs.page_url }}
+
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
 
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v4
         with:
           python-version: "3.9"
 
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
           pip install -r requirements.txt
-          # 若你的爬虫用到 Playwright，安装浏览器依赖（失败不阻断）
-          python -m playwright install --with-deps || true
 
       - name: Run crawler
-        env:
-          GITHUB_ACTIONS: true
-          FEISHU_WEBHOOK_URL: ${{ secrets.FEISHU_WEBHOOK_URL }}
-          DINGTALK_WEBHOOK_URL: ${{ secrets.DINGTALK_WEBHOOK_URL }}
-          WEWORK_WEBHOOK_URL: ${{ secrets.WEWORK_WEBHOOK_URL }}
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python main.py
+
+      - name: Generate front-end artifacts
         run: |
-          python main.py
+          mkdir -p ./output
+          echo "Crawler finished. Preparing site content."
 
-      # 关键：将最新日期的 metrics.json 暴露到固定路径 /api/metrics.json，前端固定读取
-      - name: Expose latest metrics.json to /api
-        shell: bash
+      - name: Keep index.html
         run: |
-          set -e
-          LATEST_DIR=$(ls -1d output/20*/ 2>/dev/null | sed 's:/$::' | sort | tail -n1)
-          if [ -n "$LATEST_DIR" ] && [ -f "$LATEST_DIR/metrics.json" ]; then
-            mkdir -p api
-            cp -f "$LATEST_DIR/metrics.json" api/metrics.json
-            echo "Copied $LATEST_DIR/metrics.json -> api/metrics.json"
-          else
-            echo "No metrics.json found. Skip copy."
-          fi
+          cp ./index.html ./output/index.html
 
-      - name: Keep custom index.html
-        run: |
-          test -f index.html && echo "keep index.html"
-
-      - name: Commit and push data changes
-        run: |
-          git config user.name "actions-user"
-          git config user.email "actions@github.com"
-          git add api/metrics.json || true
-          git add api/trends.json || true
-          git add output || true
-          git add img || true
-          git commit -m "Auto update by GitHub Actions at $(date '+%Y-%m-%d %H:%M:%S')" || echo "No changes"
-          git push || echo "No push"
-
-      # Pages 部署（三步：配置 -> 打包 -> 部署）
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
-
-      - name: Upload site content
+      - name: Upload artifact for deployment
         uses: actions/upload-pages-artifact@v3
         with:
-          path: "."
+          path: ./output
 
+  deploy:
+    needs: crawl_build_deploy
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+
+    steps:
       - name: Deploy to GitHub Pages
-        id: deploy
+        id: deployment
         uses: actions/deploy-pages@v4
