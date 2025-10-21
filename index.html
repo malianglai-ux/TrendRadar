@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>投资热点 | TrendRadar</title>
   <link rel="icon" href="./img/trend-icon.png" />
   <meta name="description" content="TrendRadar 投资热点自动追踪系统" />
@@ -82,6 +82,7 @@
     .keywords span:hover{background:var(--chipHover)}
 
     .chart-wrap{height:280px}
+
     .footer{ text-align:center; color:var(--subtext); padding:24px 10px; font-size:.88rem }
 
     @media (max-width:860px){
@@ -133,17 +134,19 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
 
   <script>
+    // 更新时间
     const upEl = document.getElementById("update-time");
     upEl.textContent = "更新于 " + new Date().toLocaleString("zh-CN", {hour12:false});
 
-    const key = "tr-theme";
+    // 主题切换
+    const keyTheme = "tr-theme";
     const toggleBtn = document.getElementById("theme-toggle");
     const applyTheme = (t) => {
       if(t==="dark"){ document.documentElement.classList.add("dark"); toggleBtn.textContent="☀️ 亮色"; }
       else { document.documentElement.classList.remove("dark"); toggleBtn.textContent="🌙 暗黑"; }
     };
     (()=>{ 
-      const saved = localStorage.getItem(key);
+      const saved = localStorage.getItem(keyTheme);
       if(saved){ applyTheme(saved); }
       else{
         const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
@@ -153,31 +156,47 @@
     toggleBtn.onclick = () => {
       const nowDark = document.documentElement.classList.contains("dark");
       const next = nowDark ? "light":"dark";
-      applyTheme(next); localStorage.setItem(key,next);
+      applyTheme(next); localStorage.setItem(keyTheme,next);
+      // 主题切换后重绘图表刻度色
+      if(chart){ chart.options.scales.x.ticks.color = getCss('--subtext');
+                 chart.options.scales.y.ticks.color = getCss('--subtext');
+                 chart.options.scales.y.grid.color  = getCss('--border');
+                 chart.options.plugins.legend.labels.color = getCss('--text');
+                 chart.update(); }
     };
 
-    /* 禁用旧日报注入（保留函数定义防报错） */
-    async function loadLatestReport() {
-      console.log("日报注入已禁用。");
-    }
+    // 工具
+    const getCss = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+    const cacheBust = () => `?v=${new Date().toISOString().slice(0,10).replace(/-/g,'')}-${Date.now()%1e7}`;
 
-    /* 加载固定 /api/metrics.json */
+    // 注入最新日报（如果存在）
+    async function loadLatestReport(){
+      try{
+        const resp = await fetch("./output/");
+        const html = await resp.text();
+        const m = [...html.matchAll(/href="(\d{8,}|20\d{4}年\d{1,2}月\d{1,2}日)\/"/g)];
+        if(!m.length) return;
+        const latest = m[m.length-1][1];
+        const reportUrl = `./output/${latest}/html/当日热点.html${cacheBust()}`;
+        const r = await fetch(reportUrl);
+        if(!r.ok) return;
+        const reportHtml = await r.text();
+        const container = document.getElementById("trend-content");
+        container.innerHTML = reportHtml;
+      }catch(e){ /* 无目录索引时忽略 */ }
+    }
+    loadLatestReport();
+
+    // 只从 /api/metrics.json 取图表数据
     async function loadMetrics(){
       const note = document.getElementById("chart-note");
       let data;
       try{
-        const r = await fetch("/api/metrics.json", { cache: "no-store" });
-        if (r.ok) {
-          data = await r.json();
-          note.textContent = "数据源：/api/metrics.json";
-        } else {
-          note.textContent = "未检测到 /api/metrics.json，使用示例数据";
-        }
-      } catch (e) {
-        note.textContent = "加载 /api/metrics.json 失败，使用示例数据";
-      }
+        const r = await fetch(`/TrendRadar/api/metrics.json${cacheBust()}`);
+        if(r.ok){ data = await r.json(); note.textContent = "数据源：/api/metrics.json"; }
+      }catch(e){ /* ignore */ }
 
-      if (!data || !data.labels) {
+      if(!data){
         data = {
           labels:["09:30","10:00","10:30","11:00","13:00","14:00","14:30","15:00"],
           series:[
@@ -186,38 +205,19 @@
             {name:"台积电", data:[10,11,13,15,16,18,19,22]}
           ]
         };
-      } else if (!data.series) {
-        const labels = data.labels;
-        const series = [];
-        for (const k of Object.keys(data)) {
-          if (k === "labels") continue;
-          const arr = Array.isArray(data[k]) ? data[k] : [];
-          if (arr.length === labels.length) {
-            series.push({ name: k, data: arr });
-          }
-        }
-        data = series.length ? { labels, series } : {
-          labels:["09:30","10:00","10:30","11:00","13:00","14:00","14:30","15:00"],
-          series:[
-            {name:"人工智能", data:[12,18,25,27,30,28,35,40]},
-            {name:"光伏", data:[8,12,14,18,20,22,21,24]},
-            {name:"台积电", data:[10,11,13,15,16,18,19,22]}
-          ]
-        };
+        note.textContent = "数据源：示例（未检测到 /api/metrics.json）";
       }
       renderChart(data);
     }
 
+    // 图表
+    let chart;
     function getColors(n){
       const light = ["#4f8cff","#22c55e","#f59e0b","#ef4444","#a78bfa","#14b8a6","#e879f9"];
       const dark  = ["#7ab0ff","#37d688","#ffb84d","#ff6b6b","#c4b5fd","#2dd4bf","#f472d0"];
       const use = document.documentElement.classList.contains("dark") ? dark : light;
-      const out = [];
-      for(let i=0;i<n;i++) out.push(use[i%use.length]);
-      return out;
+      return Array.from({length:n},(_,i)=>use[i%use.length]);
     }
-
-    let chart;
     function renderChart(dataset){
       const ctx = document.getElementById("hotChart");
       const colors = getColors(dataset.series.length);
@@ -232,19 +232,17 @@
         options:{
           responsive:true, maintainAspectRatio:false,
           scales:{
-            x:{ grid:{display:false}, ticks:{ color:getComputedStyle(document.documentElement).getPropertyValue('--subtext') } },
-            y:{ grid:{ color:getComputedStyle(document.documentElement).getPropertyValue('--border') }, ticks:{ color:getComputedStyle(document.documentElement).getPropertyValue('--subtext') } }
+            x:{ grid:{display:false}, ticks:{ color:getCss('--subtext') } },
+            y:{ grid:{ color:getCss('--border') }, ticks:{ color:getCss('--subtext') } }
           },
           plugins:{
-            legend:{ labels:{ color:getComputedStyle(document.documentElement).getPropertyValue('--text') } },
+            legend:{ labels:{ color:getCss('--text') } },
             tooltip:{ mode:"index", intersect:false }
           }
         }
       });
     }
 
-    const obs = new MutationObserver(()=>{ if(chart){ chart.update(); } });
-    obs.observe(document.documentElement,{attributes:true, attributeFilter:["class"]});
     loadMetrics();
   </script>
 </body>
