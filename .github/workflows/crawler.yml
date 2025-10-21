@@ -1,31 +1,27 @@
 name: Hot News Crawler (build & deploy)
 
 on:
-  # 手动触发
   workflow_dispatch: {}
-  # 定时触发（UTC 时间；例：北京时间 08:30 与 20:30）
   schedule:
     - cron: "30 0 * * *"
     - cron: "30 12 * * *"
 
-# 防止并发互相取消：同一分支上本工作流排队串行
 concurrency:
   group: pages-${{ github.ref }}
   cancel-in-progress: false
 
-# GitHub Pages 需要的权限（修复 id-token 相关错误）
 permissions:
   contents: read
   pages: write
   id-token: write
 
 env:
-  TZ: Asia/Shanghai   # 统一为北京时间
+  TZ: Asia/Shanghai
 
 jobs:
   crawl_build_deploy:
-    name: crawl_build_deploy
     runs-on: ubuntu-latest
+    name: crawl_build_deploy
 
     steps:
       - name: Checkout
@@ -46,32 +42,34 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pip-
 
-      - name: Install deps
+      - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-      # 运行你的爬虫。要求脚本把增量数据写到仓库内（例如 api/trends.json、output/** 等）
       - name: Run crawler
         run: |
-          echo ">>> run main.py"
+          echo ">>> Running crawler main.py"
           python main.py
 
-      # 构建 GitHub Pages 上传包：固定只上传 _site，避免根目录被任何文件覆盖首页
       - name: Prepare Pages bundle
         run: |
           set -e
           rm -rf _site && mkdir -p _site
-          # 复制爬虫产物
+          # 复制产物
           if [ -d output ]; then rsync -a output/ _site/output/; fi
           if [ -d api ]; then rsync -a api/ _site/api/; fi
           if [ -d img ]; then rsync -a img/ _site/img/; fi
-          # 关键：把仓库根目录的仪表盘首页作为最终首页，强制覆盖
-          cp -f home.html _site/index.html
-          # 可选：CNAME（如果你设置了自定义域名）
+          # 🔥 强制拷贝 home.html 作为首页（避免空白或旧模板）
+          if [ -f home.html ]; then
+            cp -f home.html _site/index.html
+          elif [ -f index.html ]; then
+            cp -f index.html _site/index.html
+          else
+            echo "<h1>TrendRadar 部署成功</h1>" > _site/index.html
+          fi
           if [ -f CNAME ]; then cp -f CNAME _site/CNAME; fi
-          # 简单校验
-          echo ">>> _site tree"
+          echo ">>> _site 目录结构"
           find _site -maxdepth 2 -type f | sort || true
 
       - name: Upload artifact
@@ -79,15 +77,13 @@ jobs:
         with:
           path: _site
 
-      # 发布到 GitHub Pages
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
         with:
-          timeout: 600000   # 10min，防止大文件偶发超时
+          timeout: 600000
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Done
-        run: |
-          echo "Pages URL: ${{ steps.deployment.outputs.page_url }}"
+        run: echo "✅ 部署完成，访问 ${{ steps.deployment.outputs.page_url }}"
