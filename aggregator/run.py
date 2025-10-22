@@ -35,7 +35,7 @@ def segment_texts(texts):
 def cluster_topics(titles, num_clusters=10):
     """基于 TF-IDF 的文本聚类"""
     if len(titles) <= 2:
-        return [{"topic": t, "size": 1, "score": 1.0, "titles": [t]} for t in titles]
+        return [{"cluster": idx, "samples": [t]} for idx, t in enumerate(titles)]
 
     seg_titles = segment_texts(titles)
     vectorizer = TfidfVectorizer(max_features=300)
@@ -46,19 +46,16 @@ def cluster_topics(titles, num_clusters=10):
     labels = model.fit_predict(X)
 
     clusters = {}
-    for i, label in enumerate(labels):
-        clusters.setdefault(label, []).append(titles[i])
+    for title, label in zip(titles, labels):
+        clusters.setdefault(label, []).append(title)
 
     results = []
     for label, items in clusters.items():
         results.append({
-            "topic": items[0][:40],
-            "size": len(items),
-            "score": round(float(len(items) / len(titles)), 3),
-            "titles": items
+            "cluster": int(label),
+            "samples": items
         })
     return results
-
 
 # ===== 主程序 =====
 def main():
@@ -66,34 +63,51 @@ def main():
 
     # 抓取英文源
     en_news = fetch_google_news()
-    en_titles = [clean_text(i["title"]) for i in en_news]
+    # 将英文数据转换为统一格式
+    en_items = []
+    for item in en_news:
+        title = item.get("title", "")
+        link = item.get("link") or item.get("url")
+        en_items.append({
+            "title": title,
+            "source": "google",
+            "score": 1,
+            "links": [{"url": link, "title": title}] if link else []
+        })
 
     # 抓取中文源
-    zh_data = []
-    zh_data += fetch_zhihu_hot()
-    zh_data += fetch_weibo_hot()
-    zh_data += fetch_baidu_hot()
-    zh_data += fetch_toutiao_hot()
-    zh_titles = [clean_text(i["title"]) for i in zh_data]
+    zh_items = []
+    for func in [fetch_zhihu_hot, fetch_weibo_hot, fetch_baidu_hot, fetch_toutiao_hot]:
+        for item in func():
+            title = item.get("title", "")
+            link = item.get("url") or item.get("link")
+            zh_items.append({
+                "title": title,
+                "source": item.get("source"),
+                "score": 1,
+                "links": [{"url": link, "title": title}] if link else []
+            })
+
+    all_items = en_items + zh_items
+    all_titles = [clean_text(it["title"]) for it in all_items]
 
     # 聚类
-    all_titles = en_titles + zh_titles
-    topics = cluster_topics(all_titles, num_clusters=12)
+    clusters = cluster_topics(all_titles, num_clusters=12)
 
     # 输出结果
     data = {
         "generated_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-        "source_count": len(all_titles),
-        "topic_count": len(topics),
-        "topics": topics,
+        "source_count": len(all_items),
+        "topic_count": len(all_items),
+        "topics": all_items,
+        "clusters": clusters
     }
 
     out_path = "./api/trends.json"
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
 
-    print(f"已生成聚合文件: {out_path} ({len(all_titles)} 条)")
-
+    print(f"已生成聚合文件: {out_path} ({len(all_items)} 条)")
 
 if __name__ == "__main__":
     main()
