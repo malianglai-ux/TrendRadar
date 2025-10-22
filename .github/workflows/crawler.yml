@@ -1,32 +1,29 @@
 name: Hot News Crawler (build & deploy)
-
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 */6 * * *"  # 每6小时执行一次
-
+    - cron: "0 */6 * * *" # 每6小时执行一次
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 jobs:
   crawl_build_deploy:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.9"
-
       - name: Install Python deps
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-
       - name: Run Aggregator
         run: |
           python -m aggregator.run
-
       - name: Prepare Pages bundle
         run: |
           mkdir -p ./public/api
@@ -34,11 +31,9 @@ jobs:
           cp index.html ./public/
           cp home.html ./public/
           cp -r ./img ./public/img || true
-
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./public
-
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
