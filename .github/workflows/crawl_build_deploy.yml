@@ -19,11 +19,8 @@ jobs:
   crawl_build_deploy:
     runs-on: ubuntu-latest
 
-    # 可选：在 job 层再显式声明一次
-    permissions:
-      contents: read
-      pages: write
-      id-token: write
+   # 可选：在 job 层再显式声明一次
+      
 
     steps:
       - name: Checkout repository
