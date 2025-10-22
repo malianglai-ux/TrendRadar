@@ -2,9 +2,10 @@ name: Crawl_Build_Deploy
 
 on:
   schedule:
-    - cron: "0 5 * * *"  # 每天北京时间13:00运行
-  workflow_dispatch:     # 手动触发支持
+    - cron: "0 5 * * *"   # 北京时间 13:00
+  workflow_dispatch:
 
+# 关键：为整条工作流授予 OIDC 与 Pages 权限
 permissions:
   contents: read
   pages: write
@@ -17,6 +18,13 @@ concurrency:
 jobs:
   crawl_build_deploy:
     runs-on: ubuntu-latest
+
+    # 可选：在 job 层再显式声明一次
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -40,7 +48,10 @@ jobs:
           mkdir -p output
           cp home.html output/index.html
           cp -r api output/api || true
-          echo "Build completed."
+
+      # 关键：先配置 Pages（会校验并生成所需元数据）
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
 
       - name: Upload artifact for Pages
         uses: actions/upload-pages-artifact@v3
@@ -48,5 +59,4 @@ jobs:
           path: output
 
       - name: Deploy to GitHub Pages
-        id: deploy
         uses: actions/deploy-pages@v4
