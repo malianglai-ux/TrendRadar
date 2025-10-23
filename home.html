@@ -25,7 +25,7 @@ footer { text-align:center; color:#9ca3af; font-size:0.85rem; padding-bottom:20p
 <body>
 <header>
 <h1>自建茧房 · 趋势洞察面板</h1>
-<h2>沉淀思考 · 守护专注 · 自动追踪全球信息脉络</h2>
+<h2>沉淡思考 · 守护专注 · 自动追踪全球信息脉线</h2>
 </header>
 <main>
 <section>
@@ -41,7 +41,7 @@ footer { text-align:center; color:#9ca3af; font-size:0.85rem; padding-bottom:20p
 <div id="clusters">加载中...</div>
 </section>
 </main>
-<footer>© 2025 自建茧房 | 数据源：知乎 · 微博 · 百度 · 头条 · Google · Reuters · Yahoo</footer>
+<footer>© 2025 自建茧房 | 数据源：知乎 · 微博 · 百度 · 头来 · Google · Reuters · Yahoo</footer>
 <script>
 async function loadTrends() {
   const zhEl = document.getElementById("zh-trends");
@@ -54,21 +54,19 @@ async function loadTrends() {
     const topics = Array.isArray(data.topics) ? data.topics : [];
     const zh = topics.filter(item => /[\u4e00-\u9fa5]/.test(item.title || ""));
     const en = topics.filter(item => !/[\u4e00-\u9fa5]/.test(item.title || ""));
-    function renderItem(item) {
-      const link = item.links && item.links.length > 0 ? item.links[0] : "#";
-      const title = item.title || item.topic || "无标题";
-      const source = item.source || "未知";
-      let score = 0;
-      if (typeof item.score === "number") {
-        score = item.score;
-      } else if (typeof item.size === "number") {
-        score = item.size;
-      }
-      const percent = Math.round(score * 100);
-      return `<div class="item"><a href="${link}" target="_blank">${title}</a><div class="meta">来源：${source}  热度：${percent}</div></div>`;
+    function renderList(list) {
+      return list.map((item, idx) => {
+        const link = item.links && item.links.length > 0 ? item.links[0] : "#";
+        const title = item.title || item.topic || "无标题";
+        const source = item.source || "未知";
+        const percent = Math.round((list.length - idx) / list.length * 100);
+        return `<div class="item"><a href="${link}" target="_blank">${title}</a><div class="meta">来源：${source}&nbsp;&nbsp;热度：${percent}</div></div>`;
+      }).join("");
     }
-    zhEl.innerHTML = zh.length ? zh.slice(0,15).map(renderItem).join("") : "<p>暂无中文数据</p>";
-    enEl.innerHTML = en.length ? en.slice(0,15).map(renderItem).join("") : "<p>暂无英文数据</p>";
+    const zhList = zh.slice(0,15);
+    const enList = en.slice(0,15);
+    zhEl.innerHTML = zhList.length ? renderList(zhList) : "<p>暂无中文数据</p>";
+    enEl.innerHTML = enList.length ? renderList(enList) : "<p>暂无英文数据</p>";
     clusterEl.innerHTML = topics.length ? topics.slice(0,20).map((c, idx) => {
       return `<div class="item"><strong>主题 ${idx+1}: ${c.title || c.topic}</strong><div class="meta">${c.source || ""}</div></div>`;
     }).join("") : "<p>暂无聚类结果</p>";
