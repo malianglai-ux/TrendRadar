@@ -59,15 +59,6 @@
     .item a { text-decoration: none; color: #1f2d3d; font-weight: 500; }
     .item a:hover { color: #2563eb; }
     .meta { font-size: 0.85rem; color: #6b7280; margin-top: 4px; }
-    .chip {
-      display: inline-block;
-      background: #f1f5f9;
-      border-radius: 12px;
-      padding: 4px 10px;
-      font-size: 0.85rem;
-      color: #374151;
-      margin: 4px 4px 0 0;
-    }
     footer {
       text-align: center;
       color: #9ca3af;
@@ -108,33 +99,37 @@
         const res = await fetch("api/trends.json?v=" + Date.now());
         if (!res.ok) throw new Error("fetch failed");
         const data = await res.json();
+        const topics = Array.isArray(data.topics) ? data.topics : [];
 
-        // data.topics is assumed to be a list of clusters with fields: topic, size, score, titles
-        const clustersData = data.topics || [];
+        const zh = topics.filter(item => /[\u4e00-\u9fa5]/.test(item.title || ""));
+        const en = topics.filter(item => !/[\u4e00-\u9fa5]/.test(item.title || ""));
 
-        // Separate Chinese and English topics based on presence of Chinese characters
-        const zh = clustersData.filter(item => /[\u4e00-\u9fa5]/.test(item.topic));
-        const en = clustersData.filter(item => !/[\u4e00-\u9fa5]/.test(item.topic));
-
-        const renderItem = (item) => {
+        function renderItem(item) {
+          const link = item.links && item.links.length > 0 ? item.links[0] : "#";
+          const title = item.title || item.topic || "无标题";
+          const source = item.source || "未知";
+          let score = 0;
+          if (typeof item.score === "number") {
+            score = item.score;
+          } else if (typeof item.size === "number") {
+            score = item.size;
+          }
           return `
             <div class="item">
-              <a href="#" target="_blank">${item.topic}</a>
-              <div class="meta">热度分：${(item.score || 0).toFixed(2)}</div>
+              <a href="${link}" target="_blank">${title}</a>
+              <div class="meta">来源：${source}  热度分：${score.toFixed ? score.toFixed(2) : score}</div>
             </div>
           `;
-        };
+        }
 
-        const renderList = (list) => list.slice(0, 15).map(item => renderItem(item)).join("");
+        zhEl.innerHTML = zh.length ? zh.slice(0, 15).map(renderItem).join("") : "<p>暂无中文数据</p>";
+        enEl.innerHTML = en.length ? en.slice(0, 15).map(renderItem).join("") : "<p>暂无英文数据</p>";
 
-        zhEl.innerHTML = zh.length ? renderList(zh) : "<p>暂无中文数据</p>";
-        enEl.innerHTML = en.length ? renderList(en) : "<p>暂无英文数据</p>";
-
-        clusterEl.innerHTML = clustersData.length
-          ? clustersData.map((c, idx) => `
+        clusterEl.innerHTML = topics.length
+          ? topics.slice(0, 20).map((c, idx) => `
               <div class="item">
-                <strong>主题 ${idx + 1}: ${c.topic}</strong>
-                <div class="meta">${(c.titles || []).join("、")}</div>
+                <strong>主题 ${idx + 1}: ${c.title || c.topic}</strong>
+                <div class="meta">${c.source || ""}</div>
               </div>
             `).join("")
           : "<p>暂无聚类结果</p>";
