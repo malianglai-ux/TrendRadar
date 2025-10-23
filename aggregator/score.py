@@ -1,23 +1,40 @@
-# -*- coding: utf-8 -*-
-import math
-from typing import Dict
+from collections import Counter
+import re
+from difflib import SequenceMatcher
 
-PLATFORM_WEIGHT = {
-    "reuters": 1.0,
-    "google-news": 0.7,
-    # 未来新增中文站点时继续补：wallstreetcn、zhihu、weibo、bilibili、baidu、toutiao ...
-}
+def normalize_title(title: str) -> str:
+    """去除符号与空格用于比对"""
+    return re.sub(r"[\W_]+", "", title.lower())
 
-def score_topic(tp: Dict, now_ts: int) -> float:
-    # 简版评分： coverage + authority + freshness
-    coverage = tp.get("cover", 1)
-    authority = 0.0
-    for it in tp["items"]:
-        authority += PLATFORM_WEIGHT.get(it.source, 0.5)
-    # 取均值
-    authority = authority / max(1, tp["size"])
-    # 时间衰减（最近越高）
-    dt = max(1, now_ts - tp["max_ts"])
-    freshness = math.exp(-dt / (6 * 3600.0))  # 6 小时半衰
+def calc_similarity(a: str, b: str) -> float:
+    """标题相似度（0~1）"""
+    return SequenceMatcher(None, a, b).ratio()
 
-    return 0.45 * coverage + 0.35 * authority + 0.20 * freshness
+def compute_heat_score(items, sim_threshold=0.6):
+    """
+    基于相似标题与多源出现频率计算热度分数
+    - 出现次数越多、跨源越多 → 热度越高
+    """
+    scores = []
+    normalized = [normalize_title(i["title"]) for i in items]
+    source_counter = Counter([i["source"] for i in items])
+
+    for idx, item in enumerate(items):
+        score = 1.0  # 基础分
+        this = normalized[idx]
+
+        # 同类标题重复加权
+        for j, other in enumerate(normalized):
+            if i != j and calc_similarity(this, other) > sim_threshold:
+                score += 0.5
+
+        # 来源权重
+        score += source_counter[item["source"]] * 0.1
+        scores.append(score)
+
+    # 标准化到 0~100
+    max_score = max(scores) if scores else 1
+    for i, s in enumerate(scores):
+        items[i]["heat"] = round(100 * s / max_score, 2)
+
+    return sorted(items, key=lambda x: x["heat"], reverse=True)
