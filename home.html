@@ -109,25 +109,36 @@
         if (!res.ok) throw new Error("fetch failed");
         const data = await res.json();
 
-        const zh = data.topics.filter(t => /zhihu|weibo|baidu|toutiao/i.test(t.source));
-        const en = data.topics.filter(t => !/zhihu|weibo|baidu|toutiao/i.test(t.source));
+        // data.topics is assumed to be a list of clusters with fields: topic, size, score, titles
+        const clustersData = data.topics || [];
 
-        const render = list => list.slice(0, 15).map(t => `
-          <div class="item">
-            <a href="${t.links?.[0]?.url || '#'}" target="_blank">${t.title}</a>
-            <div class="meta">来源：${t.source} ｜ 热度分：${(t.score || 0).toFixed(2)}</div>
-          </div>`).join("");
+        // Separate Chinese and English topics based on presence of Chinese characters
+        const zh = clustersData.filter(item => /[\u4e00-\u9fa5]/.test(item.topic));
+        const en = clustersData.filter(item => !/[\u4e00-\u9fa5]/.test(item.topic));
 
-        zhEl.innerHTML = zh.length ? render(zh) : "<p>暂无中文数据</p>";
-        enEl.innerHTML = en.length ? render(en) : "<p>暂无英文数据</p>";
+        const renderItem = (item) => {
+          return `
+            <div class="item">
+              <a href="#" target="_blank">${item.topic}</a>
+              <div class="meta">热度分：${(item.score || 0).toFixed(2)}</div>
+            </div>
+          `;
+        };
 
-        clusterEl.innerHTML = data.clusters?.length
-          ? data.clusters.map(c => `
+        const renderList = (list) => list.slice(0, 15).map(item => renderItem(item)).join("");
+
+        zhEl.innerHTML = zh.length ? renderList(zh) : "<p>暂无中文数据</p>";
+        enEl.innerHTML = en.length ? renderList(en) : "<p>暂无英文数据</p>";
+
+        clusterEl.innerHTML = clustersData.length
+          ? clustersData.map((c, idx) => `
               <div class="item">
-                <strong>主题 ${c.cluster + 1}</strong>
-                <div class="meta">${c.samples.join("、")}</div>
-              </div>`).join("")
+                <strong>主题 ${idx + 1}: ${c.topic}</strong>
+                <div class="meta">${(c.titles || []).join("、")}</div>
+              </div>
+            `).join("")
           : "<p>暂无聚类结果</p>";
+
       } catch (err) {
         zhEl.innerHTML = "<p>加载失败</p>";
         enEl.innerHTML = "<p>加载失败</p>";
