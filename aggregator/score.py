@@ -15,6 +15,9 @@ def compute_heat_score(items, sim_threshold=0.6):
     基于相似标题与多源出现频率计算热度分数
     - 出现次数越多、跨源越多 → 热度越高
     """
+    if not items:
+        return []
+
     scores = []
     normalized = [normalize_title(i["title"]) for i in items]
     source_counter = Counter([i["source"] for i in items])
@@ -25,15 +28,15 @@ def compute_heat_score(items, sim_threshold=0.6):
 
         # 同类标题重复加权
         for j, other in enumerate(normalized):
-            if i != j and calc_similarity(this, other) > sim_threshold:
+            if idx != j and calc_similarity(this, other) > sim_threshold:
                 score += 0.5
 
-        # 来源权重
+        # 来源权重（来源越热门加权越低）
         score += source_counter[item["source"]] * 0.1
         scores.append(score)
 
     # 标准化到 0~100
-    max_score = max(scores) if scores else 1
+    max_score = max(scores)
     for i, s in enumerate(scores):
         items[i]["heat"] = round(100 * s / max_score, 2)
 
