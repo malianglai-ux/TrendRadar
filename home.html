@@ -52,24 +52,44 @@ async function loadTrends() {
     if (!res.ok) throw new Error("fetch failed");
     const data = await res.json();
     const topics = Array.isArray(data.topics) ? data.topics : [];
+    // separate Chinese and English topics
     const zh = topics.filter(item => /[\u4e00-\u9fa5]/.test(item.title || ""));
     const en = topics.filter(item => !/[\u4e00-\u9fa5]/.test(item.title || ""));
-    function renderList(list) {
-      return list.map((item, idx) => {
-        const link = item.links && item.links.length > 0 ? item.links[0] : "#";
+    // calculate max scores for percent scale
+    const maxScoreZh = zh.reduce((max, item) => Math.max(max, item.score || 0), 0);
+    const maxScoreEn = en.reduce((max, item) => Math.max(max, item.score || 0), 0);
+    function renderList(list, maxScore) {
+      return list.map(item => {
+        const link = (item.links && item.links.length > 0) ? item.links[0] : "#";
         const title = item.title || item.topic || "无标题";
-        const source = item.source || "未知";
-        const percent = Math.round((list.length - idx) / list.length * 100);
-        return `<div class="item"><a href="${link}" target="_blank">${title}</a><div class="meta">来源：${source}&nbsp;&nbsp;热度：${percent}</div></div>`;
+        const percent = maxScore > 0 ? Math.round(((item.score || 0) / maxScore) * 100) : 0;
+        return `<div class="item"><a href="${link}" target="_blank">${title}</a><div class="meta">热度：${percent}%</div></div>`;
       }).join("");
     }
-    const zhList = zh.slice(0,15);
-    const enList = en.slice(0,15);
-    zhEl.innerHTML = zhList.length ? renderList(zhList) : "<p>暂无中文数据</p>";
-    enEl.innerHTML = enList.length ? renderList(enList) : "<p>暂无英文数据</p>";
-    clusterEl.innerHTML = topics.length ? topics.slice(0,20).map((c, idx) => {
-      return `<div class="item"><strong>主题 ${idx+1}: ${c.title || c.topic}</strong><div class="meta">${c.source || ""}</div></div>`;
-    }).join("") : "<p>暂无聚类结果</p>";
+    // sort by score descending and slice top 15
+    const zhList = zh.sort((a,b) => (b.score || 0) - (a.score || 0)).slice(0, 15);
+    const enList = en.sort((a,b) => (b.score || 0) - (a.score || 0)).slice(0, 15);
+    zhEl.innerHTML = zhList.length ? renderList(zhList, maxScoreZh) : "<p>暂无中文数据</p>";
+    enEl.innerHTML = enList.length ? renderList(enList, maxScoreEn) : "<p>暂无英文数据</p>";
+    // cluster topics by cluster identifier
+    const clusterMap = {};
+    topics.forEach(item => {
+      const key = item.cluster || item.topic || item.title;
+      if (!clusterMap[key]) {
+        clusterMap[key] = { title: key, items: [], score: 0 };
+      }
+      clusterMap[key].items.push(item);
+      clusterMap[key].score += item.score || 0;
+    });
+    const clusterList = Object.values(clusterMap).sort((a,b) => b.score - a.score).slice(0, 15);
+    const maxClusterScore = clusterList.length ? clusterList[0].score : 0;
+    const clusterHtml = clusterList.map(c => {
+      const percent = maxClusterScore > 0 ? Math.round((c.score / maxClusterScore) * 100) : 0;
+      const first = c.items[0] || {};
+      const link = (first.links && first.links.length > 0) ? first.links[0] : "#";
+      return `<div class="item"><a href="${link}" target="_blank">${c.title}</a><div class="meta">热度：${percent}%</div></div>`;
+    }).join("");
+    clusterEl.innerHTML = clusterList.length ? clusterHtml : "<p>暂无聚类结果</p>";
   } catch (err) {
     zhEl.innerHTML = "<p>加载失败</p>";
     enEl.innerHTML = "<p>加载失败</p>";
