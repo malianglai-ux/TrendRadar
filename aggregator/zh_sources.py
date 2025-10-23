@@ -1,70 +1,75 @@
 import requests
-import json
 from datetime import datetime
 
 def fetch_zhihu_hot():
-    url = "https://www.zhihu.com/api/v4/hotlist/sections/total"
+    """知乎热榜"""
     try:
-        data = requests.get(url, timeout=8).json()
+        resp = requests.get("https://www.zhihu.com/api/v4/hotlist/sections/total", timeout=10).json()
         return [
             {
-                "title": i["target"]["title_area"]["text"],
+                "title": item["target"]["title_area"]["text"],
+                "url": item["target"]["link"]["url"],
                 "source": "zhihu",
-                "url": i["target"]["link"]["url"],
                 "ts": int(datetime.now().timestamp())
-            } for i in data["data"]
+            }
+            for item in resp["data"]
         ]
-    except:
+    except Exception:
         return []
 
 def fetch_weibo_hot():
-    url = "https://weibo.com/ajax/side/hotSearch"
+    """微博热搜"""
     try:
-        data = requests.get(url, timeout=8).json()
+        resp = requests.get("https://weibo.com/ajax/side/hotSearch", timeout=10).json()
         return [
             {
-                "title": i["word"],
+                "title": item["word"],
+                "url": f"https://s.weibo.com/weibo?q={item['word']}",
                 "source": "weibo",
-                "url": "https://s.weibo.com/weibo?q=" + i["word"],
                 "ts": int(datetime.now().timestamp())
-            } for i in data["data"]["realtime"]
+            }
+            for item in resp["data"]["realtime"]
         ]
-    except:
+    except Exception:
         return []
 
 def fetch_baidu_hot():
-    url = "https://top.baidu.com/api/board?platform=pc&tab=realtime"
+    """百度热榜"""
     try:
-        data = requests.get(url, timeout=8).json()
+        resp = requests.get("https://top.baidu.com/api/board?platform=pc&tab=realtime", timeout=10).json()
         return [
             {
-                "title": i["word"],
+                "title": item["word"],
+                "url": item["url"],
                 "source": "baidu",
-                "url": i["url"],
                 "ts": int(datetime.now().timestamp())
-            } for i in data["data"]["cards"][0]["content"]
+            }
+            for item in resp["data"]["cards"][0]["content"]
         ]
-    except:
+    except Exception:
         return []
 
 def fetch_toutiao_hot():
-    url = "https://www.toutiao.com/hot-event/hot-board/"
+    """今日头条热榜"""
     try:
-        data = requests.get(url, timeout=8).json()
+        resp = requests.get("https://www.toutiao.com/hot-event/hot-board/", timeout=10).json()
         return [
             {
-                "title": i["Title"],
+                "title": item["Title"],
+                "url": "https://www.toutiao.com" + item["Url"],
                 "source": "toutiao",
-                "url": "https://www.toutiao.com" + i["Url"],
                 "ts": int(datetime.now().timestamp())
-            } for i in data["data"]
+            }
+            for item in resp["data"]
         ]
-    except:
+    except Exception:
         return []
 
 def collect_chinese_trends():
-    zh = fetch_zhihu_hot()
-    wb = fetch_weibo_hot()
-    bd = fetch_baidu_hot()
-    tt = fetch_toutiao_hot()
-    return zh + wb + bd + tt
+    """汇总中文来源"""
+    return (
+        fetch_zhihu_hot()
+        + fetch_weibo_hot()
+        + fetch_baidu_hot()
+        + fetch_toutiao_hot()
+    )
