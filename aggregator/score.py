@@ -26,12 +26,12 @@ def compute_heat_score(items, sim_threshold=0.6):
         score = 1.0  # 基础分
         this = normalized[idx]
 
-        # 同类标题重复加权
+        # 同类标题重复加权（idx 对应当前项）
         for j, other in enumerate(normalized):
             if idx != j and calc_similarity(this, other) > sim_threshold:
                 score += 0.5
 
-        # 来源权重（来源越热门加权越低）
+        # 来源权重（来源重复次数轻微加权）
         score += source_counter[item["source"]] * 0.1
         scores.append(score)
 
@@ -40,4 +40,5 @@ def compute_heat_score(items, sim_threshold=0.6):
     for i, s in enumerate(scores):
         items[i]["heat"] = round(100 * s / max_score, 2)
 
+    # 按热度降序
     return sorted(items, key=lambda x: x["heat"], reverse=True)
